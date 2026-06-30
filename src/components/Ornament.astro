@@ -1,0 +1,33 @@
+---
+// SVG-орнамент-бордюр у стилі вишивки хрестиком (ромбовий мотив, червоне + чорне).
+// Чистий вектор, тайлиться по ширині через <pattern>. Декоративний — приховано від СД.
+interface Props {
+  class?: string;
+  height?: number;
+}
+const { class: cls = '', height = 24 } = Astro.props;
+---
+<svg
+  class={`block w-full ${cls}`}
+  height={height}
+  width="100%"
+  role="presentation"
+  aria-hidden="true"
+  style={`display:block;height:${height}px`}
+>
+  <defs>
+    <pattern id="vbord" width="24" height="24" patternUnits="userSpaceOnUse">
+      <g fill="#b3122b">
+        <rect x="10" y="1" width="3" height="3" />
+        <rect x="7" y="4" width="3" height="3" /><rect x="13" y="4" width="3" height="3" />
+        <rect x="4" y="7" width="3" height="3" /><rect x="16" y="7" width="3" height="3" />
+        <rect x="1" y="10" width="3" height="3" /><rect x="19" y="10" width="3" height="3" />
+        <rect x="4" y="13" width="3" height="3" /><rect x="16" y="13" width="3" height="3" />
+        <rect x="7" y="16" width="3" height="3" /><rect x="13" y="16" width="3" height="3" />
+        <rect x="10" y="19" width="3" height="3" />
+      </g>
+      <rect x="10" y="10" width="3" height="3" fill="#1a1714" />
+    </pattern>
+  </defs>
+  <rect width="100%" height={height} fill="url(#vbord)" />
+</svg>

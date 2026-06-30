@@ -1,0 +1,26 @@
+---
+interface Crumb {
+  name: string;
+  href: string;
+}
+interface Props {
+  items: Crumb[];
+}
+const { items } = Astro.props;
+---
+<nav aria-label="Навігаційний ланцюжок" class="mb-4 text-sm text-stone-500">
+  <ol class="flex flex-wrap items-center gap-1">
+    {
+      items.map((c, i) => (
+        <li class="flex items-center gap-1">
+          {i < items.length - 1 ? (
+            <a href={c.href} class="hover:text-[var(--color-brand)]">{c.name}</a>
+          ) : (
+            <span aria-current="page" class="text-stone-700">{c.name}</span>
+          )}
+          {i < items.length - 1 && <span aria-hidden="true">/</span>}
+        </li>
+      ))
+    }
+  </ol>
+</nav>

@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Сторінку не знайдено — Рідна вишивка"
+  description="Сторінку не знайдено."
+  canonicalPath="/404"
+  noindex={true}
+>
+  <h1 class="mb-3 text-3xl font-bold">404 — сторінку не знайдено</h1>
+  <p class="text-stone-700">
+    Можливо, сторінку переміщено або видалено.
+    <a href="/" class="text-[var(--color-brand)] hover:underline">Повернутися на головну</a>.
+  </p>
+</BaseLayout>

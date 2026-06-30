@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  /* Подільська палітра: червоне + чорне на теплому льняному */
+  --color-brand: #b3122b;
+  --color-brand-dark: #7d0c1e;
+  --color-ink: #1a1714;
+  --color-ink-soft: #4a4039;
+  --color-paper: #faf7f2;
+  --color-paper-2: #f3ece1;
+  --color-line: #e6dccd;
+
+  --font-sans: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Льняна канва: ледь помітна сітка хрестика (чистий CSS, без зображень) */
+body {
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(to right, rgba(26, 23, 20, 0.022) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 23, 20, 0.022) 1px, transparent 1px);
+  background-size: 8px 8px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* «Прошите» підкреслення під заголовком — імітація стібків */
+.stitched::after {
+  content: "";
+  display: block;
+  width: 3.5rem;
+  margin-top: 0.6rem;
+  border-top: 3px dashed var(--color-brand);
+}
+
+/* Декоративний ✕-маркер */
+.x-mark {
+  color: var(--color-brand);
+  font-weight: 700;
+}
+
+/* ---- Типографіка контентних сторінок ---- */
+.prose-uk {
+  color: var(--color-ink);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+.prose-uk :where(h2) {
+  font-family: var(--font-display);
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+.prose-uk :where(h2)::before {
+  content: "✕ ";
+  color: var(--color-brand);
+  font-size: 0.75em;
+  vertical-align: middle;
+}
+.prose-uk :where(h3) {
+  font-family: var(--font-display);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.prose-uk :where(p) { margin-bottom: 1rem; }
+.prose-uk :where(ul) { list-style: none; padding-left: 1.4rem; margin-bottom: 1rem; }
+.prose-uk :where(ul li) { position: relative; margin-bottom: 0.35rem; }
+.prose-uk :where(ul li)::before {
+  content: "✕";
+  position: absolute;
+  left: -1.4rem;
+  top: 0.15rem;
+  color: var(--color-brand);
+  font-size: 0.72em;
+}
+.prose-uk :where(ol) { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
+.prose-uk :where(ol li) { margin-bottom: 0.35rem; }
+.prose-uk :where(a) {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.prose-uk :where(a:hover) { color: var(--color-brand-dark); }
+.prose-uk :where(strong) { color: var(--color-ink); font-weight: 600; }
+.prose-uk :where(img) { border-radius: 0.5rem; margin: 1.25rem 0; }
+.prose-uk :where(table) { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: 0.95rem; }
+.prose-uk :where(th, td) { border: 1px solid var(--color-line); padding: 0.55rem 0.8rem; text-align: left; }
+.prose-uk :where(th) { background: var(--color-paper-2); font-weight: 600; }
+.prose-uk :where(blockquote) {
+  border-left: 3px solid var(--color-brand);
+  padding-left: 1rem;
+  color: var(--color-ink-soft);
+  font-style: italic;
+  margin: 1.25rem 0;
+}

@@ -1,0 +1,26 @@
+---
+interface Item {
+  title: string;
+  href: string;
+}
+interface Props {
+  items: Item[];
+}
+const { items } = Astro.props;
+---
+{
+  items.length > 0 && (
+    <section class="mt-10 border-t border-stone-200 pt-6">
+      <h2 class="mb-3 font-display text-xl font-bold text-[var(--color-ink)]">Схожі матеріали</h2>
+      <ul class="grid gap-2 sm:grid-cols-2">
+        {items.map((it) => (
+          <li>
+            <a href={it.href} class="text-[var(--color-brand)] hover:underline">
+              {it.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

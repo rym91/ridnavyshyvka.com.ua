@@ -1,0 +1,23 @@
+---
+import { getCollection, render } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import { SECTIONS } from '../../lib/sections';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages', (p) => (import.meta.env.PROD ? !p.data.draft : true));
+  return SECTIONS.map((s) => {
+    const pillar = pages.find((p) => p.data.section === s.slug && p.data.page_type === 'pillar');
+    const sectionPages = pages.filter(
+      (p) => p.data.section === s.slug && p.data.page_type !== 'pillar',
+    );
+    return { params: { section: s.slug }, props: { pillar, sectionPages } };
+  }).filter((x) => x.props.pillar);
+}
+
+const pillar = Astro.props.pillar!;
+const { sectionPages } = Astro.props;
+const { Content } = await render(pillar);
+---
+<PageLayout page={pillar} sectionPages={sectionPages}>
+  <Content />
+</PageLayout>

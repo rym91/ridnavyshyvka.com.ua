@@ -1,0 +1,96 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import LeadMagnet from '../components/LeadMagnet.astro';
+import Picture from '../components/Picture.astro';
+import { getSection } from '../lib/sections';
+import { entryUrl, relatedPages } from '../lib/links';
+import { articleSchema, breadcrumbSchema, faqSchema } from '../lib/schema';
+import Ornament from '../components/Ornament.astro';
+
+interface Props {
+  page: CollectionEntry<'pages'>;
+  sectionPages?: CollectionEntry<'pages'>[];
+}
+const { page, sectionPages = [] } = Astro.props;
+const d = page.data;
+const section = getSection(d.section);
+const path = entryUrl(page);
+const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
+const absUrl = new URL(path, site).href;
+
+const allPages = await getCollection('pages', (p) => (import.meta.env.PROD ? !p.data.draft : true));
+const related = relatedPages(page, allPages);
+
+const crumbs = [{ name: 'Головна', href: '/' }];
+if (section) crumbs.push({ name: section.title, href: `/${section.slug}` });
+if (d.page_type !== 'pillar') crumbs.push({ name: d.h1, href: path });
+
+const jsonld: object[] = [
+  breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: new URL(c.href, site).href }))),
+  articleSchema(
+    {
+      headline: d.h1,
+      description: d.meta_description,
+      url: absUrl,
+      datePublished: d.updated?.toISOString(),
+      dateModified: d.updated?.toISOString(),
+    },
+    site.href,
+  ),
+];
+if (d.faq.length > 0) jsonld.push(faqSchema(d.faq));
+
+const showLeadMagnet = d.tier === 'A' && (d.intent === 'pattern' || d.intent === 'howto_beginner');
+---
+<BaseLayout
+  title={d.title}
+  description={d.meta_description}
+  canonicalPath={path}
+  ogType="article"
+  noindex={d.noindex}
+  jsonld={jsonld}
+>
+  <Breadcrumbs items={crumbs} />
+  <article class="prose-uk">
+    <h1 class="stitched mb-5 font-display text-3xl font-extrabold leading-tight text-[var(--color-ink)] md:text-4xl">{d.h1}</h1>
+    {d.hero && d.hero_alt && <Picture src={d.hero} alt={d.hero_alt} loading="eager" class="w-full rounded-lg" />}
+    <slot />
+    {
+      d.faq.length > 0 && (
+        <section class="mt-8">
+          <h2>Часті запитання</h2>
+          <dl>
+            {d.faq.map((f) => (
+              <div class="mb-3">
+                <dt class="font-semibold">{f.q}</dt>
+                <dd class="mt-1 text-stone-700">{f.a}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )
+    }
+  </article>
+  <Ornament height={18} class="mt-10" />
+  {showLeadMagnet && <LeadMagnet />}
+  {
+    d.page_type === 'pillar' && sectionPages.length > 0 && (
+      <section class="mt-8">
+        <h2 class="mb-3 font-display text-xl font-bold text-[var(--color-ink)]">Матеріали розділу</h2>
+        <ul class="grid gap-2 sm:grid-cols-2">
+          {sectionPages.map((p) => (
+            <li>
+              <a href={entryUrl(p)} class="text-[var(--color-brand)] hover:underline">
+                {p.data.h1}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+  <RelatedLinks items={related.map((p) => ({ title: p.data.h1, href: entryUrl(p) }))} />
+</BaseLayout>
