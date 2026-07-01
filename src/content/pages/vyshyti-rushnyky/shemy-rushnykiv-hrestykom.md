@@ -2,6 +2,8 @@
 section: vyshyti-rushnyky
 page_type: category
 slug: shemy-rushnykiv-hrestykom
+hero: ../../../assets/heroes/shemy-rushnykiv-hrestykom.jpg
+hero_alt: "Схема рушника для вишивки хрестиком і вишитий рушник з червоним орнаментом"
 title: "Схеми рушників хрестиком"
 h1: "Схеми рушників хрестиком"
 meta_description: "Схеми рушників хрестиком: весільні, святкові та пасхальні мотиви. Як читати схему рушника та обрати її під свій рівень і техніку."

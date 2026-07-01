@@ -2,6 +2,8 @@
 section: tehniky-vyshyvky
 page_type: category
 slug: merezhka-vyshyvka
+hero: ../../../assets/heroes/merezhka-vyshyvka.jpg
+hero_alt: "Мережка: ажурний край на льоні, зроблений технікою висмикнутих ниток"
 title: "Мережка: техніка ажурної вишивки"
 h1: "Мережка — техніка ажурної вишивки"
 meta_description: "Мережка у вишиванці: як робити мережку по висмикнутих нитках, види мережок та поради. Ажурна техніка для країв рушників і сорочок."

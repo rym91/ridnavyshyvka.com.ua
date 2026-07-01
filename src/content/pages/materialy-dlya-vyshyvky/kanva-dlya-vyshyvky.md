@@ -2,6 +2,8 @@
 section: materialy-dlya-vyshyvky
 page_type: category
 slug: kanva-dlya-vyshyvky
+hero: ../../../assets/heroes/kanva-dlya-vyshyvky.jpg
+hero_alt: "Різні види канви для вишивки: Аїда та рівномірка з голкою та нитками"
 title: "Канва для вишивки: види та як обрати"
 h1: "Канва для вишивки — види та як обрати"
 meta_description: "Канва для вишивання: види канви, що таке каунт і розмір клітинки, аїда та рівномірка. Як обрати тканину для вишивки під техніку й рівень майстерності."

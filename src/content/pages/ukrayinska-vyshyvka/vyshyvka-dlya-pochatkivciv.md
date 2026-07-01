@@ -2,6 +2,8 @@
 section: ukrayinska-vyshyvka
 page_type: category
 slug: vyshyvka-dlya-pochatkivciv
+hero: ../../../assets/heroes/vyshyvka-dlya-pochatkivciv.jpg
+hero_alt: "Початківець тримає п'яльці з першою простою вишивкою на льоні"
 title: "Вишивка для початківців: з чого почати"
 h1: "Вишивка для початківців — з чого почати"
 meta_description: "Вишивка для початківців: з чого почати, які матеріали обрати та як навчитися вишивати з нуля. Покроковий гід і прості поради для першого виробу."

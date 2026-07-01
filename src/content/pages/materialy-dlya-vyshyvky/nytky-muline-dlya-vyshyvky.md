@@ -2,6 +2,8 @@
 section: materialy-dlya-vyshyvky
 page_type: category
 slug: nytky-muline-dlya-vyshyvky
+hero: ../../../assets/heroes/nytky-muline-dlya-vyshyvky.jpg
+hero_alt: "Мотки муліне різних кольорів, розкладені віялом на льоні"
 title: "Нитки муліне для вишивки: види та як обрати"
 h1: "Нитки муліне для вишивки"
 meta_description: "Нитки муліне для вишивки: види, популярні бренди (DMC, Аврора) та як обрати муліне під свою роботу. Гід-порівняння для початківців і досвідчених."

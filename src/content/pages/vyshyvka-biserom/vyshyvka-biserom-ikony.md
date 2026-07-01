@@ -2,6 +2,8 @@
 section: vyshyvka-biserom
 page_type: category
 slug: vyshyvka-biserom-ikony
+hero: ../../../assets/heroes/vyshyvka-biserom-ikony.jpg
+hero_alt: "Ікона, частково оздоблена вишивкою бісером, на тканині поряд з намистинами"
 title: "Вишиті ікони бісером: схеми та як вишивати"
 h1: "Вишиті ікони бісером"
 meta_description: "Вишивка бісером ікони: схеми, техніка зашиття, поради для вінчальних ікон. Як обрати схему для вишивки бісером ікони та з чого почати роботу."
