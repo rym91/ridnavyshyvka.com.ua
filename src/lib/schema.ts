@@ -116,6 +116,24 @@ export function collectionPageSchema(c: CollectionPageInput, siteUrl: string) {
   };
 }
 
+// Універсальна розмітка для службових сторінок (AboutPage / ContactPage / WebPage).
+export function pageSchema(
+  type: 'AboutPage' | 'ContactPage' | 'WebPage',
+  p: { name: string; description?: string; url: string },
+  siteUrl: string,
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': type,
+    name: p.name,
+    ...(p.description ? { description: p.description } : {}),
+    url: p.url,
+    inLanguage: 'uk',
+    isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: siteUrl },
+    publisher: { '@id': `${siteUrl}#organization` },
+  };
+}
+
 export function faqSchema(faq: { q: string; a: string }[]) {
   return {
     '@context': 'https://schema.org',

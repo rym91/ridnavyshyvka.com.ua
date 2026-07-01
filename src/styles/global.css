@@ -18,6 +18,26 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Захист від горизонтального переповнення на вузьких екранах (мобільний оверфлоу) */
+html,
+body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+h1,
+h2,
+h3,
+.font-display {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+@supports (text-wrap: balance) {
+  h1,
+  h2 {
+    text-wrap: balance;
+  }
+}
+
 /* Видимий фокус для клавіатурної навігації (WCAG 2.4.7) */
 :where(a, button, summary, [tabindex]):focus-visible {
   outline: 2px solid var(--color-brand);

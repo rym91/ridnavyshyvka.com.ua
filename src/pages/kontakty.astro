@@ -1,11 +1,30 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { organizationSchema, breadcrumbSchema, pageSchema } from '../lib/schema';
+const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
+const jsonld = [
+  organizationSchema(site.href),
+  breadcrumbSchema([
+    { name: 'Головна', url: site.href },
+    { name: 'Контакти', url: new URL('/kontakty/', site).href },
+  ]),
+  pageSchema(
+    'ContactPage',
+    {
+      name: 'Контакти — Рідна вишивка',
+      description: 'Звʼяжіться з командою «Рідна вишивка»: питання, пропозиції, співпраця.',
+      url: new URL('/kontakty/', site).href,
+    },
+    site.href,
+  ),
+];
 ---
 <BaseLayout
   title="Контакти — Рідна вишивка"
   description="Звʼяжіться з командою «Рідна вишивка»: питання, пропозиції, співпраця. Пишіть нам на електронну пошту."
   canonicalPath="/kontakty/"
   ogType="website"
+  jsonld={jsonld}
 >
   <article class="prose-uk">
     <h1 class="mb-5 font-display text-3xl font-extrabold text-[var(--color-ink)]">Контакти</h1>

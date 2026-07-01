@@ -1,5 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { getImage } from 'astro:assets';
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
@@ -21,11 +22,14 @@ const path = entryUrl(page);
 const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
 const absUrl = new URL(path, site).href;
 
+// Абсолютний URL оптимізованого hero для JSON-LD (image), якщо є.
+const heroAbs = d.hero ? new URL((await getImage({ src: d.hero })).src, site).href : undefined;
+
 const allPages = await getCollection('pages', (p) => (import.meta.env.PROD ? !p.data.draft : true));
 const related = relatedPages(page, allPages);
 
 const crumbs = [{ name: 'Головна', href: '/' }];
-if (section) crumbs.push({ name: section.title, href: `/${section.slug}` });
+if (section) crumbs.push({ name: section.title, href: `/${section.slug}/` });
 if (d.page_type !== 'pillar') crumbs.push({ name: d.h1, href: path });
 
 // pillar = страница-хаб раздела (агрегує матеріали) → CollectionPage; решта → Article.
@@ -38,6 +42,7 @@ const jsonld: object[] = [
           headline: d.h1,
           description: d.meta_description,
           url: absUrl,
+          image: heroAbs,
           dateModified: d.updated?.toISOString(),
         },
         site.href,
@@ -47,6 +52,7 @@ const jsonld: object[] = [
           headline: d.h1,
           description: d.meta_description,
           url: absUrl,
+          image: heroAbs,
           datePublished: d.updated?.toISOString(),
           dateModified: d.updated?.toISOString(),
         },

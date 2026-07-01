@@ -1,12 +1,31 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { organizationSchema, breadcrumbSchema, pageSchema } from '../lib/schema';
 const updated = '1 липня 2026 р.';
+const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
+const jsonld = [
+  organizationSchema(site.href),
+  breadcrumbSchema([
+    { name: 'Головна', url: site.href },
+    { name: 'Умови використання', url: new URL('/umovy-vykorystannya/', site).href },
+  ]),
+  pageSchema(
+    'WebPage',
+    {
+      name: 'Умови використання',
+      description: 'Умови використання сайту «Рідна вишивка»: авторські права, відмова від відповідальності.',
+      url: new URL('/umovy-vykorystannya/', site).href,
+    },
+    site.href,
+  ),
+];
 ---
 <BaseLayout
   title="Умови використання — Рідна вишивка"
   description="Умови використання сайту «Рідна вишивка»: авторські права на контент, відмова від відповідальності, зовнішні посилання."
   canonicalPath="/umovy-vykorystannya/"
   ogType="website"
+  jsonld={jsonld}
 >
   <article class="prose-uk">
     <h1 class="mb-5 font-display text-3xl font-extrabold text-[var(--color-ink)]">Умови використання</h1>

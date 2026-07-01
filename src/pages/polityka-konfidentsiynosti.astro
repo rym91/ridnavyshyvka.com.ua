@@ -1,12 +1,31 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { organizationSchema, breadcrumbSchema, pageSchema } from '../lib/schema';
 const updated = '1 липня 2026 р.';
+const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
+const jsonld = [
+  organizationSchema(site.href),
+  breadcrumbSchema([
+    { name: 'Головна', url: site.href },
+    { name: 'Політика конфіденційності', url: new URL('/polityka-konfidentsiynosti/', site).href },
+  ]),
+  pageSchema(
+    'WebPage',
+    {
+      name: 'Політика конфіденційності',
+      description: 'Як сайт «Рідна вишивка» збирає та використовує дані, cookies і Google Analytics.',
+      url: new URL('/polityka-konfidentsiynosti/', site).href,
+    },
+    site.href,
+  ),
+];
 ---
 <BaseLayout
   title="Політика конфіденційності — Рідна вишивка"
   description="Як сайт «Рідна вишивка» збирає та використовує дані, cookies і Google Analytics. Ваші права та контакт для запитів."
   canonicalPath="/polityka-konfidentsiynosti/"
   ogType="website"
+  jsonld={jsonld}
 >
   <article class="prose-uk">
     <h1 class="mb-5 font-display text-3xl font-extrabold text-[var(--color-ink)]">Політика конфіденційності</h1>
