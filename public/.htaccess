@@ -1,0 +1,29 @@
+# Канонічний хост і чисті URL для ridnavyshyvka.com.ua
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # www → без www (301)
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+  # http → https (301), якщо сервер не форсить сам
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # /шлях/index.html → /шлях/ (прибираємо index.html з канонічних URL)
+  RewriteCond %{THE_REQUEST} \s/(.+/)?index\.html[\s?] [NC]
+  RewriteRule ^(.+/)?index\.html$ /%1 [L,R=301]
+</IfModule>
+
+# Кешування статики (перформанс / Core Web Vitals)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp             "access plus 1 year"
+  ExpiresByType image/png              "access plus 1 year"
+  ExpiresByType image/jpeg             "access plus 1 year"
+  ExpiresByType image/svg+xml          "access plus 1 year"
+  ExpiresByType text/css               "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType font/woff2             "access plus 1 year"
+  ExpiresByType text/html              "access plus 1 hour"
+</IfModule>

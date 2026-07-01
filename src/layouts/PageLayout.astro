@@ -7,7 +7,7 @@ import LeadMagnet from '../components/LeadMagnet.astro';
 import Picture from '../components/Picture.astro';
 import { getSection } from '../lib/sections';
 import { entryUrl, relatedPages } from '../lib/links';
-import { articleSchema, breadcrumbSchema, faqSchema } from '../lib/schema';
+import { articleSchema, breadcrumbSchema, collectionPageSchema, faqSchema } from '../lib/schema';
 import Ornament from '../components/Ornament.astro';
 
 interface Props {
@@ -28,20 +28,41 @@ const crumbs = [{ name: 'Головна', href: '/' }];
 if (section) crumbs.push({ name: section.title, href: `/${section.slug}` });
 if (d.page_type !== 'pillar') crumbs.push({ name: d.h1, href: path });
 
+// pillar = страница-хаб раздела (агрегує матеріали) → CollectionPage; решта → Article.
+const isHub = d.page_type === 'pillar';
 const jsonld: object[] = [
   breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: new URL(c.href, site).href }))),
-  articleSchema(
-    {
-      headline: d.h1,
-      description: d.meta_description,
-      url: absUrl,
-      datePublished: d.updated?.toISOString(),
-      dateModified: d.updated?.toISOString(),
-    },
-    site.href,
-  ),
+  isHub
+    ? collectionPageSchema(
+        {
+          headline: d.h1,
+          description: d.meta_description,
+          url: absUrl,
+          dateModified: d.updated?.toISOString(),
+        },
+        site.href,
+      )
+    : articleSchema(
+        {
+          headline: d.h1,
+          description: d.meta_description,
+          url: absUrl,
+          datePublished: d.updated?.toISOString(),
+          dateModified: d.updated?.toISOString(),
+        },
+        site.href,
+      ),
 ];
 if (d.faq.length > 0) jsonld.push(faqSchema(d.faq));
+
+// Дата оновлення українською (без залежності від ICU).
+const MONTHS_UK = [
+  'січня', 'лютого', 'березня', 'квітня', 'травня', 'червня',
+  'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня',
+];
+const updatedLabel = d.updated
+  ? `${d.updated.getUTCDate()} ${MONTHS_UK[d.updated.getUTCMonth()]} ${d.updated.getUTCFullYear()}`
+  : null;
 
 // Phase 1: скрыт (пока нет реальных схем/подписки — не показываем «Скоро»-заглушку). Включим в Phase 2.
 const showLeadMagnet = false;
@@ -56,7 +77,16 @@ const showLeadMagnet = false;
 >
   <Breadcrumbs items={crumbs} />
   <article class="prose-uk">
-    <h1 class="stitched mb-5 font-display text-3xl font-extrabold leading-tight text-[var(--color-ink)] md:text-4xl">{d.h1}</h1>
+    <h1 class="stitched mb-4 font-display text-3xl font-extrabold leading-tight text-[var(--color-ink)] md:text-4xl">{d.h1}</h1>
+    <p class="mb-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[var(--color-ink-soft)]">
+      <a href="/pro-nas/" rel="author" class="font-medium text-[var(--color-ink)] hover:text-[var(--color-brand)]">Редакція «Рідна вишивка»</a>
+      {updatedLabel && (
+        <>
+          <span aria-hidden="true">·</span>
+          <span>Оновлено <time datetime={d.updated!.toISOString()}>{updatedLabel}</time></span>
+        </>
+      )}
+    </p>
     {d.hero && d.hero_alt && <Picture src={d.hero} alt={d.hero_alt} loading="eager" class="w-full rounded-lg" />}
     <slot />
     {
