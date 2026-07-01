@@ -1,19 +1,14 @@
 ---
-// Google Analytics 4. Вставь свой Measurement ID (формат G-XXXXXXXXXX) в GA_ID.
-// Пустое значение = аналитика не подключается (ничего не рендерится).
+// Google Analytics 4. GA_ID — Measurement ID (G-XXXXXXXXXX). Пусто = не подключается.
 const GA_ID = 'G-7RZMWH9L0C';
 const enabled = /^G-[A-Z0-9]{6,}$/.test(GA_ID);
+const inline = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`;
 ---
 {
   enabled && (
     <>
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
-      <script is:inline define:vars={{ GA_ID }}>
-        {`window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', GA_ID);`}
-      </script>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+      <script is:inline set:html={inline} />
     </>
   )
 }

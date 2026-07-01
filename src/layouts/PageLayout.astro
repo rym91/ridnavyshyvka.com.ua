@@ -43,7 +43,8 @@ const jsonld: object[] = [
 ];
 if (d.faq.length > 0) jsonld.push(faqSchema(d.faq));
 
-const showLeadMagnet = d.tier === 'A' && (d.intent === 'pattern' || d.intent === 'howto_beginner');
+// Phase 1: скрыт (пока нет реальных схем/подписки — не показываем «Скоро»-заглушку). Включим в Phase 2.
+const showLeadMagnet = false;
 ---
 <BaseLayout
   title={d.title}
