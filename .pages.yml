@@ -1,0 +1,63 @@
+# Pages CMS (pagescms.org) — конфіг редагування контенту сайту.
+media:
+  - name: uploads
+    label: Медіа
+    input: public/uploads
+    output: /uploads
+
+content:
+  - name: pages
+    label: Сторінки
+    type: collection
+    path: src/content/pages
+    subfolders: true
+    filename: "{fields.slug}.md"
+    view:
+      fields: [title, section, tier, priority]
+      primary: title
+    fields:
+      - name: section
+        label: Розділ
+        type: select
+        options:
+          values:
+            - vyshyvka-hrestykom
+            - vyshyvka-biserom
+            - tehniky-vyshyvky
+            - vyshyvanka
+            - vyshyti-rushnyky
+            - materialy-dlya-vyshyvky
+            - ukrayinska-vyshyvka
+      - name: page_type
+        label: Тип сторінки
+        type: select
+        options: { values: [pillar, category, article] }
+      - { name: slug, label: Slug (латиниця), type: string, pattern: "^[a-z0-9-]+$" }
+      - { name: title, label: Title (SEO, ≤60), type: string }
+      - { name: h1, label: Заголовок H1, type: string }
+      - { name: meta_description, label: Meta description (≤160), type: text }
+      - { name: primary_keyword, label: Головний ключ, type: string }
+      - { name: primary_volume, label: Обсяг (довідково), type: number, required: false }
+      - { name: secondary_keywords, label: Другорядні ключі, type: string, list: true, required: false }
+      - name: intent
+        label: Пошуковий інтент
+        type: select
+        options: { values: [pattern, howto_beginner, materials, commercial, info, general] }
+      - { name: tier, label: Tier (A=таргет під посилання), type: select, options: { values: [A, B] } }
+      - { name: priority, label: Пріоритет, type: select, options: { values: [P1, P2, P3] } }
+      - { name: hero, label: Hero (шлях до зображення), type: string, required: false }
+      - { name: hero_alt, label: Hero alt-текст, type: string, required: false }
+      - { name: related, label: Повʼязані сторінки (slugs), type: string, list: true, required: false }
+      - name: faq
+        label: FAQ
+        type: object
+        list: true
+        required: false
+        fields:
+          - { name: q, label: Питання, type: string }
+          - { name: a, label: Відповідь, type: text }
+      - { name: updated, label: Дата оновлення, type: date, required: false }
+      - { name: draft, label: Чернетка (не публікувати), type: boolean, default: false }
+      - { name: noindex, label: Noindex, type: boolean, default: false }
+      - { name: product_ready, label: Товар готовий (Phase 2), type: boolean, default: false }
+      - { name: body, label: Текст сторінки, type: rich-text }
