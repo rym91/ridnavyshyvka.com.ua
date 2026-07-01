@@ -39,7 +39,7 @@ const jsonld = [organizationSchema(site.href), websiteSchema(site.href)];
     {
       SECTIONS.map((s) => (
         <li class="group overflow-hidden rounded-xl border border-[var(--color-line)] bg-white transition-all hover:-translate-y-0.5 hover:border-[var(--color-brand)] hover:shadow-[0_6px_24px_-12px_rgba(179,18,43,0.4)]">
-          <a href={`/${s.slug}`} class="block">
+          <a href={`/${s.slug}/`} class="block">
             <Ornament height={10} />
             <div class="p-5">
               <h3 class="font-display text-lg font-bold text-[var(--color-ink)] group-hover:text-[var(--color-brand)]">

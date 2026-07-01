@@ -1,9 +1,9 @@
 import type { CollectionEntry } from 'astro:content';
 
-/** URL страницы: pillar → /<section>; иначе /<section>/<slug>. */
+/** URL страницы (с trailing slash — как отдаёт хостинг): pillar → /<section>/; иначе /<section>/<slug>/. */
 export function pageUrl(section: string, slug: string, pageType?: string): string {
-  if (pageType === 'pillar' || slug === section) return `/${section}`;
-  return `/${section}/${slug}`;
+  if (pageType === 'pillar' || slug === section) return `/${section}/`;
+  return `/${section}/${slug}/`;
 }
 
 export function entryUrl(e: CollectionEntry<'pages'>): string {

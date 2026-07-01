@@ -1,0 +1,33 @@
+---
+// Баннер згоди на cookie + Google Consent Mode v2. Мінімум JS, без залежностей.
+---
+<div
+  id="cookie-consent"
+  class="fixed inset-x-0 bottom-0 z-50 hidden"
+  role="dialog"
+  aria-label="Згода на використання cookie"
+  aria-live="polite"
+>
+  <div class="mx-auto m-3 flex max-w-3xl flex-col gap-3 rounded-xl border border-[var(--color-line)] bg-white p-4 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.35)] sm:flex-row sm:items-center">
+    <p class="flex-1 text-sm text-[var(--color-ink-soft)]">
+      Ми використовуємо cookie для аналітики, щоб покращувати сайт. Докладніше — у
+      <a href="/polityka-konfidentsiynosti/" class="text-[var(--color-brand)] underline underline-offset-2">Політиці конфіденційності</a>.
+    </p>
+    <div class="flex shrink-0 gap-2">
+      <button
+        id="cc-decline"
+        type="button"
+        class="rounded-lg border border-[var(--color-line)] px-4 py-2 text-sm font-medium text-[var(--color-ink)] hover:bg-[var(--color-paper-2)]"
+      >Відхилити</button>
+      <button
+        id="cc-accept"
+        type="button"
+        class="rounded-lg bg-[var(--color-brand)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-brand-dark)]"
+      >Прийняти</button>
+    </div>
+  </div>
+</div>
+<script
+  is:inline
+  set:html={`(function(){var el=document.getElementById('cookie-consent');if(!el)return;var s;try{s=localStorage.getItem('cookie-consent');}catch(e){}if(!s){el.classList.remove('hidden');}function set(v){try{localStorage.setItem('cookie-consent',v);}catch(e){}if(v==='granted'&&window.gtag){gtag('consent','update',{ad_storage:'granted',analytics_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});}el.classList.add('hidden');}var a=document.getElementById('cc-accept'),d=document.getElementById('cc-decline');if(a)a.addEventListener('click',function(){set('granted');});if(d)d.addEventListener('click',function(){set('denied');});})();`}
+/>

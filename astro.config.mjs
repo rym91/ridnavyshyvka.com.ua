@@ -11,7 +11,8 @@ const SITEMAP_EXCLUDE = ['/404'];
 export default defineConfig({
   site: 'https://ridnavyshyvka.com.ua',
   output: 'static',
-  trailingSlash: 'never',
+  trailingSlash: 'always',
+  build: { format: 'directory' },
   integrations: [
     mdx(),
     sitemap({

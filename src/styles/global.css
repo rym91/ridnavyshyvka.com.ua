@@ -18,6 +18,22 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Видимий фокус для клавіатурної навігації (WCAG 2.4.7) */
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Повага до «зменшити рух» (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Льняна канва: ледь помітна сітка хрестика (чистий CSS, без зображень) */
 body {
   background-color: var(--color-paper);

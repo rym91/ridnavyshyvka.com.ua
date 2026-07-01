@@ -1,8 +1,12 @@
 ---
-// Google Analytics 4. GA_ID — Measurement ID (G-XXXXXXXXXX). Пусто = не подключается.
+// GA4 + Google Consent Mode v2. GA_ID — Measurement ID. Пусто = не подключается.
 const GA_ID = 'G-7RZMWH9L0C';
 const enabled = /^G-[A-Z0-9]{6,}$/.test(GA_ID);
-const inline = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`;
+// По умолчанию согласие ОТКЛОНЕНО (denied); если ранее принято (localStorage) — сразу обновляем.
+const inline = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+try{if(localStorage.getItem('cookie-consent')==='granted'){gtag('consent','update',{ad_storage:'granted',analytics_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});}}catch(e){}
+gtag('js',new Date());gtag('config','${GA_ID}');`;
 ---
 {
   enabled && (
