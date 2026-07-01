@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Seo from '../components/Seo.astro';
 import JsonLd from '../components/JsonLd.astro';
+import Analytics from '../components/Analytics.astro';
 import Ornament from '../components/Ornament.astro';
 import { SECTIONS } from '../lib/sections';
 
@@ -37,6 +38,7 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [] }
       noindex={noindex}
     />
     {jsonld.length > 0 && <JsonLd data={jsonld} />}
+    <Analytics />
   </head>
   <body class="flex min-h-screen flex-col font-sans text-[var(--color-ink)]">
     <a
