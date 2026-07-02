@@ -1,9 +1,13 @@
 // JSON-LD builders. Возвращают plain-объекты → рендерятся в <script type="application/ld+json">.
 
 const SITE_NAME = 'Рідна вишивка';
-// Честное бренд-авторство: материалы готовит редакция проекта (не выдуманный человек).
-const EDITORIAL_NAME = 'Редакція «Рідна вишивка»';
 const CONTACT_EMAIL = 'info@ridnavyshyvka.com.ua';
+// Іменована авторка-майстриня (E-E-A-T): реальна людина.
+const AUTHOR_NAME = 'Тетяна Римарьова';
+const AUTHOR_ROLE = 'майстриня-рукодільниця';
+function authorUrl(siteUrl: string) {
+  return `${siteUrl}avtorka/`;
+}
 
 // siteUrl приходит как Astro.site.href → уже с завершающим слешем.
 function logoObject(siteUrl: string) {
@@ -87,8 +91,40 @@ export function articleSchema(a: ArticleSchemaInput, siteUrl: string) {
     ...(a.image ? { image: a.image } : {}),
     ...(a.datePublished ? { datePublished: a.datePublished } : {}),
     ...(a.dateModified ? { dateModified: a.dateModified } : {}),
-    author: { '@type': 'Organization', name: EDITORIAL_NAME, url: `${siteUrl}pro-nas/` },
+    author: {
+      '@type': 'Person',
+      name: AUTHOR_NAME,
+      url: authorUrl(siteUrl),
+      jobTitle: AUTHOR_ROLE,
+      worksFor: { '@type': 'Organization', name: SITE_NAME, url: siteUrl },
+    },
     publisher: publisherObject(siteUrl),
+  };
+}
+
+// Розмітка сторінки авторки: ProfilePage + Person.
+export function authorProfileSchema(siteUrl: string, opts?: { image?: string }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    mainEntity: {
+      '@type': 'Person',
+      name: AUTHOR_NAME,
+      url: authorUrl(siteUrl),
+      jobTitle: AUTHOR_ROLE,
+      description:
+        'Майстриня з Києва: вишиває хрестиком і бісером, вʼяже спицями та гачком і шиє. Авторка й редакторка матеріалів сайту «Рідна вишивка».',
+      knowsAbout: [
+        'українська вишивка',
+        'вишивка хрестиком',
+        'вишивка бісером',
+        'вʼязання',
+        'шиття',
+      ],
+      homeLocation: { '@type': 'Place', name: 'Київ, Україна' },
+      worksFor: { '@type': 'Organization', name: SITE_NAME, url: siteUrl },
+      ...(opts?.image ? { image: opts.image } : {}),
+    },
   };
 }
 

@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { organizationSchema, breadcrumbSchema, authorProfileSchema } from '../lib/schema';
+
+const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
+const crumbs = [
+  { name: 'Головна', href: '/' },
+  { name: 'Авторка', href: '/avtorka/' },
+];
+const jsonld = [
+  organizationSchema(site.href),
+  breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: new URL(c.href, site).href }))),
+  authorProfileSchema(site.href),
+];
+---
+<BaseLayout
+  title="Тетяна Римарьова — авторка «Рідної вишивки»"
+  description="Тетяна Римарьова — майстриня-рукодільниця з Києва: вишиває хрестиком і бісером, вʼяже та шиє. Авторка й редакторка матеріалів сайту про українську вишивку."
+  canonicalPath="/avtorka/"
+  ogType="website"
+  jsonld={jsonld}
+>
+  <Breadcrumbs items={crumbs} />
+  <article class="prose-uk">
+    <h1 class="stitched mb-2 font-display text-3xl font-extrabold text-[var(--color-ink)]">Тетяна Римарьова</h1>
+    <p class="mb-6 text-sm font-medium uppercase tracking-wide text-[var(--color-brand)]">
+      Майстриня-рукодільниця · авторка «Рідної вишивки»
+    </p>
+
+    <p>
+      <strong>Тетяна Римарьова</strong> — майстриня-рукодільниця з Києва. Вишиває хрестиком і бісером,
+      вʼяже спицями та гачком і шиє — багато речей у її домі зроблені власними руками.
+    </p>
+
+    <p>
+      Рукоділля супроводжує Тетяну більшу частину життя. Вона однаково любить традиційні українські техніки
+      й сучасні ідеї та охоче ділиться тим, що напрацювала на практиці — не з підручника, а з власного досвіду
+      за пʼяльцями.
+    </p>
+
+    <h2>Що люблю робити руками</h2>
+    <ul>
+      <li>вишивка хрестиком;</li>
+      <li>вишивка бісером;</li>
+      <li>вʼязання спицями та гачком;</li>
+      <li>шиття та інші рукодільні дрібнички.</li>
+    </ul>
+
+    <h2>Моя роль на сайті</h2>
+    <p>
+      На сайті «Рідна вишивка» я допомагаю готувати й перевіряти матеріали: стежу, щоб поради були зрозумілі
+      початківцеві й справді працювали на практиці, а не лише «в теорії». Мій принцип простий — пояснювати так,
+      щоб людина, яка вперше взяла голку, впевнено зробила свій перший стібок.
+    </p>
+
+    <p>
+      Маєте запитання чи хочете щось уточнити — пишіть на сторінці <a href="/kontakty/">Контакти</a>, а більше
+      про проєкт можна прочитати в розділі <a href="/pro-nas/">Про нас</a>.
+    </p>
+  </article>
+</BaseLayout>
