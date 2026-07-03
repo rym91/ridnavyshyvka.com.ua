@@ -2,6 +2,8 @@
 section: ukrayinska-vyshyvka
 page_type: article
 slug: symvolika-koloriv-vyshyvky
+hero: ../../../assets/heroes/symvolika-koloriv-vyshyvky.jpg
+hero_alt: "Палітра ниток муліне різних кольорів поряд із червоно-чорною вишивкою"
 title: "Символіка кольорів в українській вишивці"
 h1: "Символіка кольорів в українській вишивці"
 meta_description: "Що означають червоний, чорний, синій та інші кольори в українській вишивці та як колір змінюється залежно від регіону."
