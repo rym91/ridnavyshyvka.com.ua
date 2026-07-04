@@ -22,6 +22,7 @@ const pages = defineCollection({
         title: z.string().max(70),
         h1: z.string(),
         meta_description: z.string().max(170),
+        summary: z.string().max(320).optional(),
         primary_keyword: z.string(),
         primary_volume: z.number().int().nonnegative().optional(),
         secondary_keywords: z.array(z.string()).default([]),

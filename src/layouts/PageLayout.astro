@@ -105,6 +105,14 @@ const showLeadMagnet = false;
         </>
       )}
     </p>
+    {
+      d.summary && (
+        <div class="toc mb-6 rounded-xl border-l-4 border-[var(--color-brand)] bg-[var(--color-paper-2)] p-4">
+          <p class="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand)]">Коротка відповідь</p>
+          <p class="mt-1 text-[var(--color-ink)]">{d.summary}</p>
+        </div>
+      )
+    }
     {d.hero && d.hero_alt && <Picture src={d.hero} alt={d.hero_alt} loading="eager" class="w-full rounded-lg" />}
     {
       toc.length >= 3 && (
