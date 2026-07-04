@@ -1,0 +1,28 @@
+---
+// Zero-JS довідник символіки кольорів української вишивки. Дані — з нашого матеріалу.
+const colors = [
+  { name: 'Червоний', hex: '#b3122b', meaning: 'любов, життя, сонце' },
+  { name: 'Чорний', hex: '#1a1714', meaning: 'земля, родючість' },
+  { name: 'Білий', hex: '#faf7f2', meaning: 'чистота, святість', border: true },
+  { name: 'Синій', hex: '#1f4e79', meaning: 'небо, вода, спокій' },
+  { name: 'Зелений', hex: '#3f7d3f', meaning: 'молодість, природа' },
+  { name: 'Жовтий', hex: '#e0a92e', meaning: 'сонце, достаток' },
+];
+---
+<div class="my-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+  {
+    colors.map((c) => (
+      <div class="flex items-center gap-3 rounded-lg border border-[var(--color-line)] bg-white p-3">
+        <span
+          class="h-9 w-9 shrink-0 rounded-full"
+          style={`background:${c.hex}${c.border ? ';border:1px solid var(--color-line)' : ''}`}
+          aria-hidden="true"
+        />
+        <span class="text-sm leading-tight">
+          <strong class="block text-[var(--color-ink)]">{c.name}</strong>
+          <span class="text-[var(--color-ink-soft)]">{c.meaning}</span>
+        </span>
+      </div>
+    ))
+  }
+</div>

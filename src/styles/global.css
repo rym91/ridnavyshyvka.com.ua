@@ -80,6 +80,20 @@ body {
   font-weight: 700;
 }
 
+/* FAQ-акордеон (zero-JS <details>) */
+.faq-item > summary {
+  list-style: none;
+}
+.faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+.faq-plus {
+  transition: transform 0.2s ease;
+}
+.faq-item[open] > summary .faq-plus {
+  transform: rotate(45deg);
+}
+
 /* ---- Типографіка контентних сторінок ---- */
 .prose-uk {
   color: var(--color-ink);

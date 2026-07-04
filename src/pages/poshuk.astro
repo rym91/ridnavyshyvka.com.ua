@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+const crumbs = [
+  { name: 'Головна', href: '/' },
+  { name: 'Пошук', href: '/poshuk/' },
+];
+---
+<BaseLayout
+  title="Пошук — Рідна вишивка"
+  description="Пошук по сайту «Рідна вишивка»: схеми, техніки, орнаменти та матеріали для вишивання."
+  canonicalPath="/poshuk/"
+  ogType="website"
+  noindex={true}
+>
+  <Breadcrumbs items={crumbs} />
+  <h1 class="stitched mb-5 font-display text-3xl font-extrabold text-[var(--color-ink)]">Пошук по сайту</h1>
+  <input
+    id="q"
+    type="search"
+    autocomplete="off"
+    placeholder="Наприклад: схеми бісером, канва, гердани…"
+    aria-label="Пошуковий запит"
+    class="w-full rounded-xl border border-[var(--color-line)] bg-white px-4 py-3 text-base focus:border-[var(--color-brand)] focus:outline-none"
+  />
+  <p id="hint" class="mt-3 text-[var(--color-ink-soft)]">Почніть вводити запит (щонайменше 2 символи).</p>
+  <ul id="results" class="mt-4 grid gap-2"></ul>
+</BaseLayout>
+<script
+  is:inline
+  set:html={`(function(){var q=document.getElementById('q'),res=document.getElementById('results'),hint=document.getElementById('hint');var idx=[];function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}function run(){var t=q.value.trim().toLowerCase();if(t.length<2){res.innerHTML='';hint.style.display='';hint.textContent='Почніть вводити запит (щонайменше 2 символи).';return;}var terms=t.split(/\\s+/);var hits=idx.filter(function(it){var hay=((it.title||'')+' '+(it.description||'')+' '+(it.keywords||'')+' '+(it.section||'')).toLowerCase();return terms.every(function(w){return hay.indexOf(w)>-1;});});if(!hits.length){res.innerHTML='';hint.style.display='';hint.textContent='Нічого не знайдено. Спробуйте інше слово.';return;}hint.style.display='none';res.innerHTML=hits.slice(0,25).map(function(it){return '<li><a href="'+it.url+'" class="block rounded-lg border border-[var(--color-line)] bg-white p-3 transition-colors hover:border-[var(--color-brand)]"><span class="block font-medium text-[var(--color-ink)]">'+esc(it.title)+'</span><span class="block text-xs uppercase tracking-wide text-[var(--color-brand)]">'+esc(it.section)+'</span><span class="mt-1 block text-sm text-[var(--color-ink-soft)]">'+esc(it.description)+'</span></a></li>';}).join('');}fetch('/search-index.json').then(function(r){return r.json();}).then(function(d){idx=d;var p=new URLSearchParams(location.search).get('q');if(p){q.value=p;run();}});q.addEventListener('input',run);})();`}
+/>

@@ -1,0 +1,62 @@
+---
+// Zero-JS SVG: приклад схеми для вишивки хрестиком (ромб із ✕ на сітці). Освітній.
+interface Props {
+  class?: string;
+}
+const { class: cls = '' } = Astro.props;
+
+// r = червоний, k = чорний, . = порожньо
+const P = [
+  '.....r.....',
+  '....rkr....',
+  '...rkrkr...',
+  '..rkrkrkr..',
+  '.rkrkrkrkr.',
+  '..rkrkrkr..',
+  '...rkrkr...',
+  '....rkr....',
+  '.....r.....',
+];
+const cols = P[0].length;
+const rows = P.length;
+const cell = 24;
+const w = cols * cell;
+const h = rows * cell;
+
+const stitches: { x: number; y: number; c: string }[] = [];
+P.forEach((row, y) =>
+  row.split('').forEach((ch, x) => {
+    if (ch !== '.') stitches.push({ x, y, c: ch === 'r' ? 'var(--color-brand)' : 'var(--color-ink)' });
+  }),
+);
+const vlines = Array.from({ length: cols + 1 }, (_, i) => i);
+const hlines = Array.from({ length: rows + 1 }, (_, i) => i);
+const m = 5; // відступ ✕ у клітинці
+---
+<figure class={cls}>
+  <svg
+    viewBox={`0 0 ${w} ${h}`}
+    class="mx-auto h-auto w-full max-w-[280px]"
+    role="img"
+    aria-label="Приклад схеми для вишивки хрестиком: ромб із червоних і чорних хрестиків на сітці"
+  >
+    <rect width={w} height={h} fill="var(--color-paper)" />
+    {vlines.map((i) => (
+      <line x1={i * cell} y1="0" x2={i * cell} y2={h} stroke="var(--color-line)" stroke-width={i % 5 === 0 ? 1.4 : 0.6} />
+    ))}
+    {hlines.map((i) => (
+      <line x1="0" y1={i * cell} x2={w} y2={i * cell} stroke="var(--color-line)" stroke-width={i % 5 === 0 ? 1.4 : 0.6} />
+    ))}
+    {stitches.map((s) => (
+      <g stroke={s.c} stroke-width="2.6" stroke-linecap="round">
+        <line x1={s.x * cell + m} y1={s.y * cell + m} x2={s.x * cell + cell - m} y2={s.y * cell + cell - m} />
+        <line x1={s.x * cell + cell - m} y1={s.y * cell + m} x2={s.x * cell + m} y2={s.y * cell + cell - m} />
+      </g>
+    ))}
+  </svg>
+  <figcaption class="mt-2 text-center text-sm text-[var(--color-ink-soft)]">
+    Приклад схеми: кожен <span class="x-mark">✕</span> — один хрестик.
+    <span style="color:var(--color-brand)">Червоний</span> і <span style="color:var(--color-ink)">чорний</span> —
+    різні кольори ниток.
+  </figcaption>
+</figure>

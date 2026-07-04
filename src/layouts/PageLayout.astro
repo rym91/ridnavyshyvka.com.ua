@@ -97,16 +97,19 @@ const showLeadMagnet = false;
     <slot />
     {
       d.faq.length > 0 && (
-        <section class="mt-8">
+        <section class="mt-10">
           <h2>Часті запитання</h2>
-          <dl>
-            {d.faq.map((f) => (
-              <div class="mb-3">
-                <dt class="font-semibold">{f.q}</dt>
-                <dd class="mt-1 text-stone-700">{f.a}</dd>
-              </div>
+          <div class="mt-4 overflow-hidden rounded-xl border border-[var(--color-line)] bg-white">
+            {d.faq.map((f, i) => (
+              <details class="faq-item border-t border-[var(--color-line)] first:border-t-0" open={i === 0}>
+                <summary class="flex cursor-pointer items-center justify-between gap-3 px-4 py-3 font-semibold text-[var(--color-ink)]">
+                  <span>{f.q}</span>
+                  <span class="faq-plus shrink-0 text-xl leading-none text-[var(--color-brand)]" aria-hidden="true">+</span>
+                </summary>
+                <div class="px-4 pb-4 text-[var(--color-ink-soft)]">{f.a}</div>
+              </details>
             ))}
-          </dl>
+          </div>
         </section>
       )
     }

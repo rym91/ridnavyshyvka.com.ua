@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import StitchGrid from '../components/StitchGrid.astro';
+import Ornament from '../components/Ornament.astro';
+import { organizationSchema, breadcrumbSchema, pageSchema } from '../lib/schema';
+
+const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
+const crumbs = [
+  { name: 'Головна', href: '/' },
+  { name: 'Калькулятор розміру вишивки', href: '/kalkulyator-rozmiru-vyshyvky/' },
+];
+const jsonld = [
+  organizationSchema(site.href),
+  breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: new URL(c.href, site).href }))),
+  pageSchema(
+    'WebPage',
+    {
+      name: 'Калькулятор розміру вишивки хрестиком',
+      description: 'Порахуйте розмір вишивки хрестиком у сантиметрах за кількістю хрестиків і каунтом канви.',
+      url: new URL('/kalkulyator-rozmiru-vyshyvky/', site).href,
+    },
+    site.href,
+  ),
+];
+---
+<BaseLayout
+  title="Калькулятор розміру вишивки хрестиком (у см)"
+  description="Безкоштовний калькулятор: порахуйте розмір вишивки хрестиком у сантиметрах і дюймах за кількістю хрестиків та каунтом канви. Плюс рекомендований розмір тканини."
+  canonicalPath="/kalkulyator-rozmiru-vyshyvky/"
+  ogType="website"
+  jsonld={jsonld}
+>
+  <Breadcrumbs items={crumbs} />
+  <article class="prose-uk">
+    <h1 class="stitched mb-5 font-display text-3xl font-extrabold leading-tight text-[var(--color-ink)] md:text-4xl">
+      Калькулятор розміру вишивки
+    </h1>
+    <p>
+      Перш ніж почати роботу, корисно знати, якого розміру вийде вишивка й скільки тканини підготувати. Розмір
+      залежить від двох речей: <strong>кількості хрестиків</strong> у схемі та <strong>каунту канви</strong>
+      (скільки клітинок припадає на дюйм). Введіть значення — і калькулятор одразу порахує розмір у сантиметрах.
+    </p>
+
+    <div class="not-prose my-6 rounded-xl border border-[var(--color-line)] bg-white p-5">
+      <div class="grid gap-4 sm:grid-cols-3">
+        <label class="block text-sm font-medium text-[var(--color-ink)]">
+          Ширина (хрестиків)
+          <input id="cw" type="number" min="1" value="100" class="mt-1 w-full rounded-lg border border-[var(--color-line)] px-3 py-2 text-base" />
+        </label>
+        <label class="block text-sm font-medium text-[var(--color-ink)]">
+          Висота (хрестиків)
+          <input id="ch" type="number" min="1" value="100" class="mt-1 w-full rounded-lg border border-[var(--color-line)] px-3 py-2 text-base" />
+        </label>
+        <label class="block text-sm font-medium text-[var(--color-ink)]">
+          Каунт канви (Аїда)
+          <select id="cc" class="mt-1 w-full rounded-lg border border-[var(--color-line)] bg-white px-3 py-2 text-base">
+            <option value="7">Аїда 7</option>
+            <option value="11">Аїда 11</option>
+            <option value="14" selected>Аїда 14</option>
+            <option value="16">Аїда 16</option>
+            <option value="18">Аїда 18</option>
+            <option value="20">Аїда 20</option>
+          </select>
+        </label>
+      </div>
+      <dl class="mt-5 grid gap-3 sm:grid-cols-3">
+        <div class="rounded-lg bg-[var(--color-paper-2)] p-3">
+          <dt class="text-xs uppercase tracking-wide text-[var(--color-ink-soft)]">Розмір вишивки</dt>
+          <dd id="rSize" class="mt-1 font-display text-lg font-bold text-[var(--color-brand)]">—</dd>
+        </div>
+        <div class="rounded-lg bg-[var(--color-paper-2)] p-3">
+          <dt class="text-xs uppercase tracking-wide text-[var(--color-ink-soft)]">У дюймах</dt>
+          <dd id="rInch" class="mt-1 font-display text-lg font-bold text-[var(--color-ink)]">—</dd>
+        </div>
+        <div class="rounded-lg bg-[var(--color-paper-2)] p-3">
+          <dt class="text-xs uppercase tracking-wide text-[var(--color-ink-soft)]">Тканина з припуском</dt>
+          <dd id="rFabric" class="mt-1 font-display text-lg font-bold text-[var(--color-ink)]">—</dd>
+        </div>
+      </dl>
+    </div>
+
+    <h2>Як користуватися</h2>
+    <ul>
+      <li><strong>Ширина й висота</strong> — скільки хрестиків у схемі по горизонталі та вертикалі (це підписано на кожній схемі).</li>
+      <li><strong>Каунт канви</strong> — число на етикетці: Аїда 14 означає 14 клітинок на дюйм. Що більший каунт, то дрібніша й меншa вийде робота.</li>
+      <li><strong>Припуск</strong> — калькулятор додає приблизно по 7 см з кожного боку на поля для оформлення й п'яльців.</li>
+    </ul>
+
+    <StitchGrid class="my-6" />
+
+    <h2>Що врахувати</h2>
+    <p>
+      Розмір залежить саме від каунту канви, а не від складності схеми: одна й та сама схема на Аїді 18 буде помітно
+      меншою, ніж на Аїді 11. Точну витрату ниток муліне порахувати важко — орієнтуйтеся на кількість кольорів у схемі
+      та щільність зашивання. Про вибір тканини й ниток читайте в розділі
+      <a href="/materialy-dlya-vyshyvky/">матеріали для вишивки</a>: зокрема про
+      <a href="/materialy-dlya-vyshyvky/kanva-dlya-vyshyvky/">канву</a> та
+      <a href="/materialy-dlya-vyshyvky/nytky-muline-dlya-vyshyvky/">нитки муліне</a>. А як читати саму схему —
+      у гайді <a href="/vyshyvka-hrestykom/yak-chytaty-shemy-hrestykom/">як читати схеми хрестиком</a>.
+    </p>
+  </article>
+  <Ornament height={18} class="mt-10" />
+</BaseLayout>
+<script
+  is:inline
+  set:html={`(function(){var cw=document.getElementById('cw'),ch=document.getElementById('ch'),cc=document.getElementById('cc');if(!cw)return;function f(n){return (Math.round(n*10)/10).toString().replace('.',',');}function upd(){var w=parseFloat(cw.value)||0,h=parseFloat(ch.value)||0,c=parseFloat(cc.value)||14;var rs=document.getElementById('rSize'),ri=document.getElementById('rInch'),rf=document.getElementById('rFabric');if(w<=0||h<=0){rs.textContent='—';ri.textContent='—';rf.textContent='—';return;}var wcm=w/c*2.54,hcm=h/c*2.54;rs.textContent=f(wcm)+' × '+f(hcm)+' см';ri.textContent=f(w/c)+' × '+f(h/c)+' дюйма';rf.textContent=Math.round(wcm+14)+' × '+Math.round(hcm+14)+' см';}[cw,ch,cc].forEach(function(e){e.addEventListener('input',upd);e.addEventListener('change',upd);});upd();})();`}
+/>

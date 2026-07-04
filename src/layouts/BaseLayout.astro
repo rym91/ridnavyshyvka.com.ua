@@ -30,6 +30,13 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [] }
       rel="stylesheet"
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#faf7f2" />
+    <link rel="alternate" type="application/rss+xml" title="Рідна вишивка — нові матеріали" href="/rss.xml" />
     <Seo
       title={title}
       description={description}
@@ -55,6 +62,7 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [] }
             Рідна <span class="text-[var(--color-brand)]">вишивка</span>
           </span>
         </a>
+        <div class="flex items-center gap-2">
         <nav aria-label="Головне меню" class="hidden flex-wrap gap-x-5 gap-y-1 text-sm font-medium md:flex">
           {
             SECTIONS.map((s) => (
@@ -64,6 +72,16 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [] }
             ))
           }
         </nav>
+        <a
+          href="/poshuk/"
+          aria-label="Пошук на сайті"
+          class="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--color-ink-soft)] transition-colors hover:text-[var(--color-brand)]"
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.5" y2="16.5" />
+          </svg>
+        </a>
         <details class="md:hidden">
           <summary
             class="flex cursor-pointer list-none items-center gap-1 rounded-lg border border-[var(--color-line)] px-3 py-2 text-sm font-medium text-[var(--color-ink)]"
@@ -84,6 +102,7 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [] }
             }
           </nav>
         </details>
+        </div>
       </div>
       <Ornament height={14} />
     </header>
@@ -108,6 +127,7 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [] }
           <nav aria-label="Інформація про сайт" class="mt-3 flex flex-wrap gap-x-4 gap-y-1 border-t border-[var(--color-line)] pt-3">
             <a href="/pro-nas/" class="hover:text-[var(--color-brand)]">Про нас</a>
             <a href="/avtorka/" class="hover:text-[var(--color-brand)]">Авторка</a>
+            <a href="/kalkulyator-rozmiru-vyshyvky/" class="hover:text-[var(--color-brand)]">Калькулятор розміру</a>
             <a href="/kontakty/" class="hover:text-[var(--color-brand)]">Контакти</a>
             <a href="/polityka-konfidentsiynosti/" class="hover:text-[var(--color-brand)]">Політика конфіденційності</a>
             <a href="/umovy-vykorystannya/" class="hover:text-[var(--color-brand)]">Умови використання</a>

@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // URL-ы, которые НЕ должны попадать в sitemap (служебные / noindex).
 // draft-страницы не строятся вовсе (исключены в getStaticPaths), поэтому тут только статические исключения.
-const SITEMAP_EXCLUDE = ['/404'];
+const SITEMAP_EXCLUDE = ['/404', '/poshuk'];
 
 export default defineConfig({
   site: 'https://ridnavyshyvka.com.ua',
