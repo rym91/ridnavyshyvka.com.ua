@@ -23,12 +23,8 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [] }
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" href="/fonts/manrope-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/playfair-700-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -128,6 +124,7 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [] }
             <a href="/pro-nas/" class="hover:text-[var(--color-brand)]">Про нас</a>
             <a href="/avtorka/" class="hover:text-[var(--color-brand)]">Авторка</a>
             <a href="/kalkulyator-rozmiru-vyshyvky/" class="hover:text-[var(--color-brand)]">Калькулятор розміру</a>
+            <a href="/slovnyk-vyshyvky/" class="hover:text-[var(--color-brand)]">Словник термінів</a>
             <a href="/kontakty/" class="hover:text-[var(--color-brand)]">Контакти</a>
             <a href="/polityka-konfidentsiynosti/" class="hover:text-[var(--color-brand)]">Політика конфіденційності</a>
             <a href="/umovy-vykorystannya/" class="hover:text-[var(--color-brand)]">Умови використання</a>

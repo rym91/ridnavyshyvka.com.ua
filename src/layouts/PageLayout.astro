@@ -14,8 +14,9 @@ import Ornament from '../components/Ornament.astro';
 interface Props {
   page: CollectionEntry<'pages'>;
   sectionPages?: CollectionEntry<'pages'>[];
+  headings?: { depth: number; slug: string; text: string }[];
 }
-const { page, sectionPages = [] } = Astro.props;
+const { page, sectionPages = [], headings = [] } = Astro.props;
 const d = page.data;
 const section = getSection(d.section);
 const path = entryUrl(page);
@@ -27,6 +28,17 @@ const heroAbs = d.hero ? new URL((await getImage({ src: d.hero })).src, site).hr
 
 const allPages = await getCollection('pages', (p) => (import.meta.env.PROD ? !p.data.draft : true));
 const related = relatedPages(page, allPages);
+
+// Зміст статті (тільки h2).
+const toc = headings.filter((h) => h.depth === 2);
+
+// Попередня / наступна стаття в розділі (для не-pillar).
+const sectionArticles = allPages
+  .filter((p) => p.data.section === d.section && p.data.page_type !== 'pillar')
+  .sort((a, b) => a.data.priority.localeCompare(b.data.priority) || a.data.h1.localeCompare(b.data.h1, 'uk'));
+const curIdx = sectionArticles.findIndex((p) => p.data.slug === d.slug);
+const prevPage = curIdx > 0 ? sectionArticles[curIdx - 1] : null;
+const nextPage = curIdx >= 0 && curIdx < sectionArticles.length - 1 ? sectionArticles[curIdx + 1] : null;
 
 const crumbs = [{ name: 'Головна', href: '/' }];
 if (section) crumbs.push({ name: section.title, href: `/${section.slug}/` });
@@ -94,6 +106,22 @@ const showLeadMagnet = false;
       )}
     </p>
     {d.hero && d.hero_alt && <Picture src={d.hero} alt={d.hero_alt} loading="eager" class="w-full rounded-lg" />}
+    {
+      toc.length >= 3 && (
+        <nav aria-label="Зміст статті" class="toc my-6 rounded-xl border border-[var(--color-line)] bg-[var(--color-paper-2)] p-4">
+          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">Зміст</p>
+          <ul class="grid gap-1.5 text-sm">
+            {toc.map((h) => (
+              <li>
+                <a href={`#${h.slug}`} class="text-[var(--color-brand)] hover:underline">
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
     <slot />
     {
       d.faq.length > 0 && (
@@ -130,6 +158,38 @@ const showLeadMagnet = false;
           ))}
         </ul>
       </section>
+    )
+  }
+  {
+    d.page_type !== 'pillar' && (prevPage || nextPage) && (
+      <nav aria-label="Навігація розділом" class="mt-10 grid gap-3 sm:grid-cols-2">
+        {prevPage ? (
+          <a
+            href={entryUrl(prevPage)}
+            class="group rounded-lg border border-[var(--color-line)] bg-white p-3 transition-colors hover:border-[var(--color-brand)]"
+          >
+            <span class="block text-xs uppercase tracking-wide text-[var(--color-ink-soft)]">← Попередня</span>
+            <span class="mt-1 block font-medium text-[var(--color-ink)] group-hover:text-[var(--color-brand)]">
+              {prevPage.data.h1}
+            </span>
+          </a>
+        ) : (
+          <span class="hidden sm:block" />
+        )}
+        {nextPage ? (
+          <a
+            href={entryUrl(nextPage)}
+            class="group rounded-lg border border-[var(--color-line)] bg-white p-3 text-right transition-colors hover:border-[var(--color-brand)]"
+          >
+            <span class="block text-xs uppercase tracking-wide text-[var(--color-ink-soft)]">Наступна →</span>
+            <span class="mt-1 block font-medium text-[var(--color-ink)] group-hover:text-[var(--color-brand)]">
+              {nextPage.data.h1}
+            </span>
+          </a>
+        ) : (
+          <span class="hidden sm:block" />
+        )}
+      </nav>
     )
   }
   <RelatedLinks items={related.map((p) => ({ title: p.data.h1, href: entryUrl(p) }))} />

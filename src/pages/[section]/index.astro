@@ -16,8 +16,8 @@ export async function getStaticPaths() {
 
 const pillar = Astro.props.pillar!;
 const { sectionPages } = Astro.props;
-const { Content } = await render(pillar);
+const { Content, headings } = await render(pillar);
 ---
-<PageLayout page={pillar} sectionPages={sectionPages}>
+<PageLayout page={pillar} sectionPages={sectionPages} headings={headings}>
   <Content />
 </PageLayout>

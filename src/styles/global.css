@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./fonts.css";
 
 @theme {
   /* Подільська палітра: червоне + чорне на теплому льняному */
@@ -78,6 +79,20 @@ body {
 .x-mark {
   color: var(--color-brand);
   font-weight: 700;
+}
+
+/* Зміст (TOC): без ✕-маркерів і зайвих відступів prose */
+.toc :where(ul) {
+  padding-left: 0;
+}
+.toc :where(li) {
+  margin-bottom: 0;
+}
+.toc :where(li)::before {
+  content: none;
+}
+.toc :where(a) {
+  text-decoration: none;
 }
 
 /* FAQ-акордеон (zero-JS <details>) */

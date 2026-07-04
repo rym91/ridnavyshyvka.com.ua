@@ -28,6 +28,13 @@ export const GET: APIRoute = async () => {
       description: 'Майстриня-рукодільниця, авторка матеріалів сайту.',
       keywords: 'авторка тетяна римарьова майстриня',
     },
+    {
+      title: 'Словник термінів вишивки',
+      url: '/slovnyk-vyshyvky/',
+      section: 'Довідка',
+      description: 'Основні поняття вишивки простими словами: хрестик, каунт, мережка, силянка та інші.',
+      keywords: 'словник терміни вишивки каунт бекстич силянкa гердан лиштва глосарій',
+    },
   );
   return new Response(JSON.stringify(items), {
     headers: { 'Content-Type': 'application/json; charset=utf-8' },
