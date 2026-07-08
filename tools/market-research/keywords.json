@@ -1,0 +1,66 @@
+{
+  "_comment": "Товары ниши (вышиванка / украинская этника) и ключевые слова по каждой стране Европы на локальных языках. Именно локальные ключи дают релевантную выдачу в Facebook Ad Library и Google Trends. Правьте под свой ассортимент.",
+  "products": {
+    "women_embroidered_blouse": {
+      "label": "Женская вышиванка (блуза)",
+      "keywords_by_country": {
+        "UA": ["жіноча вишиванка", "вишита блуза"],
+        "PL": ["haftowana bluzka ukraińska", "wyszywanka damska"],
+        "DE": ["bestickte Bluse ukrainisch", "ukrainische Stickerei Bluse"],
+        "FR": ["chemise brodée ukrainienne femme", "blouse brodée"],
+        "IT": ["camicetta ricamata ucraina", "blusa ricamata"],
+        "ES": ["blusa bordada ucraniana"],
+        "NL": ["geborduurde blouse Oekraïens"],
+        "CZ": ["vyšívaná halenka ukrajinská"],
+        "AT": ["bestickte Bluse ukrainisch"],
+        "GB": ["ukrainian embroidered blouse", "vyshyvanka women"]
+      }
+    },
+    "men_embroidered_shirt": {
+      "label": "Мужская вышиванка (рубашка)",
+      "keywords_by_country": {
+        "UA": ["чоловіча вишиванка", "вишита сорочка чоловіча"],
+        "PL": ["haftowana koszula ukraińska męska"],
+        "DE": ["besticktes Hemd ukrainisch Herren"],
+        "FR": ["chemise brodée ukrainienne homme"],
+        "IT": ["camicia ricamata ucraina uomo"],
+        "ES": ["camisa bordada ucraniana hombre"],
+        "NL": ["geborduurd overhemd Oekraïens"],
+        "CZ": ["vyšívaná košile ukrajinská pánská"],
+        "AT": ["besticktes Hemd ukrainisch"],
+        "GB": ["ukrainian embroidered shirt men", "vyshyvanka men"]
+      }
+    },
+    "embroidered_dress": {
+      "label": "Вышитое платье",
+      "keywords_by_country": {
+        "UA": ["вишите плаття", "сукня вишиванка"],
+        "PL": ["haftowana sukienka ukraińska"],
+        "DE": ["besticktes Kleid ukrainisch"],
+        "FR": ["robe brodée ukrainienne"],
+        "IT": ["vestito ricamato ucraino"],
+        "ES": ["vestido bordado ucraniano"],
+        "NL": ["geborduurde jurk Oekraïens"],
+        "CZ": ["vyšívané šaty ukrajinské"],
+        "AT": ["besticktes Kleid ukrainisch"],
+        "GB": ["ukrainian embroidered dress"]
+      }
+    },
+    "kids_vyshyvanka": {
+      "label": "Детская вышиванка",
+      "keywords_by_country": {
+        "UA": ["дитяча вишиванка"],
+        "PL": ["wyszywanka dziecięca"],
+        "DE": ["ukrainische Stickerei Kinder"],
+        "FR": ["vyshyvanka enfant"],
+        "IT": ["vyshyvanka bambino"],
+        "ES": ["vyshyvanka niños"],
+        "NL": ["vyshyvanka kinderen"],
+        "CZ": ["dětská vyšívanka"],
+        "AT": ["ukrainische Stickerei Kinder"],
+        "GB": ["ukrainian embroidered shirt kids"]
+      }
+    }
+  },
+  "countries": ["UA", "PL", "DE", "FR", "IT", "ES", "NL", "CZ", "AT", "GB"]
+}
