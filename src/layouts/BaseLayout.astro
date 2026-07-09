@@ -15,8 +15,10 @@ interface Props {
   image?: string;
   noindex?: boolean;
   jsonld?: object[];
+  /** Ширший main (max-w-5xl) — для сторінок із сайдбаром (sticky-TOC). */
+  wide?: boolean;
 }
-const { title, description, canonicalPath, ogType, image, noindex, jsonld = [] } = Astro.props;
+const { title, description, canonicalPath, ogType, image, noindex, jsonld = [], wide = false } = Astro.props;
 ---
 <!doctype html>
 <html lang="uk">
@@ -51,7 +53,7 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [] }
       >Перейти до вмісту</a
     >
     <header class="relative">
-      <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
         <a href="/" class="group flex items-baseline gap-2">
           <span class="x-mark text-lg" aria-hidden="true">✕</span>
           <span class="font-display text-2xl font-extrabold tracking-tight text-[var(--color-ink)]">
@@ -59,10 +61,10 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [] }
           </span>
         </a>
         <div class="flex items-center gap-2">
-        <nav aria-label="Головне меню" class="hidden flex-wrap gap-x-5 gap-y-1 text-sm font-medium md:flex">
+        <nav aria-label="Головне меню" class="hidden flex-wrap gap-x-4 gap-y-1 text-[13px] font-medium md:flex">
           {
             SECTIONS.map((s) => (
-              <a href={`/${s.slug}/`} class="text-[var(--color-ink-soft)] transition-colors hover:text-[var(--color-brand)]">
+              <a href={`/${s.slug}/`} class="whitespace-nowrap py-1 text-[var(--color-ink-soft)] transition-colors hover:text-[var(--color-brand)]">
                 {s.title}
               </a>
             ))
@@ -106,36 +108,55 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [] }
       </div>
       <Ornament height={14} />
     </header>
-    <main id="main" class="mx-auto w-full max-w-3xl flex-1 px-4 py-10">
+    <main id="main" class:list={['mx-auto w-full flex-1 px-4 py-10', wide ? 'max-w-5xl' : 'max-w-3xl']}>
       <slot />
     </main>
     <footer class="mt-8">
       <Ornament height={14} />
-      <div class="bg-[var(--color-paper-2)]">
-        <div class="mx-auto max-w-5xl px-4 py-7 text-sm text-[var(--color-ink-soft)]">
-          <p class="font-display text-base font-bold text-[var(--color-ink)]">Рідна вишивка</p>
-          <p class="mt-1">Українська вишивка: схеми, техніки та орнаменти. © 2026</p>
-          <nav aria-label="Розділи сайту" class="mt-3 flex flex-wrap gap-x-4">
-            {
-              SECTIONS.map((s) => (
-                <a href={`/${s.slug}/`} class="inline-block py-1.5 hover:text-[var(--color-brand)]">
-                  {s.title}
-                </a>
-              ))
-            }
+      <div class="bg-[var(--color-ink)] text-[#c9c0b4]">
+        <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 text-sm sm:grid-cols-[1.4fr_1fr_1fr]">
+          <div>
+            <p class="font-display text-lg font-bold text-[var(--color-paper)]">
+              <span class="text-[#ff8fa0]" aria-hidden="true">✕</span> Рідна вишивка
+            </p>
+            <p class="mt-2 max-w-xs leading-relaxed">
+              Українська вишивка: схеми, техніки та орнаменти — від першого стібка до власної вишиванки.
+            </p>
+            <p class="mt-4">
+              Слідкуйте: <a href="https://www.pinterest.com/221rsgnveewbcgma13t7praynn2bnm/" target="_blank" rel="noopener" class="inline-block py-1.5 font-medium text-[#ff8fa0] hover:underline">Pinterest</a> · <a href="/rss.xml" class="inline-block py-1.5 font-medium text-[#ff8fa0] hover:underline">RSS</a>
+            </p>
+          </div>
+          <nav aria-label="Розділи сайту">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-paper)]">Розділи</p>
+            <ul class="grid gap-0">
+              {
+                SECTIONS.map((s) => (
+                  <li>
+                    <a href={`/${s.slug}/`} class="inline-block py-1.5 hover:text-[#ff8fa0]">
+                      {s.title}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
           </nav>
-          <nav aria-label="Інформація про сайт" class="mt-3 flex flex-wrap gap-x-4 border-t border-[var(--color-line)] pt-2">
-            <a href="/pro-nas/" class="inline-block py-1.5 hover:text-[var(--color-brand)]">Про нас</a>
-            <a href="/avtorka/" class="inline-block py-1.5 hover:text-[var(--color-brand)]">Авторка</a>
-            <a href="/kalkulyator-rozmiru-vyshyvky/" class="inline-block py-1.5 hover:text-[var(--color-brand)]">Калькулятор розміру</a>
-            <a href="/slovnyk-vyshyvky/" class="inline-block py-1.5 hover:text-[var(--color-brand)]">Словник термінів</a>
-            <a href="/kontakty/" class="inline-block py-1.5 hover:text-[var(--color-brand)]">Контакти</a>
-            <a href="/polityka-konfidentsiynosti/" class="inline-block py-1.5 hover:text-[var(--color-brand)]">Політика конфіденційності</a>
-            <a href="/umovy-vykorystannya/" class="inline-block py-1.5 hover:text-[var(--color-brand)]">Умови використання</a>
+          <nav aria-label="Інформація про сайт">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-paper)]">Про сайт</p>
+            <ul class="grid gap-0">
+              <li><a href="/pro-nas/" class="inline-block py-1.5 hover:text-[#ff8fa0]">Про нас</a></li>
+              <li><a href="/avtorka/" class="inline-block py-1.5 hover:text-[#ff8fa0]">Авторка</a></li>
+              <li><a href="/kalkulyator-rozmiru-vyshyvky/" class="inline-block py-1.5 hover:text-[#ff8fa0]">Калькулятор розміру</a></li>
+              <li><a href="/slovnyk-vyshyvky/" class="inline-block py-1.5 hover:text-[#ff8fa0]">Словник термінів</a></li>
+              <li><a href="/kontakty/" class="inline-block py-1.5 hover:text-[#ff8fa0]">Контакти</a></li>
+            </ul>
           </nav>
-          <p class="mt-3 border-t border-[var(--color-line)] pt-3">
-            Слідкуйте: <a href="https://www.pinterest.com/221rsgnveewbcgma13t7praynn2bnm/" target="_blank" rel="noopener" class="inline-block py-1.5 font-medium text-[var(--color-brand)] hover:underline">Pinterest</a> · <a href="/rss.xml" class="inline-block py-1.5 font-medium text-[var(--color-brand)] hover:underline">RSS</a>
-          </p>
+        </div>
+        <div class="border-t border-white/10">
+          <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 px-4 py-3 text-xs text-[#8f887d]">
+            <span>© 2026 Рідна вишивка</span>
+            <a href="/polityka-konfidentsiynosti/" class="inline-block py-1 hover:text-[#ff8fa0]">Політика конфіденційності</a>
+            <a href="/umovy-vykorystannya/" class="inline-block py-1 hover:text-[#ff8fa0]">Умови використання</a>
+          </div>
         </div>
       </div>
     </footer>

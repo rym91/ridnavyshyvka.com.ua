@@ -92,8 +92,11 @@ const showLeadMagnet = false;
   ogType="article"
   noindex={d.noindex}
   jsonld={jsonld}
+  wide={toc.length >= 3}
 >
   <Breadcrumbs items={crumbs} />
+  <div class:list={[toc.length >= 3 && 'lg:grid lg:grid-cols-[minmax(0,42rem)_15rem] lg:items-start lg:gap-12']}>
+  <div class="min-w-0">
   <article class="prose-uk">
     <h1 class="stitched mb-4 font-display text-3xl font-extrabold leading-tight text-[var(--color-ink)] md:text-4xl">{d.h1}</h1>
     <p class="mb-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[var(--color-ink-soft)]">
@@ -142,16 +145,6 @@ const showLeadMagnet = false;
               ))}
             </ul>
           </details>
-          <nav aria-label="Зміст статті" class="hidden rounded-xl border border-[var(--color-line)] bg-[var(--color-paper-2)] p-4 lg:block">
-            <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">Зміст</p>
-            <ul class="grid gap-0 text-sm">
-              {toc.map((h) => (
-                <li>
-                  <a href={`#${h.slug}`} class="text-[var(--color-brand)] hover:underline">{h.text}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
         </div>
       )
     }
@@ -235,4 +228,22 @@ const showLeadMagnet = false;
     )
   }
   <RelatedLinks items={related.map((p) => ({ title: p.data.h1, href: entryUrl(p) }))} />
+  </div>
+  {
+    toc.length >= 3 && (
+      <aside class="toc hidden lg:sticky lg:top-8 lg:block">
+        <nav aria-label="Зміст статті" class="rounded-xl border border-[var(--color-line)] bg-[var(--color-paper-2)] p-4">
+          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">Зміст</p>
+          <ul class="grid gap-0 text-sm">
+            {toc.map((h) => (
+              <li>
+                <a href={`#${h.slug}`} class="text-[var(--color-brand)] hover:underline">{h.text}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+    )
+  }
+  </div>
 </BaseLayout>
