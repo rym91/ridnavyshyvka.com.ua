@@ -95,7 +95,7 @@ const showLeadMagnet = false;
   wide={toc.length >= 3}
 >
   <Breadcrumbs items={crumbs} />
-  <div class:list={[toc.length >= 3 && 'lg:grid lg:grid-cols-[minmax(0,42rem)_15rem] lg:items-start lg:gap-12']}>
+  <div class:list={[toc.length >= 3 && 'lg:grid lg:grid-cols-[minmax(0,42rem)_15rem] lg:gap-12']}>
   <div class="min-w-0">
   <article class="prose-uk">
     <h1 class="stitched mb-4 font-display text-3xl font-extrabold leading-tight text-[var(--color-ink)] md:text-4xl">{d.h1}</h1>
@@ -231,17 +231,19 @@ const showLeadMagnet = false;
   </div>
   {
     toc.length >= 3 && (
-      <aside class="toc hidden lg:sticky lg:top-8 lg:block">
-        <nav aria-label="Зміст статті" class="rounded-xl border border-[var(--color-line)] bg-[var(--color-paper-2)] p-4">
-          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">Зміст</p>
-          <ul class="grid gap-0 text-sm">
-            {toc.map((h) => (
-              <li>
-                <a href={`#${h.slug}`} class="text-[var(--color-brand)] hover:underline">{h.text}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+      <aside class="toc hidden lg:block">
+        <div class="lg:sticky lg:top-8">
+          <nav aria-label="Зміст статті" class="rounded-xl border border-[var(--color-line)] bg-[var(--color-paper-2)] p-4">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">Зміст</p>
+            <ul class="grid gap-0 text-sm">
+              {toc.map((h) => (
+                <li>
+                  <a href={`#${h.slug}`} class="text-[var(--color-brand)] hover:underline">{h.text}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </aside>
     )
   }
