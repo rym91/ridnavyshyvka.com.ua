@@ -46,15 +46,15 @@ const jsonld = [
       <div class="grid gap-4 sm:grid-cols-3">
         <label class="block text-sm font-medium text-[var(--color-ink)]">
           Ширина (хрестиків)
-          <input id="cw" type="number" min="1" value="100" class="mt-1 w-full rounded-lg border border-[var(--color-line)] px-3 py-2 text-base" />
+          <input id="cw" type="text" inputmode="numeric" pattern="[0-9]*" value="100" class="mt-1 w-full rounded-lg border border-[var(--color-line)] px-3 py-2.5 text-base" />
         </label>
         <label class="block text-sm font-medium text-[var(--color-ink)]">
           Висота (хрестиків)
-          <input id="ch" type="number" min="1" value="100" class="mt-1 w-full rounded-lg border border-[var(--color-line)] px-3 py-2 text-base" />
+          <input id="ch" type="text" inputmode="numeric" pattern="[0-9]*" value="100" class="mt-1 w-full rounded-lg border border-[var(--color-line)] px-3 py-2.5 text-base" />
         </label>
         <label class="block text-sm font-medium text-[var(--color-ink)]">
           Каунт канви (Аїда)
-          <select id="cc" class="mt-1 w-full rounded-lg border border-[var(--color-line)] bg-white px-3 py-2 text-base">
+          <select id="cc" class="mt-1 w-full rounded-lg border border-[var(--color-line)] bg-white px-3 py-2.5 text-base">
             <option value="7">Аїда 7</option>
             <option value="11">Аїда 11</option>
             <option value="14" selected>Аїда 14</option>
@@ -67,15 +67,15 @@ const jsonld = [
       <dl class="mt-5 grid gap-3 sm:grid-cols-3">
         <div class="rounded-lg bg-[var(--color-paper-2)] p-3">
           <dt class="text-xs uppercase tracking-wide text-[var(--color-ink-soft)]">Розмір вишивки</dt>
-          <dd id="rSize" class="mt-1 font-display text-lg font-bold text-[var(--color-brand)]">—</dd>
+          <dd id="rSize" class="mt-1 font-display text-2xl font-bold text-[var(--color-brand)]" style="font-variant-numeric:tabular-nums">—</dd>
         </div>
         <div class="rounded-lg bg-[var(--color-paper-2)] p-3">
           <dt class="text-xs uppercase tracking-wide text-[var(--color-ink-soft)]">У дюймах</dt>
-          <dd id="rInch" class="mt-1 font-display text-lg font-bold text-[var(--color-ink)]">—</dd>
+          <dd id="rInch" class="mt-1 font-display text-2xl font-bold text-[var(--color-ink)]" style="font-variant-numeric:tabular-nums">—</dd>
         </div>
         <div class="rounded-lg bg-[var(--color-paper-2)] p-3">
           <dt class="text-xs uppercase tracking-wide text-[var(--color-ink-soft)]">Тканина з припуском</dt>
-          <dd id="rFabric" class="mt-1 font-display text-lg font-bold text-[var(--color-ink)]">—</dd>
+          <dd id="rFabric" class="mt-1 font-display text-2xl font-bold text-[var(--color-ink)]" style="font-variant-numeric:tabular-nums">—</dd>
         </div>
       </dl>
     </div>
@@ -97,6 +97,15 @@ const jsonld = [
       зокрема про <a href="/materialy-dlya-vyshyvky/kanva-dlya-vyshyvky/">канву</a> та <a href="/materialy-dlya-vyshyvky/nytky-muline-dlya-vyshyvky/">нитки муліне</a>.
       А як читати саму схему — у гайді <a href="/vyshyvka-hrestykom/yak-chytaty-shemy-hrestykom/">як читати схеми хрестиком</a>.
     </p>
+
+    <div class="not-prose mt-8 rounded-xl border border-[var(--color-line)] bg-white p-5 text-center">
+      <p class="font-display text-xl font-bold text-[var(--color-ink)]">Порахували розмір? Оберіть схему 🧵</p>
+      <p class="mt-1 text-[var(--color-ink-soft)]">Підбірки схем під різний рівень — від простих мотивів до картин.</p>
+      <a
+        href="/vyshyvka-hrestykom/shemy-hrestykom/"
+        class="mt-4 inline-block rounded-lg bg-[var(--color-brand)] px-6 py-3 font-semibold text-white no-underline transition-colors hover:bg-[var(--color-brand-dark)]"
+      >Схеми вишивки хрестиком →</a>
+    </div>
   </article>
   <Ornament height={18} class="mt-10" />
 </BaseLayout>

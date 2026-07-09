@@ -2,9 +2,11 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Ornament from '../components/Ornament.astro';
+import Picture from '../components/Picture.astro';
 import { SECTIONS } from '../lib/sections';
 import { entryUrl } from '../lib/links';
 import { organizationSchema, websiteSchema } from '../lib/schema';
+import heroImg from '../assets/heroes/vyshyvka-hrestykom-dlya-pochatkivciv.jpg';
 
 const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
 const jsonld = [organizationSchema(site.href), websiteSchema(site.href)];
@@ -23,27 +25,102 @@ const popular = pages
   ogType="website"
   jsonld={jsonld}
 >
-  <section class="-mx-4 mb-12 border-y border-[var(--color-line)] bg-[var(--color-paper-2)] px-4 py-14 text-center">
-    <p class="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--color-brand)]">
-      Українська вишивка
-    </p>
-    <h1
-      class="mx-auto max-w-2xl font-display text-3xl font-extrabold leading-[1.1] text-[var(--color-ink)] sm:text-4xl md:text-5xl"
-    >
-      Схеми, техніки та традиції вишивки
-    </h1>
-    <div class="mx-auto mt-4 w-14 border-t-[3px] border-dashed border-[var(--color-brand)]"></div>
-    <p class="mx-auto mt-5 max-w-xl text-lg text-[var(--color-ink-soft)]">
-      Вишивка хрестиком, бісером і гладдю: гайди, орнаменти та схеми — від першого стібка до власної
-      вишиванки.
-    </p>
+  <section class="-mx-4 mb-12 border-y border-[var(--color-line)] bg-[var(--color-paper-2)] px-4 py-10 md:py-12">
+    <div class="mx-auto grid max-w-5xl items-center gap-8 lg:grid-cols-[1.2fr_1fr]">
+      <div class="text-center lg:text-left">
+        <p class="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--color-brand)]">
+          Українська вишивка
+        </p>
+        <h1 class="font-display text-3xl font-extrabold leading-[1.1] text-[var(--color-ink)] sm:text-4xl md:text-5xl">
+          Схеми, техніки та традиції вишивки
+        </h1>
+        <div class="mx-auto mt-4 w-14 border-t-[3px] border-dashed border-[var(--color-brand)] lg:mx-0"></div>
+        <p class="mt-5 max-w-xl text-lg text-[var(--color-ink-soft)] max-lg:mx-auto">
+          Вишивка хрестиком, бісером і гладдю: гайди, орнаменти та схеми — від першого стібка до власної
+          вишиванки.
+        </p>
+        <div class="mt-7 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+          <a
+            href="/vyshyvka-hrestykom/vyshyvka-hrestykom-dlya-pochatkivciv/"
+            class="inline-block rounded-lg bg-[var(--color-brand)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--color-brand-dark)]"
+          >Зробити перший хрестик →</a>
+          <a
+            href="#rozdily"
+            class="inline-block rounded-lg border border-[var(--color-line)] bg-white px-6 py-3 font-semibold text-[var(--color-ink)] transition-colors hover:border-[var(--color-brand)] hover:text-[var(--color-brand)]"
+          >Всі розділи ↓</a>
+        </div>
+      </div>
+      <div class="hidden lg:block">
+        <Picture
+          src={heroImg}
+          alt="Руки вишивають перші хрестики червоним муліне на канві в дерев'яних п'яльцях"
+          loading="eager"
+          class="aspect-[4/3] w-full rounded-xl object-cover shadow-[0_18px_50px_-20px_rgba(26,23,20,0.45)]"
+          widths={[480, 760]}
+          sizes="(max-width: 1024px) 0px, 460px"
+        />
+      </div>
+    </div>
   </section>
 
-  <section class="prose-uk mb-12">
-    <p>
+  <section id="rozdily" style="scroll-margin-top:5rem">
+    <h2 class="h2-section mb-1">Розділи</h2>
+    <p class="mb-6 text-[var(--color-ink-soft)]">Оберіть напрям — від технік до орнаментів і матеріалів.</p>
+
+    <ul class="grid gap-5 sm:grid-cols-2">
+      {
+        SECTIONS.map((s, i) => (
+          <li
+            class:list={[
+              'group overflow-hidden rounded-xl border border-[var(--color-line)] bg-white transition-all hover:-translate-y-0.5 hover:border-[var(--color-brand)] hover:shadow-[0_6px_24px_-12px_rgba(179,18,43,0.4)]',
+              i === 0 && 'sm:col-span-2',
+            ]}
+          >
+            <a href={`/${s.slug}/`} class="block">
+              <Ornament height={10} />
+              <div class="p-5">
+                <h3 class="font-display text-lg font-bold text-[var(--color-ink)] group-hover:text-[var(--color-brand)]">
+                  {s.title}
+                </h3>
+                <p class="mt-1.5 text-sm leading-relaxed text-[var(--color-ink-soft)]">{s.description}</p>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="mt-14">
+    <h2 class="h2-section mb-1">Інструменти</h2>
+    <p class="mb-6 text-[var(--color-ink-soft)]">Помічники для вашої роботи.</p>
+    <div class="grid gap-5 sm:grid-cols-2">
+      <a
+        href="/kalkulyator-rozmiru-vyshyvky/"
+        class="group rounded-xl border border-[var(--color-line)] bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-[var(--color-brand)] hover:shadow-[0_6px_24px_-12px_rgba(179,18,43,0.4)]"
+      >
+        <p class="font-display text-lg font-bold text-[var(--color-ink)] group-hover:text-[var(--color-brand)]">🧮 Калькулятор розміру вишивки</p>
+        <p class="mt-1.5 text-sm leading-relaxed text-[var(--color-ink-soft)]">
+          Порахуйте розмір роботи в сантиметрах за каунтом канви — за 5 секунд.
+        </p>
+      </a>
+      <a
+        href="/slovnyk-vyshyvky/"
+        class="group rounded-xl border border-[var(--color-line)] bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-[var(--color-brand)] hover:shadow-[0_6px_24px_-12px_rgba(179,18,43,0.4)]"
+      >
+        <p class="font-display text-lg font-bold text-[var(--color-ink)] group-hover:text-[var(--color-brand)]">📖 Словник термінів вишивки</p>
+        <p class="mt-1.5 text-sm leading-relaxed text-[var(--color-ink-soft)]">
+          Каунт, бекстич, силянка, лиштва — всі поняття простими словами.
+        </p>
+      </a>
+    </div>
+  </section>
+
+  <section class="prose-uk mt-14">
+    <p class="text-[1.15rem] leading-relaxed">
       «Рідна вишивка» — це україномовний довідник про народну та сучасну вишивку. Тут зібрані зрозумілі
-      покрокові гайди з основних технік — вишивки <strong>хрестиком</strong>, <strong>бісером</strong>,
-      <strong>гладдю</strong> та <strong>мережкою</strong>, — а також розбір орнаментів вишиванки, символіки
+      покрокові гайди з основних технік — вишивки <strong>хрестиком</strong>, <strong>бісером</strong>, <strong>гладдю</strong> та
+      <strong>мережкою</strong>, — а також розбір орнаментів вишиванки, символіки
       кольорів і традицій вишитих рушників.
     </p>
     <p>
@@ -54,49 +131,23 @@ const popular = pages
     <p>
       Кожен розділ веде від основ до деталей: спершу загальний огляд теми, далі — конкретні гайди, схеми й поради.
       Усі матеріали ми регулярно доповнюємо й пишемо так, щоб їх можна було одразу застосувати на практиці.
-      Оберіть напрям нижче — і почніть свій шлях у світ української вишивки.
     </p>
   </section>
-
-  <h2 class="mb-1 font-display text-2xl font-bold text-[var(--color-ink)]">
-    <span class="x-mark">✕</span> Розділи
-  </h2>
-  <p class="mb-6 text-[var(--color-ink-soft)]">Оберіть напрям — від технік до орнаментів і матеріалів.</p>
-
-  <ul class="grid gap-5 sm:grid-cols-2">
-    {
-      SECTIONS.map((s) => (
-        <li class="group overflow-hidden rounded-xl border border-[var(--color-line)] bg-white transition-all hover:-translate-y-0.5 hover:border-[var(--color-brand)] hover:shadow-[0_6px_24px_-12px_rgba(179,18,43,0.4)]">
-          <a href={`/${s.slug}/`} class="block">
-            <Ornament height={10} />
-            <div class="p-5">
-              <h3 class="font-display text-lg font-bold text-[var(--color-ink)] group-hover:text-[var(--color-brand)]">
-                {s.title}
-              </h3>
-              <p class="mt-1.5 text-sm leading-relaxed text-[var(--color-ink-soft)]">{s.description}</p>
-            </div>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
 
   {
     popular.length > 0 && (
       <section class="mt-14">
-        <h2 class="mb-1 font-display text-2xl font-bold text-[var(--color-ink)]">
-          <span class="x-mark">✕</span> Популярні матеріали
-        </h2>
+        <h2 class="h2-section mb-1">Популярні матеріали</h2>
         <p class="mb-6 text-[var(--color-ink-soft)]">З чого почати знайомство з вишивкою.</p>
         <ul class="grid gap-3 sm:grid-cols-2">
           {popular.map((p) => (
             <li>
               <a
                 href={entryUrl(p)}
-                class="flex items-start gap-2 rounded-lg border border-[var(--color-line)] bg-white p-3 transition-colors hover:border-[var(--color-brand)]"
+                class="flex items-start gap-2 rounded-lg border border-[var(--color-line)] bg-white p-3 font-medium text-[var(--color-ink)] transition-colors hover:border-[var(--color-brand)] hover:text-[var(--color-brand)]"
               >
-                <span class="x-mark mt-0.5" aria-hidden="true">✕</span>
-                <span class="text-[var(--color-ink)]">{p.data.h1}</span>
+                <span class="x-mark mt-0.5 shrink-0" aria-hidden="true">✕</span>
+                {p.data.h1}
               </a>
             </li>
           ))}

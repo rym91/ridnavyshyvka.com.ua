@@ -115,19 +115,52 @@ const showLeadMagnet = false;
     }
     {d.hero && d.hero_alt && <Picture src={d.hero} alt={d.hero_alt} loading="eager" class="w-full rounded-lg" />}
     {
+      d.hero && heroAbs && (
+        <p class="mt-2 mb-0 text-right">
+          <a
+            href={`https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent(absUrl)}&media=${encodeURIComponent(heroAbs)}&description=${encodeURIComponent(d.h1)}`}
+            target="_blank"
+            rel="noopener nofollow"
+            class="inline-flex items-center gap-1.5 py-2 text-sm font-medium text-[var(--color-brand)] no-underline hover:underline"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.08 3.16 9.43 7.63 11.18-.11-.95-.2-2.4.04-3.44.22-.93 1.4-5.94 1.4-5.94s-.36-.71-.36-1.76c0-1.65.96-2.88 2.15-2.88 1.01 0 1.5.76 1.5 1.67 0 1.02-.65 2.55-.98 3.96-.28 1.18.59 2.14 1.76 2.14 2.11 0 3.73-2.22 3.73-5.43 0-2.84-2.04-4.83-4.96-4.83-3.38 0-5.36 2.53-5.36 5.15 0 1.02.39 2.11.88 2.71.1.12.11.22.08.34l-.33 1.34c-.05.22-.17.26-.4.16-1.5-.7-2.43-2.88-2.43-4.64 0-3.77 2.74-7.24 7.9-7.24 4.15 0 7.38 2.96 7.38 6.91 0 4.13-2.6 7.45-6.21 7.45-1.21 0-2.35-.63-2.74-1.37l-.75 2.85c-.27 1.04-1 2.35-1.49 3.15 1.12.35 2.31.53 3.54.53 6.63 0 12-5.37 12-12S18.63 0 12 0z"/></svg>
+            Зберегти в Pinterest
+          </a>
+        </p>
+      )
+    }
+    {
       toc.length >= 3 && (
-        <nav aria-label="Зміст статті" class="toc my-6 rounded-xl border border-[var(--color-line)] bg-[var(--color-paper-2)] p-4">
-          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">Зміст</p>
-          <ul class="grid gap-1.5 text-sm">
-            {toc.map((h) => (
-              <li>
-                <a href={`#${h.slug}`} class="text-[var(--color-brand)] hover:underline">
-                  {h.text}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div id="zmist" class="toc my-6" style="scroll-margin-top:5rem">
+          <details class="rounded-xl border border-[var(--color-line)] bg-[var(--color-paper-2)] p-4 lg:hidden">
+            <summary class="cursor-pointer text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">Зміст статті ▾</summary>
+            <ul class="mt-2 grid gap-0 text-sm">
+              {toc.map((h) => (
+                <li>
+                  <a href={`#${h.slug}`} class="text-[var(--color-brand)] hover:underline">{h.text}</a>
+                </li>
+              ))}
+            </ul>
+          </details>
+          <nav aria-label="Зміст статті" class="hidden rounded-xl border border-[var(--color-line)] bg-[var(--color-paper-2)] p-4 lg:block">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">Зміст</p>
+            <ul class="grid gap-0 text-sm">
+              {toc.map((h) => (
+                <li>
+                  <a href={`#${h.slug}`} class="text-[var(--color-brand)] hover:underline">{h.text}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      )
+    }
+    {
+      ['vyshyvka-hrestykom', 'materialy-dlya-vyshyvky'].includes(d.section) && (
+        <aside class="toc my-6 rounded-xl border border-[var(--color-line)] bg-white p-4 text-sm text-[var(--color-ink-soft)]">
+          🧮 Не знаєте, скільки тканини потрібно?
+          <a href="/kalkulyator-rozmiru-vyshyvky/" class="font-medium text-[var(--color-brand)] hover:underline">Калькулятор розміру вишивки →</a>
+        </aside>
       )
     }
     <slot />
@@ -142,7 +175,7 @@ const showLeadMagnet = false;
                   <span>{f.q}</span>
                   <span class="faq-plus shrink-0 text-xl leading-none text-[var(--color-brand)]" aria-hidden="true">+</span>
                 </summary>
-                <div class="px-4 pb-4 text-[var(--color-ink-soft)]">{f.a}</div>
+                <div class="px-4 pb-4 text-[var(--color-ink)]">{f.a}</div>
               </details>
             ))}
           </div>
@@ -150,12 +183,17 @@ const showLeadMagnet = false;
       )
     }
   </article>
+  {
+    toc.length >= 3 && (
+      <a href="#zmist" class="inline-block py-2 text-sm text-[var(--color-brand)] hover:underline lg:hidden">↑ До змісту</a>
+    )
+  }
   <Ornament height={18} class="mt-10" />
   {showLeadMagnet && <LeadMagnet />}
   {
     d.page_type === 'pillar' && sectionPages.length > 0 && (
       <section class="mt-8">
-        <h2 class="mb-3 font-display text-xl font-bold text-[var(--color-ink)]">Матеріали розділу</h2>
+        <h2 class="h2-section mb-3">Матеріали розділу</h2>
         <ul class="grid gap-2 sm:grid-cols-2">
           {sectionPages.map((p) => (
             <li>
@@ -171,31 +209,27 @@ const showLeadMagnet = false;
   {
     d.page_type !== 'pillar' && (prevPage || nextPage) && (
       <nav aria-label="Навігація розділом" class="mt-10 grid gap-3 sm:grid-cols-2">
-        {prevPage ? (
+        {prevPage && (
           <a
             href={entryUrl(prevPage)}
-            class="group rounded-lg border border-[var(--color-line)] bg-white p-3 transition-colors hover:border-[var(--color-brand)]"
+            class:list={['group rounded-lg border border-[var(--color-line)] bg-white p-3 transition-colors hover:border-[var(--color-brand)]', !nextPage && 'sm:col-span-2']}
           >
             <span class="block text-xs uppercase tracking-wide text-[var(--color-ink-soft)]">← Попередня</span>
             <span class="mt-1 block font-medium text-[var(--color-ink)] group-hover:text-[var(--color-brand)]">
               {prevPage.data.h1}
             </span>
           </a>
-        ) : (
-          <span class="hidden sm:block" />
         )}
-        {nextPage ? (
+        {nextPage && (
           <a
             href={entryUrl(nextPage)}
-            class="group rounded-lg border border-[var(--color-line)] bg-white p-3 text-right transition-colors hover:border-[var(--color-brand)]"
+            class:list={['group rounded-lg border border-[var(--color-line)] bg-white p-3 text-right transition-colors hover:border-[var(--color-brand)]', !prevPage && 'sm:col-span-2']}
           >
             <span class="block text-xs uppercase tracking-wide text-[var(--color-ink-soft)]">Наступна →</span>
             <span class="mt-1 block font-medium text-[var(--color-ink)] group-hover:text-[var(--color-brand)]">
               {nextPage.data.h1}
             </span>
           </a>
-        ) : (
-          <span class="hidden sm:block" />
         )}
       </nav>
     )

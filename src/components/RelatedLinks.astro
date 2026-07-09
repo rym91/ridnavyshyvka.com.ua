@@ -7,15 +7,20 @@ interface Props {
   items: Item[];
 }
 const { items } = Astro.props;
+const shown = items.slice(0, 6);
 ---
 {
-  items.length > 0 && (
-    <section class="mt-10 border-t border-stone-200 pt-6">
-      <h2 class="mb-3 font-display text-xl font-bold text-[var(--color-ink)]">Схожі матеріали</h2>
-      <ul class="grid gap-2 sm:grid-cols-2">
-        {items.map((it) => (
+  shown.length > 0 && (
+    <section class="mt-10 border-t border-[var(--color-line)] pt-6">
+      <h2 class="h2-section mb-4">Схожі матеріали</h2>
+      <ul class="grid gap-3 sm:grid-cols-2">
+        {shown.map((it) => (
           <li>
-            <a href={it.href} class="text-[var(--color-brand)] hover:underline">
+            <a
+              href={it.href}
+              class="flex items-center gap-2 rounded-lg border border-[var(--color-line)] bg-white px-4 py-3 font-medium text-[var(--color-ink)] transition-colors hover:border-[var(--color-brand)] hover:text-[var(--color-brand)]"
+            >
+              <span class="x-mark shrink-0" aria-hidden="true">✕</span>
               {it.title}
             </a>
           </li>
