@@ -2,6 +2,8 @@
 section: vyshyvka-hrestykom
 page_type: article
 slug: suchasna-vyshyvka-hrestykom
+hero: ../../../assets/heroes/suchasna-vyshyvka-hrestykom.jpg
+hero_alt: "Сучасна мінімалістична вишивка хрестиком у деревʼяних пʼяльцях на білій канві"
 title: "Сучасна вишивка хрестиком: тренди й мотиви"
 h1: "Сучасна вишивка хрестиком"
 meta_description: "Сучасна вишивка хрестиком: чим відрізняється від традиційної, які тренди й мотиви популярні зараз, які матеріали та схеми обрати для роботи."
