@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Ornament from '../components/Ornament.astro';
 import Picture from '../components/Picture.astro';
@@ -10,6 +11,7 @@ import heroImg from '../assets/heroes/vyshyvka-hrestykom-dlya-pochatkivciv.jpg';
 
 const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
 const jsonld = [organizationSchema(site.href), websiteSchema(site.href)];
+const heroAbs = new URL((await getImage({ src: heroImg })).src, site).href;
 
 // Популярні матеріали: Tier-A, не pillar, пріоритет P1 першими.
 const pages = await getCollection('pages', (p) => (import.meta.env.PROD ? !p.data.draft : true));
@@ -23,6 +25,7 @@ const popular = pages
   description="Схеми вишивки хрестиком і бісером, техніки, орнаменти вишиванки та символіка. Усе про українську вишивку в одному місці."
   canonicalPath="/"
   ogType="website"
+  image={heroAbs}
   jsonld={jsonld}
 >
   <section class="-mx-4 mb-12 border-y border-[var(--color-line)] bg-[var(--color-paper-2)] px-4 py-10 md:py-12">
