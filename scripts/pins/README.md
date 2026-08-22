@@ -28,8 +28,9 @@ node scripts/pins/build-csv.mjs          # CSV → scripts/pins/export/
 ```bash
 node scripts/pins/render-pins.mjs --only=vesilnyi       # перерендерити один пін або групу
 node scripts/pins/render-pins.mjs --out=/tmp/preview    # не чіпати банк, подивитися чернетку
-node scripts/pins/build-csv.mjs --start=2026-09-01 --per-day=3   # проставити дати публікації
+node scripts/pins/build-csv.mjs --start=2026-09-01 --per-day=8   # проставити дати публікації
 node scripts/pins/build-csv.mjs --flatten               # описи в один рядок, якщо імпорт не любить переноси
+node scripts/pins/build-csv.mjs --order=manifest        # без перетасовки, у порядку маніфесту
 ```
 
 ## Розкладки
@@ -64,6 +65,15 @@ A і B повторюють піни першої партії (липень–�
 - **`export/pins-make.csv`** — усі поля, включно з `alt_text`, для сценарію Make або Pinterest API.
 
 Назви дошок у колонці `Pinterest board` мають збігатися з назвами дошок в акаунті — інакше рядок не імпортується.
+
+## Порядок і час публікації
+
+У маніфесті піни лежать групами по сторінці, тож `build-csv.mjs` перетасовує їх перед експортом:
+варіанти одного URL розходяться на кілька днів, а сусідні піни йдуть на різні дошки.
+Без цього в перший же день пішло б три піни на одне посилання.
+
+`--start` + `--per-day` проставляють колонку `Publish date`. Слоти дня рівномірно
+розкидані між 08:00 і 20:45; час — у часовому поясі акаунта Pinterest, у CSV його не передати.
 
 ## Обмеження Pinterest
 

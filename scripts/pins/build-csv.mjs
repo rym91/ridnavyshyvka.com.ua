@@ -5,7 +5,7 @@
  *   node scripts/pins/build-csv.mjs
  *   node scripts/pins/build-csv.mjs --start=2026-09-01 --per-day=3   # проставити дати публікації
  *   node scripts/pins/build-csv.mjs --flatten                        # без переносів рядків в описах
- *   node scripts/pins/build-csv.mjs --new-only                       # лише піни цієї партії
+ *   node scripts/pins/build-csv.mjs --order=manifest                 # без перетасовки порядку
  *
  * На виході (scripts/pins/export/):
  *   pinterest-bulk.csv — рівно ті 8 колонок, що очікує масове завантаження Pinterest
@@ -36,13 +36,84 @@ function toCsv(header, rows) {
 }
 
 /**
+ * Порядок публікації. У маніфесті піни лежать групами по сторінці,
+ * тож без перетасовки в один день пішло б три піни на той самий URL — для Pinterest це спам.
+ *
+ * Розкладаємо так:
+ *  1) групуємо піни за посиланням і шикуємо групи по колу через розділи,
+ *     щоб сусідні піни йшли на різні дошки;
+ *  2) сторінки з кількома варіантами розкидаємо по третинах стрічки з кроком —
+ *     A, B і C одного URL розходяться на кілька днів і не забивають день однією дошкою;
+ *  3) вільні слоти заповнюємо сторінками, у яких варіант один.
+ */
+function spreadOrder(pins) {
+  const byLink = new Map();
+  for (const p of pins) {
+    if (!byLink.has(p.link)) byLink.set(p.link, []);
+    byLink.get(p.link).push(p);
+  }
+
+  const lanes = new Map();
+  for (const group of byLink.values()) {
+    const key = group[0].section;
+    if (!lanes.has(key)) lanes.set(key, []);
+    lanes.get(key).push(group);
+  }
+
+  const queue = [];
+  const laneList = [...lanes.values()];
+  const deepest = Math.max(...laneList.map((l) => l.length));
+  for (let i = 0; i < deepest; i++) {
+    for (const lane of laneList) if (lane[i]) queue.push(lane[i]);
+  }
+
+  const total = pins.length;
+  const rounds = Math.max(...queue.map((g) => g.length));
+  const multi = queue.filter((g) => g.length > 1);
+  const singles = queue.filter((g) => g.length === 1).map((g) => g[0]);
+  const slots = new Array(total).fill(null);
+
+  const freeFrom = (from) => {
+    for (let i = 0; i < total; i++) {
+      const at = (from + i) % total;
+      if (!slots[at]) return at;
+    }
+    throw new Error('Немає вільних слотів');
+  };
+
+  // Крок між сторінками з кількома варіантами — щоб вони не йшли підряд
+  // і не забивали один день однією дошкою.
+  const stride = Math.max(1, Math.floor(total / rounds / Math.max(1, multi.length)));
+
+  for (let round = 0; round < rounds; round++) {
+    const base = Math.round((round * total) / rounds);
+    multi.forEach((group, k) => {
+      if (!group[round]) return;
+      const at = freeFrom(base + k * stride);
+      slots[at] = group[round];
+    });
+  }
+
+  let next = 0;
+  for (let i = 0; i < total; i++) if (!slots[i]) slots[i] = singles[next++];
+  return slots;
+}
+
+/** Слоти дня рівномірно розкидані між 08:00 і 21:00; хвилини — щоб час не збігався. */
+function slotTime(slot, perDay) {
+  const [first, last] = [8, 20];
+  const hh = perDay === 1 ? 12 : Math.round(first + (slot * (last - first)) / (perDay - 1));
+  const mm = (slot % 4) * 15;
+  return `${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}`;
+}
+
+/**
  * Дати публікації: Pinterest планує максимум на 30 днів уперед,
  * тому за замовчуванням колонка порожня — піни підуть одразу.
  */
 function schedule(count) {
   if (!args.start) return () => '';
   const perDay = Math.max(1, Number(args['per-day'] || 2));
-  const hours = [9, 13, 17, 20, 11, 15];
   const start = new Date(`${args.start}T00:00:00Z`);
   if (Number.isNaN(start.getTime())) throw new Error(`Некоректна дата --start=${args.start}`);
   const days = Math.ceil(count / perDay);
@@ -52,17 +123,13 @@ function schedule(count) {
   return (i) => {
     const d = new Date(start);
     d.setUTCDate(d.getUTCDate() + Math.floor(i / perDay));
-    const hh = String(hours[i % perDay] ?? 12).padStart(2, '0');
-    return `${d.toISOString().slice(0, 10)} ${hh}:00`;
+    return `${d.toISOString().slice(0, 10)} ${slotTime(i % perDay, perDay)}`;
   };
 }
 
 const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'scripts/pins/pins.json'), 'utf8'));
 let pins = manifest.pins;
-if (args['new-only']) {
-  const cutoff = new Set(pins.map((p) => p.id));
-  pins = pins.filter((p) => cutoff.has(p.id));
-}
+if (args.order !== 'manifest') pins = spreadOrder(pins);
 
 const text = (s) => (args.flatten ? String(s).replace(/\s*\n+\s*/g, ' ').trim() : s);
 const at = schedule(pins.length);
@@ -90,6 +157,7 @@ const longest = pins.reduce((a, p) => Math.max(a, p.title.length), 0);
 console.log(`Рядків: ${pins.length}`);
 console.log(`Дошок: ${new Set(pins.map((p) => p.board)).size}, URL-адрес: ${new Set(pins.map((p) => p.link)).size}`);
 console.log(`Найдовший title: ${longest} символів (ліміт 100)`);
+console.log(`Порядок: ${args.order === 'manifest' ? 'як у маніфесті' : 'рознесений (один URL не повторюється підряд)'}`);
 console.log(`Дати публікації: ${args.start ? `з ${args.start}, по ${args['per-day'] || 2}/день` : 'порожні (публікація одразу)'}`);
 console.log(`\n→ ${path.relative(ROOT, path.join(OUT_DIR, 'pinterest-bulk.csv'))}`);
 console.log(`→ ${path.relative(ROOT, path.join(OUT_DIR, 'pins-make.csv'))}`);
