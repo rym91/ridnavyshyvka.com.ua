@@ -29,6 +29,7 @@ node scripts/pins/build-csv.mjs          # CSV → scripts/pins/export/
 node scripts/pins/render-pins.mjs --only=vesilnyi       # перерендерити один пін або групу
 node scripts/pins/render-pins.mjs --out=/tmp/preview    # не чіпати банк, подивитися чернетку
 node scripts/pins/build-csv.mjs --start=2026-09-01 --per-day=8   # проставити дати публікації
+node scripts/pins/build-csv.mjs --start=... --first-slot=12:00   # перший день починається пізніше
 node scripts/pins/build-csv.mjs --flatten               # описи в один рядок, якщо імпорт не любить переноси
 node scripts/pins/build-csv.mjs --order=manifest        # без перетасовки, у порядку маніфесту
 ```
@@ -72,8 +73,12 @@ A і B повторюють піни першої партії (липень–�
 варіанти одного URL розходяться на кілька днів, а сусідні піни йдуть на різні дошки.
 Без цього в перший же день пішло б три піни на одне посилання.
 
-`--start` + `--per-day` проставляють колонку `Publish date`. Слоти дня рівномірно
-розкидані між 08:00 і 20:45; час — у часовому поясі акаунта Pinterest, у CSV його не передати.
+`--start` + `--per-day` проставляють колонку `Publish date`. Слоти рівномірно розкидані
+по вікну 08:00–20:00 (крок рахується у хвилинах, округлюється до 5). Час — у часовому
+поясі акаунта Pinterest, у CSV його не передати.
+
+`--first-slot=ГГ:ХХ` зсуває початок **лише першого дня**: якщо CSV заливають, скажімо,
+об 11-й, то слоти на 08:00 і 09:45 уже в минулому і Pinterest їх не візьме.
 
 ## Обмеження Pinterest
 

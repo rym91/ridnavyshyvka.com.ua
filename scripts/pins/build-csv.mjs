@@ -3,7 +3,8 @@
  * Готує файли імпорту в Pinterest із маніфесту scripts/pins/pins.json.
  *
  *   node scripts/pins/build-csv.mjs
- *   node scripts/pins/build-csv.mjs --start=2026-09-01 --per-day=3   # проставити дати публікації
+ *   node scripts/pins/build-csv.mjs --start=2026-09-01 --per-day=8   # проставити дати публікації
+ *   node scripts/pins/build-csv.mjs --start=... --first-slot=12:00  # перший день починається пізніше
  *   node scripts/pins/build-csv.mjs --flatten                        # без переносів рядків в описах
  *   node scripts/pins/build-csv.mjs --order=manifest                 # без перетасовки порядку
  *
@@ -99,12 +100,24 @@ function spreadOrder(pins) {
   return slots;
 }
 
-/** Слоти дня рівномірно розкидані між 08:00 і 21:00; хвилини — щоб час не збігався. */
-function slotTime(slot, perDay) {
-  const [first, last] = [8, 20];
-  const hh = perDay === 1 ? 12 : Math.round(first + (slot * (last - first)) / (perDay - 1));
-  const mm = (slot % 4) * 15;
-  return `${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}`;
+/** Робоче вікно доби для публікацій. */
+const DAY_WINDOW = [8 * 60, 20 * 60];
+
+function parseHm(value, label) {
+  if (!value || value === true) return null;
+  const m = String(value).match(/^(\d{1,2}):(\d{2})$/);
+  if (!m) throw new Error(`Некоректний час ${label}=${value}, треба ГГ:ХХ`);
+  const minutes = Number(m[1]) * 60 + Number(m[2]);
+  if (minutes >= DAY_WINDOW[1]) throw new Error(`${label}=${value} — не раніше за кінець вікна публікацій`);
+  return minutes;
+}
+
+/** Слоти рівномірно розкидані по вікну: крок рахуємо у хвилинах і округлюємо до 5. */
+function slotTime(slot, perDay, from) {
+  const to = DAY_WINDOW[1];
+  const raw = perDay === 1 ? (from + to) / 2 : from + (slot * (to - from)) / (perDay - 1);
+  const minutes = Math.round(raw / 5) * 5;
+  return `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
 }
 
 /**
@@ -120,10 +133,15 @@ function schedule(count) {
   if (days > 30) {
     console.warn(`⚠ ${count} пінів по ${perDay}/день — це ${days} днів, а Pinterest планує максимум на 30.`);
   }
+  // У перший день піни не мають ставати в минуле — початок вікна можна відсунути.
+  const firstSlot = parseHm(args['first-slot'], '--first-slot');
+
   return (i) => {
+    const day = Math.floor(i / perDay);
     const d = new Date(start);
-    d.setUTCDate(d.getUTCDate() + Math.floor(i / perDay));
-    return `${d.toISOString().slice(0, 10)} ${slotTime(i % perDay, perDay)}`;
+    d.setUTCDate(d.getUTCDate() + day);
+    const from = day === 0 && firstSlot !== null ? Math.max(firstSlot, DAY_WINDOW[0]) : DAY_WINDOW[0];
+    return `${d.toISOString().slice(0, 10)} ${slotTime(i % perDay, perDay, from)}`;
   };
 }
 
@@ -159,5 +177,10 @@ console.log(`Дошок: ${new Set(pins.map((p) => p.board)).size}, URL-адре
 console.log(`Найдовший title: ${longest} символів (ліміт 100)`);
 console.log(`Порядок: ${args.order === 'manifest' ? 'як у маніфесті' : 'рознесений (один URL не повторюється підряд)'}`);
 console.log(`Дати публікації: ${args.start ? `з ${args.start}, по ${args['per-day'] || 2}/день` : 'порожні (публікація одразу)'}`);
+if (args.start) {
+  const perDay = Math.max(1, Number(args['per-day'] || 2));
+  const dayOne = pins.slice(0, perDay).map((_, i) => at(i).slice(11)).join(', ');
+  console.log(`Перший день: ${dayOne}`);
+}
 console.log(`\n→ ${path.relative(ROOT, path.join(OUT_DIR, 'pinterest-bulk.csv'))}`);
 console.log(`→ ${path.relative(ROOT, path.join(OUT_DIR, 'pins-make.csv'))}`);
