@@ -20,17 +20,30 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const SITE = 'https://ridnavyshyvka.com.ua';
 
-/** Рубрика на піні + дошка Pinterest для кожного розділу сайту. */
-const SECTIONS = {
-  'vyshyvka-hrestykom': { eyebrow: 'ВИШИВКА ХРЕСТИКОМ', board: 'Вишивка хрестиком' },
-  'vyshyvka-biserom': { eyebrow: 'ВИШИВКА БІСЕРОМ', board: 'Вишивка бісером' },
-  'tehniky-vyshyvky': { eyebrow: 'ТЕХНІКИ ВИШИВКИ', board: 'Техніки вишивки' },
-  vyshyvanka: { eyebrow: 'ВИШИВАНКА', board: 'Вишиванка та орнаменти' },
-  'vyshyti-rushnyky': { eyebrow: 'РУШНИКИ', board: 'Вишиті рушники' },
-  'materialy-dlya-vyshyvky': { eyebrow: 'МАТЕРІАЛИ', board: 'Матеріали для вишивки' },
-  'ukrayinska-vyshyvka': { eyebrow: 'УКРАЇНСЬКА ВИШИВКА', board: 'Українська вишивка' },
-  site: { eyebrow: 'РІДНА ВИШИВКА', board: 'Українська вишивка' },
+/**
+ * Назви дощок живуть у boards.json — це налаштування акаунта, а не контент.
+ * Якщо назва не збігається з дошкою в Pinterest символ у символ, рядок не імпортується.
+ */
+const BOARDS = JSON.parse(fs.readFileSync(path.join(ROOT, 'scripts/pins/boards.json'), 'utf8')).boards;
+
+/** Рубрика, яку друкуємо на самому піні, для кожного розділу сайту. */
+const EYEBROWS = {
+  'vyshyvka-hrestykom': 'ВИШИВКА ХРЕСТИКОМ',
+  'vyshyvka-biserom': 'ВИШИВКА БІСЕРОМ',
+  'tehniky-vyshyvky': 'ТЕХНІКИ ВИШИВКИ',
+  vyshyvanka: 'ВИШИВАНКА',
+  'vyshyti-rushnyky': 'РУШНИКИ',
+  'materialy-dlya-vyshyvky': 'МАТЕРІАЛИ',
+  'ukrayinska-vyshyvka': 'УКРАЇНСЬКА ВИШИВКА',
+  site: 'РІДНА ВИШИВКА',
 };
+
+const SECTIONS = Object.fromEntries(
+  Object.keys(EYEBROWS).map((slug) => {
+    if (!BOARDS[slug]) throw new Error(`У boards.json немає дошки для розділу «${slug}»`);
+    return [slug, { eyebrow: EYEBROWS[slug], board: BOARDS[slug] }];
+  }),
+);
 
 /**
  * Партія 1 — пʼять статей, у яких досі не було жодного піна.

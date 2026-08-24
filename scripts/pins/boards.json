@@ -1,0 +1,13 @@
+{
+  "_comment": "Назви дощок Pinterest у колонці «Pinterest board». Мають збігатися з назвами в акаунті символ у символ, інакше рядок не імпортується. Після правки: node scripts/pins/build-manifest.mjs && node scripts/pins/build-csv.mjs --start=... --per-day=8",
+  "boards": {
+    "vyshyvka-hrestykom": "Вишивка хрестиком",
+    "vyshyvka-biserom": "Вишивка бісером",
+    "tehniky-vyshyvky": "Техніки вишивки",
+    "vyshyvanka": "Вишиванка та орнаменти",
+    "vyshyti-rushnyky": "Вишиті рушники",
+    "materialy-dlya-vyshyvky": "Матеріали для вишивки",
+    "ukrayinska-vyshyvka": "Українська вишивка",
+    "site": "Українська вишивка"
+  }
+}
