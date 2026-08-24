@@ -181,6 +181,19 @@ if (args.start) {
   const perDay = Math.max(1, Number(args['per-day'] || 2));
   const dayOne = pins.slice(0, perDay).map((_, i) => at(i).slice(11)).join(', ');
   console.log(`Перший день: ${dayOne}`);
+
+  // Слот у минулому Pinterest не візьме. Годинний пояс акаунта скрипт не знає,
+  // тож рахуємо запас від UTC — це найобережніша оцінка.
+  const firstAt = new Date(`${at(0).replace(' ', 'T')}:00Z`);
+  const hoursAhead = (firstAt - Date.now()) / 3_600_000;
+  const gap = `${Math.floor(Math.abs(hoursAhead))} год ${Math.round((Math.abs(hoursAhead) % 1) * 60)} хв`;
+  if (hoursAhead < 0) {
+    console.warn(`\n⚠ Перший слот ${at(0)} уже в минулому (${gap} тому за UTC) — Pinterest його не прийме.`);
+  } else if (hoursAhead < 1) {
+    console.warn(`\n⚠ До першого слота ${at(0)} лишилось ${gap} за UTC — впритул, візьміть пізніший --first-slot.`);
+  } else {
+    console.log(`Запас до першого слота: ${gap} (за UTC; в акаунті час читається у його поясі)`);
+  }
 }
 console.log(`\n→ ${path.relative(ROOT, path.join(OUT_DIR, 'pinterest-bulk.csv'))}`);
 console.log(`→ ${path.relative(ROOT, path.join(OUT_DIR, 'pins-make.csv'))}`);
