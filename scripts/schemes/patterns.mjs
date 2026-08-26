@@ -27,29 +27,53 @@ function build(size, fn) {
 }
 
 /**
- * Восьмикутна зірка = обʼєднання ромба й квадрата (той самий квадрат, повернутий на 45°).
- * Ромб дає чотири вістря по осях, кути квадрата — чотири по діагоналях.
+ * Восьмипроменева зірка через зірчастий багатокутник.
  *
- * Виступ по осі дорівнює D − S, по діагоналі — (2S − D)/√2. Прирівнявши їх,
- * отримуємо D = S·√2: усі вісім променів виходять однакової довжини.
- * Обидві фігури опуклі, тож обʼєднання завжди звʼязне — «конфеті» не буває за побудовою.
+ * Обʼєднання ромба й квадрата (класична «зірка Лакшмі») тут не годиться:
+ * у нього западини сидять на радіусі 1.08·S при вістрях на 1.41·S, тобто
+ * r/R ≈ 0.77 — око бачить восьмикутник, а не зірку. Промені з такої
+ * конструкції не витягнути, це властивість самої фігури.
+ *
+ * Тому задаємо межу явно: 16 вершин — вісім вістер на радіусі R (через 45°)
+ * і вісім западин на радіусі r (зі зсувом 22.5°). Зірка читається як зірка
+ * при r/R ≈ 0.35–0.50.
  */
-function inStar(dx, dy, diamond, square) {
-  return Math.abs(dx) + Math.abs(dy) <= diamond || Math.max(Math.abs(dx), Math.abs(dy)) <= square;
+function starPolygon(R, r, points = 8) {
+  const verts = [];
+  const step = Math.PI / points;
+  for (let i = 0; i < points * 2; i++) {
+    const rad = i % 2 === 0 ? R : r;
+    const a = i * step - Math.PI / 2;
+    verts.push([rad * Math.cos(a), rad * Math.sin(a)]);
+  }
+  return verts;
 }
 
-/** Чорний контур по межі фігури, червона заливка, чорне ядро в центрі. */
-function star8(size, square, core) {
-  const diamond = Math.round(square * Math.SQRT2);
+function inPolygon(px, py, verts) {
+  let inside = false;
+  for (let i = 0, j = verts.length - 1; i < verts.length; j = i++) {
+    const [xi, yi] = verts[i];
+    const [xj, yj] = verts[j];
+    if (yi > py !== yj > py && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
+/**
+ * Чорний контур по межі, червона заливка, всередині — ступінчастий ромб
+ * негативом. Суцільне червоне поле без внутрішньої деталі виглядає
+ * заливкою, а не лічильною вишивкою.
+ */
+function star8(size, R, r, coreOuter, coreInner) {
+  const verts = starPolygon(R, r);
+  const hit = (dx, dy) => inPolygon(dx, dy, verts);
   return build(size, (dx, dy) => {
-    if (!inStar(dx, dy, diamond, square)) return '.';
-    const edge =
-      !inStar(dx + 1, dy, diamond, square) ||
-      !inStar(dx - 1, dy, diamond, square) ||
-      !inStar(dx, dy + 1, diamond, square) ||
-      !inStar(dx, dy - 1, diamond, square);
+    if (!hit(dx, dy)) return '.';
+    const edge = !hit(dx + 1, dy) || !hit(dx - 1, dy) || !hit(dx, dy + 1) || !hit(dx, dy - 1);
     if (edge) return 'k';
-    if (Math.abs(dx) + Math.abs(dy) <= core) return 'k';
+    const d = Math.abs(dx) + Math.abs(dy);
+    if (d === coreOuter || d === coreInner) return 'k'; // два ромби-обводи в центрі
+    if (d < coreInner) return 'r';
     return 'r';
   });
 }
@@ -61,7 +85,7 @@ export const PATTERNS = [
     subtitle: 'Символ сонця й центру світу — найдавніший мотив української вишивки',
     meaning:
       'Восьмикутну зірку вишивали на грудях і плечах сорочки — там, де оберіг мав захищати найбільше. У народній традиції це знак сонця, ладу й повноти світу.',
-    grid: star8(25, 8, 3),
+    grid: star8(29, 13.5, 6, 7, 3),
     level: 'Початковий',
     hours: '2–3 години',
   },
