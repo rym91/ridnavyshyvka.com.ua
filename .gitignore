@@ -16,3 +16,6 @@ npm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
+
+# превʼю схем — робочі артефакти рендера
+scripts/schemes/preview/
