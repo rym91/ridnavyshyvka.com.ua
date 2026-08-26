@@ -2,6 +2,8 @@
 section: "vyshyvka-biserom"
 page_type: "article"
 slug: "zagotovky-dlya-vyshyvky-biserom"
+hero: ../../../assets/heroes/zagotovky-dlya-vyshyvky-biserom.jpg
+hero_alt: "Червоний, чорний і білий бісер та голка на тканині поруч зі схемою в клітинку"
 title: "Заготовки для вишивки бісером: що це і як обрати"
 h1: "Заготовки для вишивки бісером"
 meta_description: "Заготовки для вишивки бісером: тканина з нанесеним малюнком і схемою. Які бувають, з чого складається набір і як обрати якісну основу."
