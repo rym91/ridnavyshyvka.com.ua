@@ -64,14 +64,10 @@ const jsonld = [
           </select>
         </label>
       </div>
-      <dl class="mt-5 grid gap-3 sm:grid-cols-3">
+      <dl class="mt-5 grid gap-3 sm:grid-cols-2">
         <div class="rounded-lg bg-[var(--color-paper-2)] p-3">
           <dt class="text-xs uppercase tracking-wide text-[var(--color-ink-soft)]">Розмір вишивки</dt>
           <dd id="rSize" class="mt-1 font-display text-2xl font-bold text-[var(--color-brand)]" style="font-variant-numeric:tabular-nums">—</dd>
-        </div>
-        <div class="rounded-lg bg-[var(--color-paper-2)] p-3">
-          <dt class="text-xs uppercase tracking-wide text-[var(--color-ink-soft)]">У дюймах</dt>
-          <dd id="rInch" class="mt-1 font-display text-2xl font-bold text-[var(--color-ink)]" style="font-variant-numeric:tabular-nums">—</dd>
         </div>
         <div class="rounded-lg bg-[var(--color-paper-2)] p-3">
           <dt class="text-xs uppercase tracking-wide text-[var(--color-ink-soft)]">Тканина з припуском</dt>
@@ -103,7 +99,8 @@ const jsonld = [
       <p class="mt-1 text-[var(--color-ink-soft)]">Підбірки схем під різний рівень — від простих мотивів до картин.</p>
       <a
         href="/vyshyvka-hrestykom/shemy-hrestykom/"
-        class="mt-4 inline-block rounded-lg bg-[var(--color-brand)] px-6 py-3 font-semibold text-white no-underline transition-colors hover:bg-[var(--color-brand-dark)]"
+        style="color:#fff"
+        class="mt-4 inline-block rounded-lg bg-[var(--color-brand)] px-6 py-3 font-semibold no-underline transition-colors hover:bg-[var(--color-brand-dark)]"
       >Схеми вишивки хрестиком →</a>
     </div>
   </article>
@@ -111,5 +108,5 @@ const jsonld = [
 </BaseLayout>
 <script
   is:inline
-  set:html={`(function(){var cw=document.getElementById('cw'),ch=document.getElementById('ch'),cc=document.getElementById('cc');if(!cw)return;function f(n){return (Math.round(n*10)/10).toString().replace('.',',');}function upd(){var w=parseFloat(cw.value)||0,h=parseFloat(ch.value)||0,c=parseFloat(cc.value)||14;var rs=document.getElementById('rSize'),ri=document.getElementById('rInch'),rf=document.getElementById('rFabric');if(w<=0||h<=0){rs.textContent='—';ri.textContent='—';rf.textContent='—';return;}var wcm=w/c*2.54,hcm=h/c*2.54;rs.textContent=f(wcm)+' × '+f(hcm)+' см';ri.textContent=f(w/c)+' × '+f(h/c)+' дюйма';rf.textContent=Math.round(wcm+14)+' × '+Math.round(hcm+14)+' см';}[cw,ch,cc].forEach(function(e){e.addEventListener('input',upd);e.addEventListener('change',upd);});upd();})();`}
+  set:html={`(function(){var cw=document.getElementById('cw'),ch=document.getElementById('ch'),cc=document.getElementById('cc');if(!cw)return;function f(n){return (Math.round(n*10)/10).toString().replace('.',',');}function upd(){var w=parseFloat(cw.value)||0,h=parseFloat(ch.value)||0,c=parseFloat(cc.value)||14;var rs=document.getElementById('rSize'),rf=document.getElementById('rFabric');if(w<=0||h<=0){rs.textContent='—';rf.textContent='—';return;}var wcm=w/c*2.54,hcm=h/c*2.54;rs.textContent=f(wcm)+' × '+f(hcm)+' см';rf.textContent=Math.round(wcm+14)+' × '+Math.round(hcm+14)+' см';}[cw,ch,cc].forEach(function(e){e.addEventListener('input',upd);e.addEventListener('change',upd);});upd();})();`}
 />
