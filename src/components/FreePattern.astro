@@ -3,7 +3,7 @@
  * Блок безкоштовних схем на сторінці.
  * Гібридна роздача: окремі PDF — одразу, повний бандл — у Telegram-каналі.
  */
-import { PATTERNS, BUNDLES, TELEGRAM, patternUrl } from '../lib/patterns';
+import { PATTERNS, BUNDLES, TELEGRAM, patternUrl, bundleLink } from '../lib/patterns';
 
 interface Props {
   /** Ключі схем із PATTERNS — качаються прямо звідси */
@@ -64,12 +64,12 @@ if (import.meta.env.DEV) {
           <strong class="text-[var(--color-ink)]">Повний набір «{b.name}»</strong> — {b.patterns.length} схем
           одним архівом. {b.desc}{' '}
           <a
-            href={TELEGRAM.url}
+            href={bundleLink(bundle!)}
             target="_blank"
             rel="noopener"
             class="font-semibold text-[var(--color-brand)] hover:underline"
           >
-            Забрати в Telegram-каналі →
+            Забрати всі {b.patterns.length} схем у Telegram →
           </a>
         </p>
       )}

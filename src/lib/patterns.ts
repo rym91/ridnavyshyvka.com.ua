@@ -36,7 +36,17 @@ export const TELEGRAM = {
   enabled: true,
   handle: '@ridnavyshyvka',
   url: 'https://t.me/ridnavyshyvka',
+  /**
+   * Username бота роздачі (без @). Поки порожньо — кнопки ведуть на сам канал.
+   * Щойно бот створений у @BotFather — вписати сюди, і кожна кнопка почне вести
+   * одразу на потрібний набір із перевіркою підписки.
+   */
+  bot: '',
 };
+
+/** Куди веде кнопка «забрати набір»: у бота з потрібним бандлом або просто в канал. */
+export const bundleLink = (key: string) =>
+  TELEGRAM.bot ? `https://t.me/${TELEGRAM.bot}?start=${key}` : TELEGRAM.url;
 
 export const PATTERNS: Record<string, Pattern> = {
   // — хрестик: весільні / рушникові —

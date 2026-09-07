@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Ornament from '../components/Ornament.astro';
 import { organizationSchema, breadcrumbSchema } from '../lib/schema';
-import { PATTERNS, BUNDLES, TELEGRAM, patternUrl, KIND_LABEL } from '../lib/patterns';
+import { PATTERNS, BUNDLES, TELEGRAM, patternUrl, KIND_LABEL, bundleLink } from '../lib/patterns';
 import { entryUrl } from '../lib/links';
 
 const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
@@ -126,8 +126,8 @@ const jsonld = [
         {TELEGRAM.enabled && (
           <p class="mt-4 text-sm text-[var(--color-ink-soft)]">
             Усі {b.patterns.length} схем добірки «{b.name}» одним архівом —{' '}
-            <a href={TELEGRAM.url} target="_blank" rel="noopener" class="font-semibold text-[var(--color-brand)] hover:underline">
-              у Telegram-каналі →
+            <a href={bundleLink(slug)} target="_blank" rel="noopener" class="font-semibold text-[var(--color-brand)] hover:underline">
+              забрати в Telegram →
             </a>
           </p>
         )}
