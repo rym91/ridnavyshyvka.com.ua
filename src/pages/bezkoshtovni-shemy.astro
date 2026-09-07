@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Ornament from '../components/Ornament.astro';
 import { organizationSchema, breadcrumbSchema } from '../lib/schema';
-import { PATTERNS, BUNDLES, TELEGRAM, patternUrl, KIND_LABEL, bundleLink } from '../lib/patterns';
+import { PATTERNS, BUNDLES, TELEGRAM, patternUrl, KIND_LABEL, bundleLink, isOutline } from '../lib/patterns';
 import { entryUrl } from '../lib/links';
 
 const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
@@ -15,8 +15,9 @@ const crumbs = [
 ];
 
 const total = Object.keys(PATTERNS).length;
-const beadCount = Object.values(PATTERNS).filter((p) => p.kind !== 'hrestyk').length;
-const crossCount = total - beadCount;
+const outlineCount = Object.values(PATTERNS).filter((p) => isOutline(p)).length;
+const beadCount = Object.values(PATTERNS).filter((p) => ['sylianka', 'gerdan', 'figurka'].includes(p.kind)).length;
+const crossCount = total - beadCount - outlineCount;
 
 // Статті, де ці схеми розібрані в контексті — щоб каталог не був «сліпим кутом».
 const pages = await getCollection('pages', (p) => (import.meta.env.PROD ? !p.data.draft : true));
@@ -57,9 +58,10 @@ const jsonld = [
     <div class="toc mb-6 rounded-xl border-l-4 border-[var(--color-brand)] bg-[var(--color-paper-2)] p-4">
       <p class="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand)]">Коротка відповідь</p>
       <p class="mt-1 text-[var(--color-ink)]">
-        Тут зібрано {total} безкоштовних схем у форматі PDF — {crossCount} для вишивки хрестиком і {beadCount}
-        для бісерних прикрас. Кожен файл містить клітинкову сітку, легенду кольорів ниток або бісеру та покрокову
-        інструкцію. Завантаження без реєстрації та без email.
+        Тут зібрано {total} безкоштовних схем у форматі PDF: {crossCount} для вишивки хрестиком, {beadCount} для
+        бісерних прикрас і {outlineCount} для вільних технік — гладі, тамбура, рішельє, мережки та стрічок.
+        Рахункові схеми містять клітинкову сітку й легенду кольорів, контурні — креслення в натуральну величину,
+        напрямок стібків і дзеркальну версію для переведення на тканину. Завантаження без реєстрації.
       </p>
     </div>
 
@@ -109,7 +111,7 @@ const jsonld = [
                   <span class="min-w-0">
                     <span class="block font-medium text-[var(--color-ink)]">{p.name}</span>
                     <span class="block text-xs text-[var(--color-ink-soft)]">
-                      {p.w}×{p.h} · {KIND_LABEL[p.kind]}
+                      {p.w}×{p.h}{isOutline(p) ? ' мм' : ''} · {KIND_LABEL[p.kind]}
                       {p.hours ? ` · ${p.hours}` : ''}
                     </span>
                   </span>

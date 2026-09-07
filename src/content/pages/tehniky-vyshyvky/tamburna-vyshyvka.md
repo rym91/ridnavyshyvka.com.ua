@@ -17,11 +17,15 @@ secondary_keywords:
 intent: info
 tier: B
 priority: P2
+patterns:
+  - haluzka-tamburom
+  - rozeta-tamburom
+bundle: vilni-tehniky
 related:
   - tehniky-vyshyvky
   - vyshyvka-gladdyu
   - vyshyvka-strichkamy
-updated: 2026-08-05
+updated: 2026-09-07
 faq:
   - q: "Чим тамбурний шов відрізняється від вишивки хрестиком?"
     a: "Хрестик — рахункова техніка: стібки лягають по клітинках канви за схемою. Тамбурний шов — вільний: петлі-ланцюжки йдуть довільною лінією за контуром малюнка, без прив'язки до клітинок тканини. Тому тамбуром зручно вишивати плавні лінії, літери й контури, а хрестиком — детальні кольорові картини."

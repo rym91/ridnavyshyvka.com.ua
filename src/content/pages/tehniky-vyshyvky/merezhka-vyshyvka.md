@@ -17,10 +17,13 @@ secondary_keywords:
 intent: pattern
 tier: A
 priority: P1
+patterns:
+  - merezhka-stovpchyk
+bundle: azhurni-tehniky
 related:
   - tehniky-vyshyvky
   - bila-vyshyvka-rishelye
-updated: 2026-06-30
+updated: 2026-09-07
 faq:
   - q: "На якій тканині краще вчитися мережці?"
     a: "На льоні або домотканому полотні з рівним полотняним переплетенням, де нитки легко висмикуються й добре видно. Щільна бавовна з дрібним переплетенням для перших спроб не підходить — нитки важко піддівати рівно."

@@ -12,10 +12,11 @@ export interface Pattern {
   /** Імʼя PDF без розширення в /public/pdf/ */
   file: string;
   name: string;
-  /** Розмір у хрестиках / бісеринах */
+  /** Розмір: у хрестиках/бісеринах для рахункових, у міліметрах для контурних */
   w: number;
   h: number;
-  kind: 'hrestyk' | 'sylianka' | 'gerdan';
+  kind: 'hrestyk' | 'sylianka' | 'gerdan' | 'hlad' | 'tambur' | 'rishelye'
+    | 'merezhka' | 'strichky' | 'figurka';
   difficulty?: string;
   hours?: string;
 }
@@ -104,9 +105,43 @@ export const PATTERNS: Record<string, Pattern> = {
   'sylianka-romby': { file: 'sylianka-romby', name: 'Силянка-ромби', w: 35, h: 12, kind: 'sylianka', difficulty: 'Середній', hours: '2-3 години' },
   'gerdan-zyhzah': { file: 'gerdan-zyhzah', name: 'Гердан-зигзаг', w: 50, h: 10, kind: 'gerdan', difficulty: 'Середній', hours: '3-4 години' },
   'gerdan-romby': { file: 'gerdan-romby', name: 'Гердан-ромби', w: 50, h: 14, kind: 'gerdan', difficulty: 'Середній', hours: '4-5 годин' },
+
+  // — вільні техніки: гладь, тамбур (контурні схеми 1:1) —
+  'kvitka-hladdyu': { file: 'kvitka-hladdyu', name: 'Квітка гладдю', w: 80, h: 80, kind: 'hlad', difficulty: 'Початковий', hours: '2-3 години' },
+  'lystok-hladdyu': { file: 'lystok-hladdyu', name: 'Листок гладдю', w: 70, h: 95, kind: 'hlad', difficulty: 'Початковий', hours: '2-3 години' },
+  'voloshka-hladdyu': { file: 'voloshka-hladdyu', name: 'Волошка гладдю', w: 75, h: 75, kind: 'hlad', difficulty: 'Середній', hours: '3-4 години' },
+  'haluzka-tamburom': { file: 'haluzka-tamburom', name: 'Галузка тамбуром', w: 110, h: 60, kind: 'tambur', difficulty: 'Початковий', hours: '1-2 години' },
+  'rozeta-tamburom': { file: 'rozeta-tamburom', name: 'Розета тамбуром', w: 85, h: 85, kind: 'tambur', difficulty: 'Початковий', hours: '2-3 години' },
+
+  // — ажурні техніки —
+  'sertse-rishelye': { file: 'sertse-rishelye', name: 'Серце рішельє', w: 90, h: 90, kind: 'rishelye', difficulty: 'Середній', hours: '5-6 годин' },
+  'kvitka-rishelye': { file: 'kvitka-rishelye', name: 'Квітка рішельє', w: 95, h: 95, kind: 'rishelye', difficulty: 'Складний', hours: '7-8 годин' },
+  'merezhka-stovpchyk': { file: 'merezhka-stovpchyk', name: 'Мережка «стовпчик»', w: 120, h: 45, kind: 'merezhka', difficulty: 'Початковий', hours: '2-3 години' },
+
+  // — стрічки та плетені фігурки —
+  'troianda-strichkamy': { file: 'troianda-strichkamy', name: 'Троянда стрічками', w: 95, h: 95, kind: 'strichky', difficulty: 'Середній', hours: '2-3 години' },
+  'buketyk-strichkamy': { file: 'buketyk-strichkamy', name: 'Букетик стрічками', w: 90, h: 95, kind: 'strichky', difficulty: 'Середній', hours: '3-4 години' },
+  'figurka-metelyk': { file: 'figurka-metelyk', name: 'Метелик з бісеру', w: 9, h: 8, kind: 'figurka', difficulty: 'Початковий', hours: '1-2 години' },
+  'figurka-kvitka': { file: 'figurka-kvitka', name: 'Квітка з бісеру', w: 8, h: 8, kind: 'figurka', difficulty: 'Початковий', hours: '1-2 години' },
+  'figurka-sertse': { file: 'figurka-sertse', name: 'Сердечко з бісеру', w: 8, h: 7, kind: 'figurka', difficulty: 'Початковий', hours: '1 година' },
 };
 
 export const BUNDLES: Record<string, Bundle> = {
+  'vilni-tehniky': {
+    name: 'Вільні техніки: гладь і тамбур',
+    desc: '5 контурних схем у натуральну величину: три мотиви гладдю та два тамбурним швом.',
+    patterns: ['kvitka-hladdyu', 'lystok-hladdyu', 'voloshka-hladdyu', 'haluzka-tamburom', 'rozeta-tamburom'],
+  },
+  'azhurni-tehniky': {
+    name: 'Ажур: рішельє та мережка',
+    desc: '3 схеми прорізної та ажурної вишивки: серце й квітка рішельє, мережка «стовпчик».',
+    patterns: ['sertse-rishelye', 'kvitka-rishelye', 'merezhka-stovpchyk'],
+  },
+  'strichky-ta-figurky': {
+    name: 'Стрічки та фігурки з бісеру',
+    desc: '5 схем: дві вишивки стрічками та три плетені фігурки з бісеру.',
+    patterns: ['troianda-strichkamy', 'buketyk-strichkamy', 'figurka-metelyk', 'figurka-kvitka', 'figurka-sertse'],
+  },
   'sylianky-ta-gerdany': {
     name: 'Силянки та гердани',
     desc: '5 схем бісерних прикрас: три силянки та два гердани — від зигзагу для новачка до ромбів.',
@@ -160,4 +195,14 @@ export const KIND_LABEL: Record<Pattern['kind'], string> = {
   hrestyk: 'хрестиком',
   sylianka: 'силянка з бісеру',
   gerdan: 'гердан з бісеру',
+  hlad: 'гладдю',
+  tambur: 'тамбурним швом',
+  rishelye: 'рішельє',
+  merezhka: 'мережка',
+  strichky: 'стрічками',
+  figurka: 'фігурка з бісеру',
 };
+
+/** Контурні схеми міряються в міліметрах, рахункові — у клітинках. */
+export const isOutline = (p: Pattern) =>
+  ['hlad', 'tambur', 'rishelye', 'merezhka', 'strichky'].includes(p.kind);

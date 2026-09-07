@@ -16,10 +16,15 @@ secondary_keywords:
 intent: howto_beginner
 tier: A
 priority: P2
+patterns:
+  - figurka-metelyk
+  - figurka-kvitka
+  - figurka-sertse
+bundle: strichky-ta-figurky
 related:
   - shemy-biserom
   - braslety-z-biseru-shemy
-updated: 2026-06-30
+updated: 2026-09-07
 faq:
   - q: "З якого виробу почати новачку?"
     a: "Найлегший старт — плоскі прикраси на нитці або невеликі фігурки об'ємного плетіння. Вони швидко даються, потребують мінімум матеріалу й наочно показують базові техніки, перш ніж переходити до складних композицій."

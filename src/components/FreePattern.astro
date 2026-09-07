@@ -3,7 +3,7 @@
  * Блок безкоштовних схем на сторінці.
  * Гібридна роздача: окремі PDF — одразу, повний бандл — у Telegram-каналі.
  */
-import { PATTERNS, BUNDLES, TELEGRAM, patternUrl, bundleLink } from '../lib/patterns';
+import { PATTERNS, BUNDLES, TELEGRAM, patternUrl, bundleLink, isOutline } from '../lib/patterns';
 
 interface Props {
   /** Ключі схем із PATTERNS — качаються прямо звідси */
@@ -48,7 +48,7 @@ if (import.meta.env.DEV) {
                 <span class="min-w-0">
                   <span class="block font-medium text-[var(--color-ink)]">{p.name}</span>
                   <span class="block text-xs text-[var(--color-ink-soft)]">
-                    {p.w}×{p.h}
+                    {p.w}×{p.h}{isOutline(p) ? ' мм' : ''}
                     {p.hours ? ` · ${p.hours}` : ''}
                     {p.difficulty ? ` · ${p.difficulty}` : ''}
                   </span>

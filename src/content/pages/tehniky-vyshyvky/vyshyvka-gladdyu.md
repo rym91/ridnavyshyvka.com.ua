@@ -17,10 +17,15 @@ secondary_keywords:
 intent: pattern
 tier: A
 priority: P1
+patterns:
+  - kvitka-hladdyu
+  - lystok-hladdyu
+  - voloshka-hladdyu
+bundle: vilni-tehniky
 related:
   - tehniky-vyshyvky
   - bila-vyshyvka-rishelye
-updated: 2026-06-30
+updated: 2026-09-07
 faq:
   - q: "Чи можна вишивати гладдю без п'ялець?"
     a: "Небажано. Гладь — вільний шов, і без рівного натягу тканина стягується, а стібки лягають хвилями. П'яльці або рама тримають полотно рівним, і поверхня гладі виходить гладенькою та блискучою."
