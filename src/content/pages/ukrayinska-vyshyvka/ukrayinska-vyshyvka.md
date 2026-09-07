@@ -17,10 +17,15 @@ secondary_keywords:
 intent: info
 tier: A
 priority: P1
+patterns:
+  - galycka
+  - hutsulska
+  - podilska
+bundle: regionalni
 related:
   - vyshyvka-dlya-pochatkivciv
   - vyshyvka-oberih-dlia-voina
-updated: 2026-06-30
+updated: 2026-09-07
 faq:
   - q: "Що таке українська вишивка простими словами?"
     a: "Це народне мистецтво оздоблення тканини нитками або бісером за допомогою різних технік. Кожен орнамент несе символічне значення й традиційно розповідає про рід, регіон і побажання людині, для якої вишивали виріб."

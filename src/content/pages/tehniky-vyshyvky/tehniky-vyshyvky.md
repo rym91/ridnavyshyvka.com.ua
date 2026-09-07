@@ -17,10 +17,15 @@ secondary_keywords:
 intent: info
 tier: A
 priority: P1
+patterns:
+  - kvitka
+  - serce
+  - romb
+bundle: dlya-novachkiv
 related:
   - vyshyvka-gladdyu
   - merezhka-vyshyvka
-updated: 2026-06-30
+updated: 2026-09-07
 faq:
   - q: "З якої техніки вишивки почати новачку?"
     a: "Найлегший старт — вишивка хрестиком: стібки лягають по клітинках канви, помилку видно одразу, а готових схем безліч. Коли рука звикне класти рівні стібки, можна пробувати гладь і просту мережку."

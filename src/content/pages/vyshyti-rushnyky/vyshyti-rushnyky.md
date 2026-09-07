@@ -17,10 +17,15 @@ secondary_keywords:
 intent: info
 tier: A
 priority: P1
+patterns:
+  - vazon
+  - vynohrad
+  - bezkinechnyk
+bundle: veseilnyi-rushnyk
 related:
   - shemy-rushnykiv-hrestykom
   - vesilnyi-rushnyk
-updated: 2026-06-30
+updated: 2026-09-07
 faq:
   - q: "З якого рушника почати новачку?"
     a: "Найпростіше почати з утиральника чи невеликого святкового рушника з вузьким бордюром на 3–5 кольорів без дробових хрестиків. Так ви відпрацюєте рівність стібка й натяг нитки, перш ніж братися за складний весільний рушник із написом."

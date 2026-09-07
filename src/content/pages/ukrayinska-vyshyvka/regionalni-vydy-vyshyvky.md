@@ -17,12 +17,19 @@ secondary_keywords:
 intent: info
 tier: A
 priority: P1
+patterns:
+  - galycka
+  - hutsulska
+  - podilska
+  - poltavska
+  - centralna
+bundle: regionalni
 related:
   - ukrayinska-vyshyvka
   - vyshyvanka
   - ornament-vyshyvanky
   - symvolika-koloriv-vyshyvky
-updated: 2026-08-04
+updated: 2026-09-07
 faq:
   - q: "Як відрізнити гуцульську вишивку від подільської?"
     a: "Гуцульська вишивка багатобарвна — червоний, жовтий, зелений, оранжевий і синій поєднуються в одному візерунку, а мотиви дрібні й геометричні. Подільська натомість тримається двоколірної червоно-чорної гами, а техніка «лиштва» дає однаковий чіткий малюнок з обох боків тканини."

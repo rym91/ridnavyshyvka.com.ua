@@ -17,10 +17,17 @@ secondary_keywords:
 intent: pattern
 tier: A
 priority: P1
+patterns:
+  - sylianka-zyhzah
+  - sylianka-romby
+  - sylianka-kvity
+  - gerdan-zyhzah
+  - gerdan-romby
+bundle: sylianky-ta-gerdany
 related:
   - herdany-shemy
   - vyshyvka-biserom-ikony
-updated: 2026-06-30
+updated: 2026-09-07
 faq:
   - q: "Що означають символи на чорно-білій схемі бісером?"
     a: "Кожен символ (кружечок, трикутник, хрестик тощо) відповідає окремому кольору бісеру. Розшифровку дає ключ (легенда) схеми, де поряд зі значком стоїть назва кольору й номер бісеру. Символьні схеми зручні тим, що їх можна друкувати чорно-білими, не втрачаючи інформації."
