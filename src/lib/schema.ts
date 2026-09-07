@@ -3,7 +3,10 @@
 const SITE_NAME = 'Рідна вишивка';
 const CONTACT_EMAIL = 'info@ridnavyshyvka.com.ua';
 // Соцпрофілі бренду (sameAs) — для звʼязку сутностей у графі знань.
-const SOCIAL_PROFILES = ['https://www.pinterest.com/221rsgnveewbcgma13t7praynn2bnm/'];
+const SOCIAL_PROFILES = [
+  'https://www.pinterest.com/ridnavyshyvka/',
+  'https://t.me/ridnavyshyvka',
+];
 // Іменована авторка-майстриня (E-E-A-T): реальна людина.
 const AUTHOR_NAME = 'Тетяна Римарьова';
 const AUTHOR_ROLE = 'майстриня-рукодільниця';
