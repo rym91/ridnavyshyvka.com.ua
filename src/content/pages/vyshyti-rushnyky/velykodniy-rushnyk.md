@@ -17,6 +17,11 @@ secondary_keywords:
 intent: info
 tier: B
 priority: P2
+patterns:
+  - kvochka
+  - pysanky
+  - kvitkaPascha
+bundle: velykodni
 related:
   - vyshyti-rushnyky
   - vesilnyi-rushnyk

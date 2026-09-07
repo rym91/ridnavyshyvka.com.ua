@@ -17,6 +17,9 @@ secondary_keywords:
 intent: info
 tier: B
 priority: P2
+patterns:
+  - poltavska
+bundle: regionalni
 related:
   - regionalni-vydy-vyshyvky
   - ukrayinska-vyshyvka

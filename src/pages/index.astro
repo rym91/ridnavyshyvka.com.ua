@@ -7,6 +7,7 @@ import Picture from '../components/Picture.astro';
 import { SECTIONS } from '../lib/sections';
 import { entryUrl } from '../lib/links';
 import { organizationSchema, websiteSchema } from '../lib/schema';
+import { TELEGRAM } from '../lib/patterns';
 import heroImg from '../assets/heroes/vyshyvka-hrestykom-dlya-pochatkivciv.jpg';
 
 const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
@@ -15,10 +16,25 @@ const heroAbs = new URL((await getImage({ src: heroImg })).src, site).href;
 
 // Популярні матеріали: Tier-A, не pillar, пріоритет P1 першими.
 const pages = await getCollection('pages', (p) => (import.meta.env.PROD ? !p.data.draft : true));
-const popular = pages
-  .filter((p) => p.data.page_type !== 'pillar' && p.data.tier === 'A')
-  .sort((a, b) => (a.data.priority > b.data.priority ? 1 : a.data.priority < b.data.priority ? -1 : 0))
-  .slice(0, 6);
+// Порядок задано вручну: спершу сторінки, які реально збирають трафік (GSC), далі — свіжі матеріали.
+const POPULAR_SLUGS = [
+  'sylianky-z-biseru-shemy',
+  'shemy-hrestykom',
+  'braslety-z-biseru-shemy',
+  'herdany-shemy',
+  'ornament-vyshyvanky',
+  'regionalni-vydy-vyshyvky',
+  'vesilnyi-rushnyk',
+  'legki-shemy-hrestykom',
+];
+const bySlug = new Map(pages.map((p) => [p.data.slug, p]));
+const popular = POPULAR_SLUGS.map((sl) => bySlug.get(sl)).filter((p) => p !== undefined);
+
+// Сторінки, де є безкоштовні PDF-схеми.
+const withPatterns = pages
+  .filter((p) => p.data.patterns.length > 0)
+  .sort((a, b) => b.data.patterns.length - a.data.patterns.length);
+const patternCount = new Set(pages.flatMap((p) => p.data.patterns)).size;
 ---
 <BaseLayout
   title="Рідна вишивка — схеми, техніки та орнаменти"
@@ -92,6 +108,44 @@ const popular = pages
         ))
       }
     </ul>
+  </section>
+
+  <section class="mt-14">
+    <h2 class="h2-section mb-1"><a href="/bezkoshtovni-shemy/" class="text-[var(--color-ink)] no-underline hover:text-[var(--color-brand)]">Безкоштовні схеми</a></h2>
+    <p class="mb-6 text-[var(--color-ink-soft)]">
+      {patternCount} PDF-схем хрестиком і бісером — сітка, легенда ниток та інструкція. Завантаження без реєстрації.
+    </p>
+    <ul class="grid gap-3 sm:grid-cols-2">
+      {
+        withPatterns.slice(0, 6).map((p) => (
+          <li>
+            <a
+              href={entryUrl(p)}
+              class="flex h-full items-start gap-2 rounded-lg border border-[var(--color-line)] bg-white p-3 transition-colors hover:border-[var(--color-brand)]"
+            >
+              <span class="mt-0.5 shrink-0 rounded bg-[var(--color-brand)]/10 px-1.5 py-0.5 text-[0.7rem] font-bold text-[var(--color-brand)]" aria-hidden="true">
+                {p.data.patterns.length} PDF
+              </span>
+              <span class="font-medium text-[var(--color-ink)]">{p.data.h1}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-4">
+      <a href="/bezkoshtovni-shemy/" class="font-semibold text-[var(--color-brand)] hover:underline">Усі {patternCount} схем у каталозі →</a>
+    </p>
+    {
+      TELEGRAM.enabled && (
+        <p class="mt-5 rounded-xl border border-dashed border-[var(--color-brand)]/40 bg-[var(--color-paper-2)] p-4 text-sm text-[var(--color-ink)]">
+          Тематичні набори схем одним архівом — у Telegram-каналі{' '}
+          <a href={TELEGRAM.url} target="_blank" rel="noopener" class="font-semibold text-[var(--color-brand)] hover:underline">
+            {TELEGRAM.handle}
+          </a>
+          .
+        </p>
+      )
+    }
   </section>
 
   <section class="mt-14">

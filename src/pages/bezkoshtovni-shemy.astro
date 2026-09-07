@@ -1,0 +1,159 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Ornament from '../components/Ornament.astro';
+import { organizationSchema, breadcrumbSchema } from '../lib/schema';
+import { PATTERNS, BUNDLES, TELEGRAM, patternUrl, KIND_LABEL } from '../lib/patterns';
+import { entryUrl } from '../lib/links';
+
+const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
+const url = new URL('/bezkoshtovni-shemy/', site).href;
+const crumbs = [
+  { name: 'Головна', href: '/' },
+  { name: 'Безкоштовні схеми', href: '/bezkoshtovni-shemy/' },
+];
+
+const total = Object.keys(PATTERNS).length;
+const beadCount = Object.values(PATTERNS).filter((p) => p.kind !== 'hrestyk').length;
+const crossCount = total - beadCount;
+
+// Статті, де ці схеми розібрані в контексті — щоб каталог не був «сліпим кутом».
+const pages = await getCollection('pages', (p) => (import.meta.env.PROD ? !p.data.draft : true));
+const articleFor = new Map<string, { title: string; href: string }>();
+for (const p of pages) {
+  for (const key of p.data.patterns) {
+    if (!articleFor.has(key)) articleFor.set(key, { title: p.data.h1, href: entryUrl(p) });
+  }
+}
+
+const jsonld = [
+  organizationSchema(site.href),
+  breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: new URL(c.href, site).href }))),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Безкоштовні схеми вишивки',
+    description: `Каталог ${total} безкоштовних схем вишивки хрестиком і бісером у форматі PDF.`,
+    url,
+    inLanguage: 'uk-UA',
+    isPartOf: { '@type': 'WebSite', url: site.href },
+  },
+];
+---
+<BaseLayout
+  title="Безкоштовні схеми вишивки — PDF хрестиком і бісером"
+  description={`${total} безкоштовних схем вишивки у PDF: хрестиком і бісером. Сітка, легенда ниток і покрокова інструкція. Завантаження без реєстрації.`}
+  canonicalPath="/bezkoshtovni-shemy/"
+  jsonld={jsonld}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <article class="prose-uk">
+    <h1 class="stitched mb-4 font-display text-3xl font-extrabold leading-tight text-[var(--color-ink)] md:text-4xl">
+      Безкоштовні схеми вишивки
+    </h1>
+
+    <div class="toc mb-6 rounded-xl border-l-4 border-[var(--color-brand)] bg-[var(--color-paper-2)] p-4">
+      <p class="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand)]">Коротка відповідь</p>
+      <p class="mt-1 text-[var(--color-ink)]">
+        Тут зібрано {total} безкоштовних схем у форматі PDF — {crossCount} для вишивки хрестиком і {beadCount}
+        для бісерних прикрас. Кожен файл містить клітинкову сітку, легенду кольорів ниток або бісеру та покрокову
+        інструкцію. Завантаження без реєстрації та без email.
+      </p>
+    </div>
+
+    <p>
+      Схеми згруповано за темами — весільні, оберегові, дитячі, регіональні. Усі вони придатні для друку на
+      звичайному A4: роздрукуйте аркуш зі сіткою, візьміть канву потрібного каунту й починайте. Якщо не знаєте,
+      якого розміру вийде робота, порахуйте це в <a href="/kalkulyator-rozmiru-vyshyvky/">калькуляторі розміру
+      вишивки</a>, а незнайомі терміни подивіться в <a href="/slovnyk-vyshyvky/">словнику</a>.
+    </p>
+
+    {
+      TELEGRAM.enabled && (
+        <p class="rounded-xl border border-dashed border-[var(--color-brand)]/40 bg-[var(--color-paper-2)] p-4">
+          <strong>Цілий набір одним архівом.</strong> Кожну тематичну добірку можна забрати повністю — ZIP із
+          усіма схемами теми лежить у Telegram-каналі{' '}
+          <a href={TELEGRAM.url} target="_blank" rel="noopener">{TELEGRAM.handle}</a>. Там же виходять нові схеми.
+        </p>
+      )
+    }
+  </article>
+
+  <Ornament height={18} class="my-10" />
+
+  {
+    Object.entries(BUNDLES).map(([slug, b]) => (
+      <section class="mb-12" id={slug} style="scroll-margin-top:5rem">
+        <h2 class="h2-section mb-1">{b.name}</h2>
+        <p class="mb-5 text-[var(--color-ink-soft)]">{b.desc}</p>
+        <ul class="grid list-none gap-3 p-0 sm:grid-cols-2">
+          {b.patterns.map((key) => {
+            const p = PATTERNS[key];
+            if (!p) return null;
+            const art = articleFor.get(key);
+            return (
+              <li class="m-0 rounded-lg border border-[var(--color-line)] bg-white p-4">
+                <a
+                  href={patternUrl(p)}
+                  download
+                  class="flex items-center gap-3 no-underline"
+                >
+                  <span
+                    class="shrink-0 rounded bg-[var(--color-brand)]/10 px-2 py-1 text-xs font-bold text-[var(--color-brand)]"
+                    aria-hidden="true"
+                  >
+                    PDF
+                  </span>
+                  <span class="min-w-0">
+                    <span class="block font-medium text-[var(--color-ink)]">{p.name}</span>
+                    <span class="block text-xs text-[var(--color-ink-soft)]">
+                      {p.w}×{p.h} · {KIND_LABEL[p.kind]}
+                      {p.hours ? ` · ${p.hours}` : ''}
+                    </span>
+                  </span>
+                </a>
+                {art && (
+                  <p class="mt-2 mb-0 text-xs text-[var(--color-ink-soft)]">
+                    Як вишивати: <a href={art.href} class="text-[var(--color-brand)] hover:underline">{art.title}</a>
+                  </p>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+        {TELEGRAM.enabled && (
+          <p class="mt-4 text-sm text-[var(--color-ink-soft)]">
+            Усі {b.patterns.length} схем добірки «{b.name}» одним архівом —{' '}
+            <a href={TELEGRAM.url} target="_blank" rel="noopener" class="font-semibold text-[var(--color-brand)] hover:underline">
+              у Telegram-каналі →
+            </a>
+          </p>
+        )}
+      </section>
+    ))
+  }
+
+  <article class="prose-uk">
+    <h2>Як користуватися схемою</h2>
+    <p>
+      Схема — це карта роботи: кожна клітинка сітки відповідає одному хрестику або одній бісеринці, а символ чи колір
+      у ній вказує на нитку. Робота ведеться від центру: знайдіть середину схеми й середину полотна, і саме звідти
+      робіть перший стібок — так малюнок гарантовано не «поїде» за край.
+    </p>
+    <p>
+      Детальний розбір принципів читання — у гідах <a href="/vyshyvka-hrestykom/yak-chytaty-shemy-hrestykom/">як
+      читати схеми хрестиком</a> та <a href="/vyshyvka-biserom/shemy-biserom/">схеми для вишивки бісером</a>.
+      Новачкам радимо почати з <a href="/vyshyvka-hrestykom/legki-shemy-hrestykom/">легких схем</a>, а вже потім
+      братися за складніші сюжети.
+    </p>
+
+    <h2>Чи можна ділитися цими схемами</h2>
+    <p>
+      Так. Усі схеми на цій сторінці безкоштовні: їх можна завантажувати, друкувати, вишивати для себе та в подарунок
+      і вільно передавати друзям. Єдине прохання — не продавати самі файли й не видавати їх за власні розробки.
+      Готові вишиті роботи за цими схемами ви, звісно, можете дарувати чи продавати без обмежень.
+    </p>
+  </article>
+</BaseLayout>

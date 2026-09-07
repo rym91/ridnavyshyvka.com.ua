@@ -9,6 +9,8 @@ interface Props {
   loading?: 'eager' | 'lazy';
   widths?: number[];
   sizes?: string;
+  /** Явний пріоритет; за замовчуванням eager-картинка вважається LCP і йде як high. */
+  fetchpriority?: 'high' | 'low' | 'auto';
 }
 const {
   src,
@@ -17,6 +19,17 @@ const {
   loading = 'lazy',
   widths = [400, 800, 1200],
   sizes = '(max-width: 768px) 100vw, 800px',
+  fetchpriority = loading === 'eager' ? 'high' : 'auto',
 } = Astro.props;
 ---
-<Image src={src} alt={alt} class={cls} loading={loading} widths={widths} sizes={sizes} format="webp" />
+<Image
+  src={src}
+  alt={alt}
+  class={cls}
+  loading={loading}
+  widths={widths}
+  sizes={sizes}
+  format="webp"
+  fetchpriority={fetchpriority}
+  decoding={loading === 'eager' ? 'sync' : 'async'}
+/>

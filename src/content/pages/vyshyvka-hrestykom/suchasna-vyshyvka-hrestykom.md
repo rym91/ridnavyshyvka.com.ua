@@ -17,6 +17,11 @@ secondary_keywords:
 intent: info
 tier: B
 priority: P2
+patterns:
+  - maky
+  - soniakhy
+  - pivonii
+bundle: suchasni-kvity
 related:
   - vyshyvka-hrestykom
   - shemy-hrestykom

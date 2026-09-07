@@ -13,6 +13,12 @@ secondary_keywords: ["вишиванка чоловіча", "чоловічі в
 intent: info
 tier: B
 priority: P3
+patterns:
+  - dubove
+  - romb
+  - khrysttryzub
+  - karpatskyi
+bundle: cholovicha-sorochka
 related: ["vyshyvanka-zhinocha", "ornament-vyshyvanky", "vyshyvka-oberih-dlia-voina"]
 faq:
   - q: "Чим чоловіча вишиванка відрізняється від жіночої?"

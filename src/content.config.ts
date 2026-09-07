@@ -37,6 +37,10 @@ const pages = defineCollection({
         draft: z.boolean().default(false),
         noindex: z.boolean().default(false),
         product_ready: z.boolean().default(false),
+        /** Ключі безкоштовних PDF-схем із lib/patterns.ts — рендеряться блоком FreePattern */
+        patterns: z.array(z.string()).default([]),
+        /** Ключ тематичного бандла з lib/patterns.ts — CTA на Telegram-канал */
+        bundle: z.string().optional(),
       })
       .refine((d) => !d.hero || !!d.hero_alt, {
         message: 'hero_alt обовʼязковий за наявності hero',

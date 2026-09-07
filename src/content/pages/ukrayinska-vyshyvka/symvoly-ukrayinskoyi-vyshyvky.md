@@ -17,6 +17,11 @@ secondary_keywords:
 intent: info
 tier: A
 priority: P2
+patterns:
+  - kalynaoberih
+  - sonce
+  - zirkadva
+bundle: oberehy
 related:
   - symvolika-koloriv-vyshyvky
   - ukrayinska-vyshyvka

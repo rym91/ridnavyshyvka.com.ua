@@ -17,6 +17,12 @@ secondary_keywords:
 intent: info
 tier: A
 priority: P2
+patterns:
+  - tryzub
+  - khrysttryzub
+  - kalynaoberih
+  - sonce
+bundle: oberehy
 related:
   - ukrayinska-vyshyvka
   - vyshyvka-dlya-pochatkivciv

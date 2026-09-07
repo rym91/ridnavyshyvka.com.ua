@@ -17,6 +17,13 @@ secondary_keywords:
 intent: pattern
 tier: A
 priority: P2
+patterns:
+  - kvitka
+  - serce
+  - zirka
+  - kvitka5
+  - sonechko
+bundle: dlya-novachkiv
 related:
   - shemy-kartyn-hrestykom
   - yak-chytaty-shemy-hrestykom

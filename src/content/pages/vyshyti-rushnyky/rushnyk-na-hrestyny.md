@@ -17,6 +17,10 @@ secondary_keywords:
 intent: info
 tier: B
 priority: P2
+patterns:
+  - kalynaoberih
+  - kvitka
+bundle: oberehy
 related:
   - vyshyti-rushnyky
   - vesilnyi-rushnyk

@@ -17,6 +17,12 @@ secondary_keywords:
 intent: info
 tier: A
 priority: P1
+patterns:
+  - sonechko
+  - metelyk
+  - ryba
+  - polunycya
+bundle: dytiachi
 related:
   - vyshyvanka
   - cholovicha-vyshyvanka

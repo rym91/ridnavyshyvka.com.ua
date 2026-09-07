@@ -17,6 +17,9 @@ secondary_keywords:
 intent: info
 tier: A
 priority: P2
+patterns:
+  - galycka
+bundle: regionalni
 related:
   - regionalni-vydy-vyshyvky
   - borshchivska-sorochka

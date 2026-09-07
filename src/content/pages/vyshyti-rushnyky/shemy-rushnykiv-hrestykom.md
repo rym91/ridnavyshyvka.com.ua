@@ -17,6 +17,12 @@ secondary_keywords:
 intent: pattern
 tier: A
 priority: P1
+patterns:
+  - vazon
+  - vynohrad
+  - bezkinechnyk
+  - bihunets
+bundle: veseilnyi-rushnyk
 related:
   - vyshyti-rushnyky
   - vesilnyi-rushnyk

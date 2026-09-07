@@ -17,6 +17,11 @@ secondary_keywords:
 intent: info
 tier: A
 priority: P2
+patterns:
+  - vazon
+  - vynohrad
+  - bezkinechnyk
+bundle: veseilnyi-rushnyk
 related:
   - vyshyti-rushnyky
   - shemy-rushnykiv-hrestykom

@@ -10,6 +10,7 @@ import { getSection } from '../lib/sections';
 import { entryUrl, relatedPages } from '../lib/links';
 import { articleSchema, breadcrumbSchema, collectionPageSchema, faqSchema } from '../lib/schema';
 import Ornament from '../components/Ornament.astro';
+import FreePattern from '../components/FreePattern.astro';
 
 interface Props {
   page: CollectionEntry<'pages'>;
@@ -84,6 +85,10 @@ const updatedLabel = d.updated
 
 // Phase 1: скрыт (пока нет реальных схем/подписки — не показываем «Скоро»-заглушку). Включим в Phase 2.
 const showLeadMagnet = false;
+
+// Схеми — головний намір pattern-сторінок, тому блок іде одразу під вступом, а не в кінці.
+const hasPatterns = d.patterns.length > 0 || !!d.bundle;
+const patternsOnTop = hasPatterns && d.intent === 'pattern';
 ---
 <BaseLayout
   title={d.title}
@@ -157,7 +162,9 @@ const showLeadMagnet = false;
         </aside>
       )
     }
+    {patternsOnTop && <FreePattern patterns={d.patterns} bundle={d.bundle} />}
     <slot />
+    {hasPatterns && !patternsOnTop && <FreePattern patterns={d.patterns} bundle={d.bundle} />}
     {
       d.faq.length > 0 && (
         <section class="mt-10">
