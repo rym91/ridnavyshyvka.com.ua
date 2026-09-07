@@ -1,18 +1,40 @@
 ---
-// Phase-1 placeholder CTA. В Phase 2 сюда подключается форма подписки / продажа PDF-схем.
-interface Props {
-  title?: string;
-  text?: string;
-  ctaLabel?: string;
-}
-const {
-  title = 'Безкоштовні схеми вишивки',
-  text = 'Незабаром тут зʼявиться добірка безкоштовних схем у форматі PDF та підписка на нові матеріали.',
-  ctaLabel = 'Скоро',
-} = Astro.props;
+/**
+ * Універсальний блок «безкоштовні схеми» для сторінок, де немає власного
+ * набору схем (FreePattern). Веде в каталог і в Telegram-канал, щоб на
+ * кожній сторінці сайту був вихід у воронку, а не лише на 19 із 49.
+ */
+import { PATTERNS, TELEGRAM } from '../lib/patterns';
+
+const total = Object.keys(PATTERNS).length;
 ---
-<aside class="my-8 rounded-xl border border-[var(--color-brand)]/20 bg-[var(--color-paper)] p-5">
-  <h2 class="font-display text-lg font-bold text-[var(--color-brand-dark)]">{title}</h2>
-  <p class="mt-1 text-stone-700">{text}</p>
-  <span class="mt-3 inline-block rounded-lg bg-[var(--color-brand)] px-4 py-2 font-medium text-white opacity-90">{ctaLabel}</span>
+<aside class="toc my-8 rounded-xl border border-[var(--color-brand)]/25 bg-[var(--color-paper-2)] p-5">
+  <h2 class="mt-0 mb-1 font-display text-lg font-bold text-[var(--color-brand-dark)]">
+    Безкоштовні схеми вишивки
+  </h2>
+  <p class="mt-0 mb-4 text-sm text-[var(--color-ink-soft)]">
+    {total} готових PDF хрестиком і бісером: клітинкова сітка, легенда кольорів і покрокова
+    інструкція. Завантаження без реєстрації.
+  </p>
+  <p class="my-0 flex flex-wrap gap-3">
+    <a
+      href="/bezkoshtovni-shemy/"
+      style="color:#fff"
+      class="inline-block rounded-lg bg-[var(--color-brand)] px-5 py-2.5 font-semibold no-underline transition-colors hover:bg-[var(--color-brand-dark)]"
+    >
+      Дивитись усі схеми →
+    </a>
+    {
+      TELEGRAM.enabled && (
+        <a
+          href={TELEGRAM.url}
+          target="_blank"
+          rel="noopener"
+          class="inline-block rounded-lg border border-[var(--color-brand)]/40 bg-white px-5 py-2.5 font-semibold text-[var(--color-brand)] no-underline transition-colors hover:border-[var(--color-brand)]"
+        >
+          Нові схеми в Telegram
+        </a>
+      )
+    }
+  </p>
 </aside>
