@@ -64,6 +64,7 @@ faq:
 - **Схеми картин.** Великі складні сюжети з півтонами; для них є окрема добірка [схем картин хрестиком](/vyshyvka-hrestykom/shemy-kartyn-hrestykom/).
 - **Орнаментальні.** Традиційні візерунки для вишиванок і [рушників](/vyshyti-rushnyky/shemy-rushnykiv-hrestykom/) — зокрема для [чоловічої сорочки](/vyshyvanka/cholovicha-vyshyvanka/) та обрядових робіт на кшталт [великоднього рушника](/vyshyti-rushnyky/velykodniy-rushnyk/). Візерунок варто добирати за краєм: див. [регіональні види вишивки](/ukrayinska-vyshyvka/regionalni-vydy-vyshyvky/).
 - **Сучасні.** Мінімалістичні й авторські сюжети — про них у гіді [сучасна вишивка хрестиком](/vyshyvka-hrestykom/suchasna-vyshyvka-hrestykom/).
+- **Шаблони й трафарети.** Якщо узор потрібен не для вишивки, а щоб перемалювати чи роздрукувати, дивіться добірку [орнаментів по клітинках](/vyshyvanka/ornament-po-klitynkah/).
 
 ## Як обрати схему під свій рівень
 
