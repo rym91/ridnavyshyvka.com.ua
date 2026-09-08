@@ -55,61 +55,61 @@ export const PATTERNS: Record<string, Pattern> = {
   vynohrad: { file: 'vynohradnehrono', name: 'Виноградне гроно', w: 17, h: 33, kind: 'hrestyk' },
   bezkinechnyk: { file: 'bezkinechnykmeandr', name: 'Безкінечник (меандр)', w: 36, h: 19, kind: 'hrestyk' },
   bihunets: { file: 'bihunetszlystochkamy', name: 'Бігунець із листочками', w: 40, h: 7, kind: 'hrestyk' },
-  'kalyna-vesilna': { file: 'kalyna-vesilna', name: 'Калина весільна', w: 35, h: 45, kind: 'hrestyk', difficulty: 'Середній', hours: '8-10 годин' },
+  'kalyna-vesilna': { file: 'kalyna-vesilna', name: 'Калина весільна', w: 31, h: 41, kind: 'hrestyk', difficulty: 'Середній', hours: '8-10 годин' },
 
   // — хрестик: базові / для новачків —
   dubove: { file: 'dubovelystiazzholudiamy', name: 'Дубове листя з жолудями', w: 19, h: 29, kind: 'hrestyk' },
   romb: { file: 'rombzhachkamy', name: 'Ромб із гачками', w: 27, h: 27, kind: 'hrestyk' },
-  kvitka: { file: 'kvitka-nova', name: 'Квіточка', w: 20, h: 20, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
-  serce: { file: 'serce-nova', name: 'Серце', w: 20, h: 20, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
-  zirka: { file: 'zirka-nova', name: 'Зірочка', w: 20, h: 20, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
-  kvitka5: { file: 'kvitka5', name: 'Квітка 5-пелюсткова', w: 20, h: 20, kind: 'hrestyk', difficulty: 'Початковий', hours: '1-2 години' },
+  kvitka: { file: 'kvitka-nova', name: 'Квіточка', w: 13, h: 17, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
+  serce: { file: 'serce-nova', name: 'Серце', w: 15, h: 15, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
+  zirka: { file: 'zirka-nova', name: 'Зірочка', w: 17, h: 17, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
+  kvitka5: { file: 'kvitka5', name: 'Квітка 5-пелюсткова', w: 13, h: 13, kind: 'hrestyk', difficulty: 'Початковий', hours: '1-2 години' },
 
   // — хрестик: обереги —
-  kalynaoberih: { file: 'kalynaoberih', name: 'Калина-оберіг', w: 20, h: 25, kind: 'hrestyk', difficulty: 'Початковий', hours: '3-4 години' },
+  kalynaoberih: { file: 'kalynaoberih', name: 'Калина-оберіг', w: 21, h: 25, kind: 'hrestyk', difficulty: 'Початковий', hours: '4-5 годин' },
   tryzub: { file: 'tryzub', name: 'Тризуб (орнаментальний)', w: 35, h: 50, kind: 'hrestyk', difficulty: 'Середній', hours: '10-12 годин' },
-  khrysttryzub: { file: 'khrysttryzub', name: 'Хрест-Тризуб', w: 25, h: 30, kind: 'hrestyk', difficulty: 'Середній', hours: '7-8 годин' },
-  sonce: { file: 'sonce', name: 'Сонце', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '4-5 годин' },
-  zirkadva: { file: 'zirkadva', name: 'Подвійна зірка', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
-  khryst: { file: 'khryst', name: 'Хрест', w: 20, h: 20, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
-  karpatskyi: { file: 'karpatskyi', name: 'Карпатський ромб', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
+  khrysttryzub: { file: 'khrysttryzub', name: 'Хрест-Тризуб', w: 19, h: 19, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
+  sonce: { file: 'sonce', name: 'Сонце', w: 21, h: 21, kind: 'hrestyk', difficulty: 'Середній', hours: '4-5 годин' },
+  zirkadva: { file: 'zirkadva', name: 'Подвійна зірка', w: 23, h: 23, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
+  khryst: { file: 'khryst', name: 'Хрест', w: 13, h: 13, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
+  karpatskyi: { file: 'karpatskyi', name: 'Карпатський ромб', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '6-7 годин' },
 
   // — хрестик: квіти —
-  maky: { file: 'maky', name: 'Маки', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
-  soniakhy: { file: 'soniakhy', name: 'Соняхи', w: 25, h: 30, kind: 'hrestyk', difficulty: 'Середній', hours: '6-7 годин' },
-  pivonii: { file: 'pivonii', name: 'Півонії', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
-  troiandy: { file: 'troiandy', name: 'Троянди', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
-  lilii: { file: 'lilii', name: 'Лілії', w: 20, h: 30, kind: 'hrestyk', difficulty: 'Середній', hours: '6-7 годин' },
+  maky: { file: 'maky', name: 'Маки', w: 13, h: 21, kind: 'hrestyk', difficulty: 'Початковий', hours: '4-5 годин' },
+  soniakhy: { file: 'soniakhy', name: 'Соняхи', w: 19, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '6-7 годин' },
+  pivonii: { file: 'pivonii', name: 'Півонії', w: 21, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '6-7 годин' },
+  troiandy: { file: 'troiandy', name: 'Троянди', w: 15, h: 23, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
+  lilii: { file: 'lilii', name: 'Лілії', w: 15, h: 27, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
 
   // — хрестик: дитячі —
-  sonechko: { file: 'sonechko', name: 'Сонечко', w: 20, h: 20, kind: 'hrestyk', difficulty: 'Початковий', hours: '1-2 години' },
-  metelyk: { file: 'metelyk', name: 'Метелик', w: 25, h: 20, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
-  ryba: { file: 'ryba', name: 'Риба', w: 25, h: 15, kind: 'hrestyk', difficulty: 'Початковий', hours: '1-2 години' },
-  polunycya: { file: 'polunycya', name: 'Полуниця', w: 20, h: 20, kind: 'hrestyk', difficulty: 'Початковий', hours: '1-2 години' },
+  sonechko: { file: 'sonechko', name: 'Сонечко', w: 17, h: 17, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
+  metelyk: { file: 'metelyk', name: 'Метелик', w: 19, h: 17, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
+  ryba: { file: 'ryba', name: 'Риба', w: 23, h: 13, kind: 'hrestyk', difficulty: 'Початковий', hours: '1-2 години' },
+  polunycya: { file: 'polunycya', name: 'Полуниця', w: 17, h: 19, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
 
   // — хрестик: великодні —
-  kvochka: { file: 'kvochka', name: 'Квочка з курчатами', w: 25, h: 30, kind: 'hrestyk', difficulty: 'Середній', hours: '6-7 годин' },
-  pysanky: { file: 'pysanky', name: 'Писанки', w: 25, h: 20, kind: 'hrestyk', difficulty: 'Середній', hours: '4-5 годин' },
+  kvochka: { file: 'kvochka', name: 'Квочка з курчатами', w: 25, h: 21, kind: 'hrestyk', difficulty: 'Середній', hours: '4-5 годин' },
+  pysanky: { file: 'pysanky', name: 'Писанки', w: 25, h: 15, kind: 'hrestyk', difficulty: 'Середній', hours: '4-5 годин' },
   kvitkaPascha: { file: 'kvitkaPascha', name: 'Квітка Пасха', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
 
   // — хрестик: регіональні —
   galycka: { file: 'galycka', name: 'Галицька кривулька', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
-  hutsulska: { file: 'hutsulska', name: 'Гуцульський ромб', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
-  podilska: { file: 'podilska', name: 'Подільська зірка', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
-  poltavska: { file: 'poltavska', name: 'Полтавська гілка', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
-  centralna: { file: 'centralna', name: 'Центральний вазон', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
+  hutsulska: { file: 'hutsulska', name: 'Гуцульський ромб', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '8-10 годин' },
+  podilska: { file: 'podilska', name: 'Подільська зірка', w: 27, h: 27, kind: 'hrestyk', difficulty: 'Середній', hours: '7-8 годин' },
+  poltavska: { file: 'poltavska', name: 'Полтавська гілка', w: 21, h: 25, kind: 'hrestyk', difficulty: 'Початковий', hours: '4-5 годин' },
+  centralna: { file: 'centralna', name: 'Центральний вазон', w: 27, h: 31, kind: 'hrestyk', difficulty: 'Середній', hours: '6-7 годин' },
 
   // — різдвяні мотиви (рахункові, багатоколірні) —
   yalynka: { file: 'yalynka', name: 'Ялинка', w: 21, h: 25, kind: 'rizdvo', difficulty: 'Середній', hours: '4-5 годин' },
-  zirka_rizdvo: { file: 'zirka', name: 'Різдвяна зірка', w: 23, h: 23, kind: 'rizdvo', difficulty: 'Початковий', hours: '3-4 години' },
+  zirka_rizdvo: { file: 'rizdvyana-zirka', name: 'Різдвяна зірка', w: 17, h: 17, kind: 'rizdvo', difficulty: 'Початковий', hours: '2-3 години' },
   snizhynka: { file: 'snizhynka', name: 'Сніжинка', w: 25, h: 25, kind: 'rizdvo', difficulty: 'Середній', hours: '3-4 години' },
   dzvinochok: { file: 'dzvinochok', name: 'Дзвіночок', w: 21, h: 23, kind: 'rizdvo', difficulty: 'Початковий', hours: '4-5 годин' },
   anhel: { file: 'anhel', name: 'Ангел', w: 21, h: 25, kind: 'rizdvo', difficulty: 'Середній', hours: '6-7 годин' },
 
   // — бісер: силянки та гердани —
   'sylianka-zyhzah': { file: 'sylianka-zyhzah', name: 'Силянка-зигзаг', w: 30, h: 10, kind: 'sylianka', difficulty: 'Початковий', hours: '1-2 години' },
-  'sylianka-kvity': { file: 'sylianka-kvity', name: 'Силянка-квіти', w: 40, h: 12, kind: 'sylianka', difficulty: 'Середній', hours: '2-3 години' },
-  'sylianka-romby': { file: 'sylianka-romby', name: 'Силянка-ромби', w: 35, h: 12, kind: 'sylianka', difficulty: 'Середній', hours: '2-3 години' },
+  'sylianka-kvity': { file: 'sylianka-kvity', name: 'Силянка-квіти', w: 40, h: 11, kind: 'sylianka', difficulty: 'Середній', hours: '2-3 години' },
+  'sylianka-romby': { file: 'sylianka-romby', name: 'Силянка-ромби', w: 40, h: 11, kind: 'sylianka', difficulty: 'Середній', hours: '2-3 години' },
   'gerdan-zyhzah': { file: 'gerdan-zyhzah', name: 'Гердан-зигзаг', w: 50, h: 10, kind: 'gerdan', difficulty: 'Середній', hours: '3-4 години' },
   'gerdan-romby': { file: 'gerdan-romby', name: 'Гердан-ромби', w: 50, h: 14, kind: 'gerdan', difficulty: 'Середній', hours: '4-5 годин' },
 
@@ -128,8 +128,8 @@ export const PATTERNS: Record<string, Pattern> = {
   // — стрічки та плетені фігурки —
   'troianda-strichkamy': { file: 'troianda-strichkamy', name: 'Троянда стрічками', w: 95, h: 95, kind: 'strichky', difficulty: 'Середній', hours: '2-3 години' },
   'buketyk-strichkamy': { file: 'buketyk-strichkamy', name: 'Букетик стрічками', w: 90, h: 95, kind: 'strichky', difficulty: 'Середній', hours: '3-4 години' },
-  'figurka-metelyk': { file: 'figurka-metelyk', name: 'Метелик з бісеру', w: 9, h: 8, kind: 'figurka', difficulty: 'Початковий', hours: '1-2 години' },
-  'figurka-kvitka': { file: 'figurka-kvitka', name: 'Квітка з бісеру', w: 8, h: 8, kind: 'figurka', difficulty: 'Початковий', hours: '1-2 години' },
+  'figurka-metelyk': { file: 'figurka-metelyk', name: 'Метелик з бісеру', w: 15, h: 19, kind: 'figurka', difficulty: 'Початковий', hours: '2-3 години' },
+  'figurka-kvitka': { file: 'figurka-kvitka', name: 'Квітка з бісеру', w: 15, h: 20, kind: 'figurka', difficulty: 'Початковий', hours: '2-3 години' },
   'figurka-sertse': { file: 'figurka-sertse', name: 'Сердечко з бісеру', w: 8, h: 7, kind: 'figurka', difficulty: 'Початковий', hours: '1 година' },
 };
 
