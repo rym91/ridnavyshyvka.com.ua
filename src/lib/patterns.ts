@@ -16,7 +16,7 @@ export interface Pattern {
   w: number;
   h: number;
   kind: 'hrestyk' | 'sylianka' | 'gerdan' | 'hlad' | 'tambur' | 'rishelye'
-    | 'merezhka' | 'strichky' | 'figurka';
+    | 'merezhka' | 'strichky' | 'figurka' | 'rizdvo';
   difficulty?: string;
   hours?: string;
 }
@@ -99,6 +99,13 @@ export const PATTERNS: Record<string, Pattern> = {
   poltavska: { file: 'poltavska', name: 'Полтавська гілка', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
   centralna: { file: 'centralna', name: 'Центральний вазон', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
 
+  // — різдвяні мотиви (рахункові, багатоколірні) —
+  yalynka: { file: 'yalynka', name: 'Ялинка', w: 21, h: 25, kind: 'rizdvo', difficulty: 'Середній', hours: '4-5 годин' },
+  zirka_rizdvo: { file: 'zirka', name: 'Різдвяна зірка', w: 23, h: 23, kind: 'rizdvo', difficulty: 'Початковий', hours: '3-4 години' },
+  snizhynka: { file: 'snizhynka', name: 'Сніжинка', w: 25, h: 25, kind: 'rizdvo', difficulty: 'Середній', hours: '3-4 години' },
+  dzvinochok: { file: 'dzvinochok', name: 'Дзвіночок', w: 21, h: 23, kind: 'rizdvo', difficulty: 'Початковий', hours: '4-5 годин' },
+  anhel: { file: 'anhel', name: 'Ангел', w: 21, h: 25, kind: 'rizdvo', difficulty: 'Середній', hours: '6-7 годин' },
+
   // — бісер: силянки та гердани —
   'sylianka-zyhzah': { file: 'sylianka-zyhzah', name: 'Силянка-зигзаг', w: 30, h: 10, kind: 'sylianka', difficulty: 'Початковий', hours: '1-2 години' },
   'sylianka-kvity': { file: 'sylianka-kvity', name: 'Силянка-квіти', w: 40, h: 12, kind: 'sylianka', difficulty: 'Середній', hours: '2-3 години' },
@@ -127,6 +134,11 @@ export const PATTERNS: Record<string, Pattern> = {
 };
 
 export const BUNDLES: Record<string, Bundle> = {
+  rizdvyani: {
+    name: 'Різдвяні',
+    desc: '5 святкових схем хрестиком: ялинка, різдвяна зірка, сніжинка, дзвіночок і ангел.',
+    patterns: ['yalynka', 'zirka_rizdvo', 'snizhynka', 'dzvinochok', 'anhel'],
+  },
   'vilni-tehniky': {
     name: 'Вільні техніки: гладь і тамбур',
     desc: '5 контурних схем у натуральну величину: три мотиви гладдю та два тамбурним швом.',
@@ -201,6 +213,7 @@ export const KIND_LABEL: Record<Pattern['kind'], string> = {
   merezhka: 'мережка',
   strichky: 'стрічками',
   figurka: 'фігурка з бісеру',
+  rizdvo: 'різдвяний мотив',
 };
 
 /** Контурні схеми міряються в міліметрах, рахункові — у клітинках. */
