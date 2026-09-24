@@ -1,0 +1,15 @@
+---
+// AdSense: код для підтвердження власності сайту й показу оголошень.
+// Порожній PUB_ID = скрипт не підключається (зручно вимкнути одним рядком).
+const PUB_ID = 'ca-pub-2965327339355008';
+const enabled = /^ca-pub-\d{10,}$/.test(PUB_ID);
+---
+
+{enabled && (
+  <script
+    is:inline
+    async
+    src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${PUB_ID}`}
+    crossorigin="anonymous"
+  />
+)}
