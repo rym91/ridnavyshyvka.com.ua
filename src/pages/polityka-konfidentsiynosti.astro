@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { organizationSchema, breadcrumbSchema, pageSchema } from '../lib/schema';
-const updated = '1 липня 2026 р.';
+import { adsenseEnabled } from '../lib/adsense';
+const updated = '4 листопада 2026 р.';
 const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
 const jsonld = [
   organizationSchema(site.href),
@@ -52,11 +53,27 @@ const jsonld = [
       Ми застосовуємо <strong>Google Consent Mode</strong>: аналітичні та рекламні cookie не встановлюються, доки
       ви не нададете згоду через банер згоди.
     </p>
-    <p>
-      У майбутньому на сайті може бути підключено <strong>Google AdSense</strong> та інших сторонніх
-      постачальників реклами, які використовують cookie (зокрема файл DART) для показу оголошень на основі ваших
-      попередніх візитів. Ви можете відмовитися від персоналізованої реклами в <a href="https://www.google.com/settings/ads" rel="nofollow noopener" target="_blank">налаштуваннях реклами Google</a>.
-    </p>
+    {/* Текст залежить від того, чи реклама справді підключена: політика, яка
+        обіцяє рекламу, якої немає, — така сама неправда, як політика, що
+        мовчить про наявну. Стан бере з того самого місця, що й скрипт. */}
+    {
+      adsenseEnabled ? (
+        <p>
+          На сайті підключено <strong>Google AdSense</strong>. Google та його партнери використовують cookie
+          для показу оголошень на основі ваших попередніх візитів на цей та інші сайти. Рекламні cookie
+          не встановлюються, доки ви не дасте згоду в банері. Відмовитися від персоналізованої реклами
+          можна в <a href="https://www.google.com/settings/ads" rel="nofollow noopener" target="_blank">налаштуваннях реклами Google</a>,
+          а відкликати згоду на сайті — очистивши cookie в браузері.
+        </p>
+      ) : (
+        <p>
+          Зараз на сайті немає реклами. Коли буде підключено <strong>Google AdSense</strong>, Google та його
+          партнери використовуватимуть cookie для показу оголошень на основі ваших попередніх візитів;
+          рекламні cookie не встановлюватимуться без вашої згоди в банері. Відмовитися від персоналізованої
+          реклами можна в <a href="https://www.google.com/settings/ads" rel="nofollow noopener" target="_blank">налаштуваннях реклами Google</a>.
+        </p>
+      )
+    }
 
     <h2>Правова основа та ваші права</h2>
     <p>

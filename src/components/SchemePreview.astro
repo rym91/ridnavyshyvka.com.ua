@@ -1,0 +1,70 @@
+---
+/**
+ * Справжня схема всередині статті.
+ *
+ * Сторінки з «схемами» в назві роками пояснювали, що таке схема, і жодної не
+ * показували — саме це Google і називає сторінкою, яка обіцяє й не дає.
+ * Компонент вставляє в текст готовий мотив: сітку видно одразу, PDF
+ * завантажується звідси ж.
+ *
+ * Розмітка навмисно поза .prose-uk: правила статті оголошені поза @layer,
+ * тож вони перебивають утиліти Tailwind — підпис ставав підкресленим
+ * посиланням, а на заголовку з'являвся декоративний «✕».
+ */
+import { schemeMap } from '../lib/schemes';
+
+interface Props {
+  /** id схеми, як у /shemy/<id>/ */
+  id: string;
+}
+const { id } = Astro.props;
+const scheme = schemeMap[id];
+if (!scheme) throw new Error(`SchemePreview: немає схеми «${id}»`);
+---
+
+<figure class="my-7 overflow-hidden rounded-xl border border-[var(--color-line)] bg-white">
+  <div class="overflow-x-auto bg-[var(--color-paper-2)] p-4">
+    <div class="scheme-figure mx-auto" set:html={scheme.chart} />
+  </div>
+  <figcaption class="p-4">
+    <p class="font-display text-lg font-bold leading-snug text-[var(--color-ink)]">
+      {scheme.title}
+    </p>
+    <p class="mt-1 text-sm leading-snug text-[var(--color-ink-soft)]">
+      {scheme.subtitle}
+    </p>
+    <p class="mt-2 text-xs text-[var(--color-ink-soft)]">
+      {`${scheme.width} × ${scheme.height} хрестиків · ${scheme.stitches} стібків · `}
+      {scheme.colors.map((c) => `DMC ${c.dmc}`).join(', ')}
+      {` · ${scheme.level}`}
+    </p>
+    <div class="mt-3 flex flex-wrap gap-3">
+      <a
+        href={`/shemy/${scheme.id}/`}
+        class="inline-block rounded-lg bg-[var(--color-brand)] px-4 py-2 text-sm font-semibold transition hover:opacity-90"
+        style="color:#fff;text-decoration:none"
+      >
+        Відкрити схему
+      </a>
+      <a
+        href={scheme.pdf}
+        download
+        class="inline-block rounded-lg border border-[var(--color-line)] px-4 py-2 text-sm font-semibold text-[var(--color-ink)] transition hover:border-[var(--color-brand)] hover:text-[var(--color-brand)]"
+        style="text-decoration:none"
+      >
+        Завантажити PDF
+      </a>
+    </div>
+  </figcaption>
+</figure>
+
+<style>
+  /* SVG має viewBox: без межі по ширині висока схема розсуває картку. */
+  .scheme-figure :global(svg) {
+    display: block;
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    margin: 0 auto;
+  }
+</style>
