@@ -1,23 +1,14 @@
 ---
-/**
- * Скрипт AdSense у <head>.
- *
- * Поки ADSENSE_PUBLISHER_ID порожній, компонент не віддає нічого — сайт
- * працює як і раніше. Щойно ідентифікатор проставлено, скрипт зʼявляється
- * на всіх сторінках, і цього достатньо, щоб Google побачив сайт на перевірці.
- *
- * crossorigin="anonymous" і async — як вимагає Google. is:inline потрібен,
- * щоб Astro не намагався зібрати цей скрипт у свій бандл.
- */
-import { adsenseEnabled, adsenseClient } from '../lib/adsense';
+// AdSense: код для підтвердження власності сайту й показу оголошень.
+// ID — у src/lib/adsense.ts; порожній = скрипт не підключається.
+import { PUB_ID, adsenseEnabled } from '../lib/adsense';
 ---
-{
-  adsenseEnabled && (
-    <script
-      is:inline
-      async
-      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
-      crossorigin="anonymous"
-    />
-  )
-}
+
+{adsenseEnabled && (
+  <script
+    is:inline
+    async
+    src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${PUB_ID}`}
+    crossorigin="anonymous"
+  />
+)}

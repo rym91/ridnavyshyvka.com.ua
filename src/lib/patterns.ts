@@ -1,0 +1,221 @@
+/**
+ * Реєстр безкоштовних PDF-схем і тематичних бандлів.
+ *
+ * Модель роздачі — гібрид:
+ *  - окремі схеми (`patterns` у frontmatter) качаються прямо зі сторінки, без умов;
+ *  - повний тематичний бандл (`bundle`) віддається в Telegram-каналі.
+ *
+ * Джерело файлів: vyshyvka-pdf-store/products/lead-magnets → site/public/pdf/
+ */
+
+export interface Pattern {
+  /** Імʼя PDF без розширення в /public/pdf/ */
+  file: string;
+  name: string;
+  /** Розмір: у хрестиках/бісеринах для рахункових, у міліметрах для контурних */
+  w: number;
+  h: number;
+  kind: 'hrestyk' | 'sylianka' | 'gerdan' | 'hlad' | 'tambur' | 'rishelye'
+    | 'merezhka' | 'strichky' | 'figurka' | 'rizdvo';
+  difficulty?: string;
+  hours?: string;
+}
+
+export interface Bundle {
+  name: string;
+  desc: string;
+  /** Ключі схем із PATTERNS */
+  patterns: string[];
+}
+
+/**
+ * Telegram-канал роздачі бандлів.
+ * Коли канал створено — виставити enabled: true і вписати url.
+ * Більше нічого міняти не треба: всі кнопки по сайту оживуть самі.
+ */
+export const TELEGRAM = {
+  enabled: true,
+  handle: '@ridnavyshyvka',
+  url: 'https://t.me/ridnavyshyvka',
+  /**
+   * Username бота роздачі (без @). Поки порожньо — кнопки ведуть на сам канал.
+   * Щойно бот створений у @BotFather — вписати сюди, і кожна кнопка почне вести
+   * одразу на потрібний набір із перевіркою підписки.
+   */
+  bot: 'ridnavyshyvka_bot',
+};
+
+/** Куди веде кнопка «забрати набір»: у бота з потрібним бандлом або просто в канал. */
+export const bundleLink = (key: string) =>
+  TELEGRAM.bot ? `https://t.me/${TELEGRAM.bot}?start=${key}` : TELEGRAM.url;
+
+export const PATTERNS: Record<string, Pattern> = {
+  // — хрестик: весільні / рушникові —
+  vazon: { file: 'vazonderevozhyttia', name: 'Вазон (дерево життя)', w: 29, h: 49, kind: 'hrestyk' },
+  vynohrad: { file: 'vynohradnehrono', name: 'Виноградне гроно', w: 17, h: 33, kind: 'hrestyk' },
+  bezkinechnyk: { file: 'bezkinechnykmeandr', name: 'Безкінечник (меандр)', w: 36, h: 19, kind: 'hrestyk' },
+  bihunets: { file: 'bihunetszlystochkamy', name: 'Бігунець із листочками', w: 40, h: 7, kind: 'hrestyk' },
+  'kalyna-vesilna': { file: 'kalyna-vesilna', name: 'Калина весільна', w: 31, h: 41, kind: 'hrestyk', difficulty: 'Середній', hours: '8-10 годин' },
+
+  // — хрестик: базові / для новачків —
+  dubove: { file: 'dubovelystiazzholudiamy', name: 'Дубове листя з жолудями', w: 19, h: 29, kind: 'hrestyk' },
+  romb: { file: 'rombzhachkamy', name: 'Ромб із гачками', w: 27, h: 27, kind: 'hrestyk' },
+  kvitka: { file: 'kvitka-nova', name: 'Квіточка', w: 13, h: 17, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
+  serce: { file: 'serce-nova', name: 'Серце', w: 15, h: 15, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
+  zirka: { file: 'zirka-nova', name: 'Зірочка', w: 17, h: 17, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
+  kvitka5: { file: 'kvitka5', name: 'Квітка 5-пелюсткова', w: 13, h: 13, kind: 'hrestyk', difficulty: 'Початковий', hours: '1-2 години' },
+
+  // — хрестик: обереги —
+  kalynaoberih: { file: 'kalynaoberih', name: 'Калина-оберіг', w: 21, h: 25, kind: 'hrestyk', difficulty: 'Початковий', hours: '4-5 годин' },
+  tryzub: { file: 'tryzub', name: 'Тризуб (орнаментальний)', w: 35, h: 50, kind: 'hrestyk', difficulty: 'Середній', hours: '10-12 годин' },
+  khrysttryzub: { file: 'khrysttryzub', name: 'Хрест-Тризуб', w: 19, h: 19, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
+  sonce: { file: 'sonce', name: 'Сонце', w: 21, h: 21, kind: 'hrestyk', difficulty: 'Середній', hours: '4-5 годин' },
+  zirkadva: { file: 'zirkadva', name: 'Подвійна зірка', w: 23, h: 23, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
+  khryst: { file: 'khryst', name: 'Хрест', w: 13, h: 13, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
+  karpatskyi: { file: 'karpatskyi', name: 'Карпатський ромб', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '6-7 годин' },
+
+  // — хрестик: квіти —
+  maky: { file: 'maky', name: 'Маки', w: 13, h: 21, kind: 'hrestyk', difficulty: 'Початковий', hours: '4-5 годин' },
+  soniakhy: { file: 'soniakhy', name: 'Соняхи', w: 19, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '6-7 годин' },
+  pivonii: { file: 'pivonii', name: 'Півонії', w: 21, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '6-7 годин' },
+  troiandy: { file: 'troiandy', name: 'Троянди', w: 15, h: 23, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
+  lilii: { file: 'lilii', name: 'Лілії', w: 15, h: 27, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
+
+  // — хрестик: дитячі —
+  sonechko: { file: 'sonechko', name: 'Сонечко', w: 17, h: 17, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
+  metelyk: { file: 'metelyk', name: 'Метелик', w: 19, h: 17, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
+  ryba: { file: 'ryba', name: 'Риба', w: 23, h: 13, kind: 'hrestyk', difficulty: 'Початковий', hours: '1-2 години' },
+  polunycya: { file: 'polunycya', name: 'Полуниця', w: 17, h: 19, kind: 'hrestyk', difficulty: 'Початковий', hours: '2-3 години' },
+
+  // — хрестик: великодні —
+  kvochka: { file: 'kvochka', name: 'Квочка з курчатами', w: 25, h: 21, kind: 'hrestyk', difficulty: 'Середній', hours: '4-5 годин' },
+  pysanky: { file: 'pysanky', name: 'Писанки', w: 25, h: 15, kind: 'hrestyk', difficulty: 'Середній', hours: '4-5 годин' },
+  kvitkaPascha: { file: 'kvitkaPascha', name: 'Квітка Пасха', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
+
+  // — хрестик: регіональні —
+  galycka: { file: 'galycka', name: 'Галицька кривулька', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '5-6 годин' },
+  hutsulska: { file: 'hutsulska', name: 'Гуцульський ромб', w: 25, h: 25, kind: 'hrestyk', difficulty: 'Середній', hours: '8-10 годин' },
+  podilska: { file: 'podilska', name: 'Подільська зірка', w: 27, h: 27, kind: 'hrestyk', difficulty: 'Середній', hours: '7-8 годин' },
+  poltavska: { file: 'poltavska', name: 'Полтавська гілка', w: 21, h: 25, kind: 'hrestyk', difficulty: 'Початковий', hours: '4-5 годин' },
+  centralna: { file: 'centralna', name: 'Центральний вазон', w: 27, h: 31, kind: 'hrestyk', difficulty: 'Середній', hours: '6-7 годин' },
+
+  // — різдвяні мотиви (рахункові, багатоколірні) —
+  yalynka: { file: 'yalynka', name: 'Ялинка', w: 21, h: 25, kind: 'rizdvo', difficulty: 'Середній', hours: '4-5 годин' },
+  zirka_rizdvo: { file: 'rizdvyana-zirka', name: 'Різдвяна зірка', w: 17, h: 17, kind: 'rizdvo', difficulty: 'Початковий', hours: '2-3 години' },
+  snizhynka: { file: 'snizhynka', name: 'Сніжинка', w: 25, h: 25, kind: 'rizdvo', difficulty: 'Середній', hours: '3-4 години' },
+  dzvinochok: { file: 'dzvinochok', name: 'Дзвіночок', w: 21, h: 23, kind: 'rizdvo', difficulty: 'Початковий', hours: '4-5 годин' },
+  anhel: { file: 'anhel', name: 'Ангел', w: 21, h: 25, kind: 'rizdvo', difficulty: 'Середній', hours: '6-7 годин' },
+
+  // — бісер: силянки та гердани —
+  'sylianka-zyhzah': { file: 'sylianka-zyhzah', name: 'Силянка-зигзаг', w: 30, h: 10, kind: 'sylianka', difficulty: 'Початковий', hours: '1-2 години' },
+  'sylianka-kvity': { file: 'sylianka-kvity', name: 'Силянка-квіти', w: 40, h: 11, kind: 'sylianka', difficulty: 'Середній', hours: '2-3 години' },
+  'sylianka-romby': { file: 'sylianka-romby', name: 'Силянка-ромби', w: 40, h: 11, kind: 'sylianka', difficulty: 'Середній', hours: '2-3 години' },
+  'gerdan-zyhzah': { file: 'gerdan-zyhzah', name: 'Гердан-зигзаг', w: 50, h: 10, kind: 'gerdan', difficulty: 'Середній', hours: '3-4 години' },
+  'gerdan-romby': { file: 'gerdan-romby', name: 'Гердан-ромби', w: 50, h: 14, kind: 'gerdan', difficulty: 'Середній', hours: '4-5 годин' },
+
+  // — вільні техніки: гладь, тамбур (контурні схеми 1:1) —
+  'kvitka-hladdyu': { file: 'kvitka-hladdyu', name: 'Квітка гладдю', w: 80, h: 80, kind: 'hlad', difficulty: 'Початковий', hours: '2-3 години' },
+  'lystok-hladdyu': { file: 'lystok-hladdyu', name: 'Листок гладдю', w: 70, h: 95, kind: 'hlad', difficulty: 'Початковий', hours: '2-3 години' },
+  'voloshka-hladdyu': { file: 'voloshka-hladdyu', name: 'Волошка гладдю', w: 75, h: 75, kind: 'hlad', difficulty: 'Середній', hours: '3-4 години' },
+  'haluzka-tamburom': { file: 'haluzka-tamburom', name: 'Галузка тамбуром', w: 110, h: 60, kind: 'tambur', difficulty: 'Початковий', hours: '1-2 години' },
+  'rozeta-tamburom': { file: 'rozeta-tamburom', name: 'Розета тамбуром', w: 85, h: 85, kind: 'tambur', difficulty: 'Початковий', hours: '2-3 години' },
+
+  // — ажурні техніки —
+  'sertse-rishelye': { file: 'sertse-rishelye', name: 'Серце рішельє', w: 90, h: 90, kind: 'rishelye', difficulty: 'Середній', hours: '5-6 годин' },
+  'kvitka-rishelye': { file: 'kvitka-rishelye', name: 'Квітка рішельє', w: 95, h: 95, kind: 'rishelye', difficulty: 'Складний', hours: '7-8 годин' },
+  'merezhka-stovpchyk': { file: 'merezhka-stovpchyk', name: 'Мережка «стовпчик»', w: 120, h: 45, kind: 'merezhka', difficulty: 'Початковий', hours: '2-3 години' },
+
+  // — стрічки та плетені фігурки —
+  'troianda-strichkamy': { file: 'troianda-strichkamy', name: 'Троянда стрічками', w: 95, h: 95, kind: 'strichky', difficulty: 'Середній', hours: '2-3 години' },
+  'buketyk-strichkamy': { file: 'buketyk-strichkamy', name: 'Букетик стрічками', w: 90, h: 95, kind: 'strichky', difficulty: 'Середній', hours: '3-4 години' },
+  'figurka-metelyk': { file: 'figurka-metelyk', name: 'Метелик з бісеру', w: 15, h: 19, kind: 'figurka', difficulty: 'Початковий', hours: '2-3 години' },
+  'figurka-kvitka': { file: 'figurka-kvitka', name: 'Квітка з бісеру', w: 15, h: 20, kind: 'figurka', difficulty: 'Початковий', hours: '2-3 години' },
+  'figurka-sertse': { file: 'figurka-sertse', name: 'Сердечко з бісеру', w: 8, h: 7, kind: 'figurka', difficulty: 'Початковий', hours: '1 година' },
+};
+
+export const BUNDLES: Record<string, Bundle> = {
+  rizdvyani: {
+    name: 'Різдвяні',
+    desc: '5 святкових схем хрестиком: ялинка, різдвяна зірка, сніжинка, дзвіночок і ангел.',
+    patterns: ['yalynka', 'zirka_rizdvo', 'snizhynka', 'dzvinochok', 'anhel'],
+  },
+  'vilni-tehniky': {
+    name: 'Вільні техніки: гладь і тамбур',
+    desc: '5 контурних схем у натуральну величину: три мотиви гладдю та два тамбурним швом.',
+    patterns: ['kvitka-hladdyu', 'lystok-hladdyu', 'voloshka-hladdyu', 'haluzka-tamburom', 'rozeta-tamburom'],
+  },
+  'azhurni-tehniky': {
+    name: 'Ажур: рішельє та мережка',
+    desc: '3 схеми прорізної та ажурної вишивки: серце й квітка рішельє, мережка «стовпчик».',
+    patterns: ['sertse-rishelye', 'kvitka-rishelye', 'merezhka-stovpchyk'],
+  },
+  'strichky-ta-figurky': {
+    name: 'Стрічки та фігурки з бісеру',
+    desc: '5 схем: дві вишивки стрічками та три плетені фігурки з бісеру.',
+    patterns: ['troianda-strichkamy', 'buketyk-strichkamy', 'figurka-metelyk', 'figurka-kvitka', 'figurka-sertse'],
+  },
+  'sylianky-ta-gerdany': {
+    name: 'Силянки та гердани',
+    desc: '5 схем бісерних прикрас: три силянки та два гердани — від зигзагу для новачка до ромбів.',
+    patterns: ['sylianka-zyhzah', 'sylianka-kvity', 'sylianka-romby', 'gerdan-zyhzah', 'gerdan-romby'],
+  },
+  'dlya-novachkiv': {
+    name: 'Для новачків',
+    desc: '6 простих схем хрестиком на 1-4 години: бігунець, ромб, дубове листя, квіточка, серце, зірочка.',
+    patterns: ['bihunets', 'romb', 'dubove', 'kvitka', 'serce', 'zirka'],
+  },
+  'veseilnyi-rushnyk': {
+    name: 'Весільний рушник',
+    desc: '5 традиційних схем для весільного рушника: вазон, виноградне гроно, безкінечник, бігунець, калина.',
+    patterns: ['vazon', 'vynohrad', 'bezkinechnyk', 'bihunets', 'kalyna-vesilna'],
+  },
+  oberehy: {
+    name: 'Обереги',
+    desc: '5 оберегових схем: калина-оберіг, тризуб, сонце, подвійна зірка, хрест.',
+    patterns: ['kalynaoberih', 'tryzub', 'sonce', 'zirkadva', 'khryst'],
+  },
+  'cholovicha-sorochka': {
+    name: 'Чоловіча сорочка',
+    desc: '4 схеми для чоловічої вишиванки: дубове листя, ромб із гачками, хрест-тризуб, карпатський ромб.',
+    patterns: ['dubove', 'romb', 'khrysttryzub', 'karpatskyi'],
+  },
+  'suchasni-kvity': {
+    name: 'Сучасні квіти',
+    desc: '5 квіткових схем хрестиком: маки, соняхи, півонії, троянди, лілії.',
+    patterns: ['maky', 'soniakhy', 'pivonii', 'troiandy', 'lilii'],
+  },
+  dytiachi: {
+    name: 'Дитячі',
+    desc: '5 простих дитячих схем: сонечко, метелик, риба, полуниця, квітка.',
+    patterns: ['sonechko', 'metelyk', 'ryba', 'polunycya', 'kvitka5'],
+  },
+  velykodni: {
+    name: 'Великодні',
+    desc: '3 великодні схеми: квочка з курчатами, писанки, квітка Пасха.',
+    patterns: ['kvochka', 'pysanky', 'kvitkaPascha'],
+  },
+  regionalni: {
+    name: 'Регіональні',
+    desc: '5 схем за регіонами: галицька, гуцульська, подільська, полтавська, центральна.',
+    patterns: ['galycka', 'hutsulska', 'podilska', 'poltavska', 'centralna'],
+  },
+};
+
+export const patternUrl = (p: Pattern) => `/pdf/${p.file}.pdf`;
+
+export const KIND_LABEL: Record<Pattern['kind'], string> = {
+  hrestyk: 'хрестиком',
+  sylianka: 'силянка з бісеру',
+  gerdan: 'гердан з бісеру',
+  hlad: 'гладдю',
+  tambur: 'тамбурним швом',
+  rishelye: 'рішельє',
+  merezhka: 'мережка',
+  strichky: 'стрічками',
+  figurka: 'фігурка з бісеру',
+  rizdvo: 'різдвяний мотив',
+};
+
+/** Контурні схеми міряються в міліметрах, рахункові — у клітинках. */
+export const isOutline = (p: Pattern) =>
+  ['hlad', 'tambur', 'rishelye', 'merezhka', 'strichky'].includes(p.kind);

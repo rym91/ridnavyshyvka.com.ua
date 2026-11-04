@@ -17,10 +17,15 @@ secondary_keywords:
 intent: info
 tier: B
 priority: P2
+patterns:
+  - kvitka
+  - kalynaoberih
+  - troiandy
+bundle: suchasni-kvity
 related:
   - vyshyvanka
   - ornament-vyshyvanky
-updated: 2026-06-30
+updated: 2026-09-07
 faq:
   - q: "Чим жіноча вишиванка відрізняється від чоловічої?"
     a: "У жіночій сорочці вишивка зазвичай покриває рукави повністю, а не лише комір і манжети, як у чоловічій. Головна відмінна зона — уставка (верхня частина рукава) і густий візерунок на самому рукаві. Саме це робить жіночу вишиванку впізнаваною."

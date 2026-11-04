@@ -17,10 +17,14 @@ secondary_keywords:
 intent: pattern
 tier: A
 priority: P2
+patterns:
+  - sertse-rishelye
+  - kvitka-rishelye
+bundle: azhurni-tehniky
 related:
   - merezhka-vyshyvka
   - vyshyvka-gladdyu
-updated: 2026-06-30
+updated: 2026-09-07
 faq:
   - q: "З якої техніки білої вишивки почати новачкові?"
     a: "Починайте з лиштви на невеликому клаптику рівного льону: вона вчить рахувати нитки й тримати рівний стібок, але не потребує вирізання тканини. Мережку й рішельє додавайте пізніше, коли рука вже впевнено кладе гладь."

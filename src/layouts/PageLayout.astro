@@ -10,6 +10,7 @@ import { getSection } from '../lib/sections';
 import { entryUrl, relatedPages } from '../lib/links';
 import { articleSchema, breadcrumbSchema, collectionPageSchema, faqSchema } from '../lib/schema';
 import Ornament from '../components/Ornament.astro';
+import FreePattern from '../components/FreePattern.astro';
 
 interface Props {
   page: CollectionEntry<'pages'>;
@@ -82,8 +83,13 @@ const updatedLabel = d.updated
   ? `${d.updated.getUTCDate()} ${MONTHS_UK[d.updated.getUTCMonth()]} ${d.updated.getUTCFullYear()}`
   : null;
 
-// Phase 1: скрыт (пока нет реальных схем/подписки — не показываем «Скоро»-заглушку). Включим в Phase 2.
-const showLeadMagnet = false;
+// Сторінки без власного набору схем усе одно ведуть у каталог і Telegram —
+// щоб вихід у воронку був на кожній сторінці, а не лише там, де є FreePattern.
+const showLeadMagnet = true;
+
+// Схеми — головний намір pattern-сторінок, тому блок іде одразу під вступом, а не в кінці.
+const hasPatterns = d.patterns.length > 0 || !!d.bundle;
+const patternsOnTop = hasPatterns && d.intent === 'pattern';
 ---
 <BaseLayout
   title={d.title}
@@ -157,7 +163,9 @@ const showLeadMagnet = false;
         </aside>
       )
     }
+    {patternsOnTop && <FreePattern patterns={d.patterns} bundle={d.bundle} />}
     <slot />
+    {hasPatterns && !patternsOnTop && <FreePattern patterns={d.patterns} bundle={d.bundle} />}
     {
       d.faq.length > 0 && (
         <section class="mt-10">
@@ -183,7 +191,7 @@ const showLeadMagnet = false;
     )
   }
   <Ornament height={18} class="mt-10" />
-  {showLeadMagnet && <LeadMagnet />}
+  {showLeadMagnet && !hasPatterns && <LeadMagnet />}
   {
     d.page_type === 'pillar' && sectionPages.length > 0 && (
       <section class="mt-8">

@@ -45,8 +45,8 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [], 
       noindex={noindex}
     />
     {jsonld.length > 0 && <JsonLd data={jsonld} />}
-    <AdSense />
     <Analytics />
+    <AdSense />
   </head>
   <body class="flex min-h-screen flex-col font-sans text-[var(--color-ink)]">
     <a
@@ -64,9 +64,6 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [], 
         </a>
         <div class="flex items-center gap-2">
         <nav aria-label="Головне меню" class="hidden flex-wrap gap-x-4 gap-y-1 text-[13px] font-medium md:flex">
-          <a href="/shemy/" class="whitespace-nowrap py-1 font-semibold text-[var(--color-brand)] transition-colors hover:text-[var(--color-brand-dark)]">
-            Безкоштовні схеми
-          </a>
           {
             SECTIONS.map((s) => (
               <a href={`/${s.slug}/`} class="whitespace-nowrap py-1 text-[var(--color-ink-soft)] transition-colors hover:text-[var(--color-brand)]">
@@ -104,7 +101,7 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [], 
               ))
             }
             <div class="mt-1 border-t border-[var(--color-line)] pt-2">
-              <a href="/shemy/" class="block py-2 font-semibold text-[var(--color-brand)]">✕ Безкоштовні схеми</a>
+              <a href="/bezkoshtovni-shemy/" class="block py-2 text-[var(--color-ink-soft)] hover:text-[var(--color-brand)]">✕ Безкоштовні схеми</a>
               <a href="/kalkulyator-rozmiru-vyshyvky/" class="block py-2 text-[var(--color-ink-soft)] hover:text-[var(--color-brand)]">🧮 Калькулятор розміру</a>
               <a href="/slovnyk-vyshyvky/" class="block py-2 text-[var(--color-ink-soft)] hover:text-[var(--color-brand)]">📖 Словник термінів</a>
             </div>
@@ -129,7 +126,7 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [], 
               Українська вишивка: схеми, техніки та орнаменти — від першого стібка до власної вишиванки.
             </p>
             <p class="mt-4">
-              Слідкуйте: <a href="https://www.pinterest.com/221rsgnveewbcgma13t7praynn2bnm/" target="_blank" rel="noopener" class="inline-block py-1.5 font-medium text-[#ff8fa0] hover:underline">Pinterest</a> · <a href="/rss.xml" class="inline-block py-1.5 font-medium text-[#ff8fa0] hover:underline">RSS</a>
+              Слідкуйте: <a href="https://t.me/ridnavyshyvka" target="_blank" rel="noopener" class="inline-block py-1.5 font-medium text-[#ff8fa0] hover:underline">Telegram</a> · <a href="https://www.pinterest.com/ridnavyshyvka/" target="_blank" rel="noopener" class="inline-block py-1.5 font-medium text-[#ff8fa0] hover:underline">Pinterest</a> · <a href="/rss.xml" class="inline-block py-1.5 font-medium text-[#ff8fa0] hover:underline">RSS</a>
             </p>
           </div>
           <nav aria-label="Розділи сайту">
@@ -149,9 +146,9 @@ const { title, description, canonicalPath, ogType, image, noindex, jsonld = [], 
           <nav aria-label="Інформація про сайт">
             <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-paper)]">Про сайт</p>
             <ul class="grid gap-0">
-              <li><a href="/shemy/" class="inline-block py-1.5 hover:text-[#ff8fa0]">Безкоштовні схеми</a></li>
               <li><a href="/pro-nas/" class="inline-block py-1.5 hover:text-[#ff8fa0]">Про нас</a></li>
               <li><a href="/avtorka/" class="inline-block py-1.5 hover:text-[#ff8fa0]">Авторка</a></li>
+              <li><a href="/bezkoshtovni-shemy/" class="inline-block py-1.5 hover:text-[#ff8fa0]">Безкоштовні схеми</a></li>
               <li><a href="/kalkulyator-rozmiru-vyshyvky/" class="inline-block py-1.5 hover:text-[#ff8fa0]">Калькулятор розміру</a></li>
               <li><a href="/slovnyk-vyshyvky/" class="inline-block py-1.5 hover:text-[#ff8fa0]">Словник термінів</a></li>
               <li><a href="/kontakty/" class="inline-block py-1.5 hover:text-[#ff8fa0]">Контакти</a></li>

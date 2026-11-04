@@ -17,12 +17,17 @@ secondary_keywords:
 intent: howto_beginner
 tier: A
 priority: P1
+patterns:
+  - kvitka
+  - serce
+  - zirka
+bundle: dlya-novachkiv
 related:
   - ukrayinska-vyshyvka
   - tehniky-vyshyvky
   - vyshyvka-hrestykom
   - vyshyvka-biserom
-updated: 2026-08-05
+updated: 2026-09-07
 faq:
   - q: "З якої техніки краще почати вишивати?"
     a: "Найпростіша для старту — вишивка хрестиком: один тип стібка, готові схеми та зрозуміла канва дозволяють швидко побачити результат. Якщо вас більше приваблює «мальована» поверхня — спробуйте гладь, а якщо яскраві прикраси — бісер."

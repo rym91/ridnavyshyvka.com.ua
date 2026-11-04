@@ -2,7 +2,6 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { entryUrl } from '../lib/links';
 import { SECTIONS } from '../lib/sections';
-import { SCHEMES } from '../lib/schemes';
 
 // llms.txt (llmstxt.org) — карта сайту в Markdown для AI / answer engines.
 export const GET: APIRoute = async ({ site }) => {
@@ -28,14 +27,6 @@ export const GET: APIRoute = async ({ site }) => {
     }
     out += `\n`;
   }
-
-  out += `## Безкоштовні схеми для вишивки хрестиком\n`;
-  out += `Власні схеми українських народних мотивів: сітка на сторінці, PDF для друку, легенда з номерами DMC.\n`;
-  for (const s of SCHEMES) {
-    out += `- [${s.title}](${base}/shemy/${s.id}/): ${s.subtitle}. ${s.width} × ${s.height} хрестиків, `;
-    out += `${s.colors.length} кольори, ${s.stitches} стібків, рівень «${s.level}».\n`;
-  }
-  out += `\n`;
 
   out += `## Інструменти й довідка\n`;
   out += `- [Калькулятор розміру вишивки](${base}/kalkulyator-rozmiru-vyshyvky/): розмір вишивки у сантиметрах за кількістю хрестиків і каунтом канви.\n`;

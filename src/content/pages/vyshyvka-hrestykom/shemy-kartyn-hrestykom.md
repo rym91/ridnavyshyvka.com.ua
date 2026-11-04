@@ -16,10 +16,15 @@ secondary_keywords:
 intent: pattern
 tier: A
 priority: P2
+patterns:
+  - maky
+  - soniakhy
+  - pivonii
+bundle: suchasni-kvity
 related:
   - legki-shemy-hrestykom
   - yak-chytaty-shemy-hrestykom
-updated: 2026-06-30
+updated: 2026-09-07
 faq:
   - q: "Скільки кольорів буває у схемі картини?"
     a: "У великій реалістичній картині — від кількох десятків до сотні номерів муліне. Що більше напівтонів, то плавніші переходи, але й складніша робота. Початківцям краще брати сюжети на 15–30 кольорів."
