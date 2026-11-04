@@ -5,6 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Ornament from '../components/Ornament.astro';
 import Picture from '../components/Picture.astro';
 import { SECTIONS } from '../lib/sections';
+import { SCHEMES } from '../lib/schemes';
 import { entryUrl } from '../lib/links';
 import { organizationSchema, websiteSchema } from '../lib/schema';
 import heroImg from '../assets/heroes/vyshyvka-hrestykom-dlya-pochatkivciv.jpg';
@@ -48,6 +49,10 @@ const popular = pages
             class="inline-block rounded-lg bg-[var(--color-brand)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--color-brand-dark)]"
           >Зробити перший хрестик →</a>
           <a
+            href="/shemy/"
+            class="inline-block rounded-lg border border-[var(--color-brand)] bg-white px-6 py-3 font-semibold text-[var(--color-brand)] transition-colors hover:bg-[var(--color-brand)] hover:text-white"
+          >Безкоштовні схеми →</a>
+          <a
             href="#rozdily"
             class="inline-block rounded-lg border border-[var(--color-line)] bg-white px-6 py-3 font-semibold text-[var(--color-ink)] transition-colors hover:border-[var(--color-brand)] hover:text-[var(--color-brand)]"
           >Всі розділи ↓</a>
@@ -64,6 +69,40 @@ const popular = pages
         />
       </div>
     </div>
+  </section>
+
+  <section class="mb-14">
+    <h2 class="h2-section mb-1">Безкоштовні схеми</h2>
+    <p class="mb-6 text-[var(--color-ink-soft)]">
+      Власні схеми українських народних мотивів: дивіться на сторінці або завантажуйте PDF для друку.
+      Без реєстрації.
+    </p>
+    <div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+      {
+        SCHEMES.slice(0, 4).map((s) => (
+          <a
+            href={`/shemy/${s.id}/`}
+            class="group rounded-xl border border-[var(--color-line)] bg-white p-3 transition hover:border-[var(--color-brand)]"
+          >
+            <div
+              class="scheme-thumb mx-auto flex h-20 items-center justify-center rounded-lg bg-[var(--color-paper-2)] p-2"
+              set:html={s.thumb}
+            />
+            <p class="mt-2 text-sm font-semibold leading-snug text-[var(--color-ink)] group-hover:text-[var(--color-brand)]">
+              {s.title}
+            </p>
+            <p class="mt-0.5 text-xs text-[var(--color-ink-soft)]">
+              {s.width} × {s.height} хрестиків · {s.level}
+            </p>
+          </a>
+        ))
+      }
+    </div>
+    <p class="mt-4">
+      <a href="/shemy/" class="font-semibold text-[var(--color-brand)] hover:underline">
+        Усі схеми →
+      </a>
+    </p>
   </section>
 
   <section id="rozdily" style="scroll-margin-top:5rem">
