@@ -7,6 +7,7 @@
  *
  * Джерело файлів: vyshyvka-pdf-store/products/lead-magnets → site/public/pdf/
  */
+import PREVIEWS from './pattern-previews.json';
 
 export interface Pattern {
   /** Імʼя PDF без розширення в /public/pdf/ */
@@ -202,6 +203,15 @@ export const BUNDLES: Record<string, Bundle> = {
 };
 
 export const patternUrl = (p: Pattern) => `/pdf/${p.file}.pdf`;
+
+/**
+ * Превʼю схеми (сітка/малюнок із 1-ї сторінки PDF), щоб людина бачила схему до завантаження.
+ * Генерується скриптом scripts/make_pattern_previews.py → public/shemy-preview/ + pattern-previews.json.
+ */
+export const patternPreview = (p: Pattern) => {
+  const size = (PREVIEWS as Record<string, number[]>)[p.file];
+  return size ? { src: `/shemy-preview/${p.file}.webp`, width: size[0], height: size[1] } : undefined;
+};
 
 export const KIND_LABEL: Record<Pattern['kind'], string> = {
   hrestyk: 'хрестиком',

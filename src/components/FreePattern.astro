@@ -3,7 +3,7 @@
  * Блок безкоштовних схем на сторінці.
  * Гібридна роздача: окремі PDF — одразу, повний бандл — у Telegram-каналі.
  */
-import { PATTERNS, BUNDLES, TELEGRAM, patternUrl, bundleLink, isOutline } from '../lib/patterns';
+import { PATTERNS, BUNDLES, TELEGRAM, patternUrl, bundleLink, isOutline, patternPreview, KIND_LABEL } from '../lib/patterns';
 
 interface Props {
   /** Ключі схем із PATTERNS — качаються прямо звідси */
@@ -32,13 +32,29 @@ if (import.meta.env.DEV) {
 
       {items.length > 0 && (
         <ul class="my-0 grid list-none gap-2 p-0 sm:grid-cols-2">
-          {items.map((p) => (
+          {items.map((p) => {
+            const pv = patternPreview(p);
+            return (
             <li class="m-0 p-0">
               <a
                 href={patternUrl(p)}
                 download
-                class="flex h-full items-center gap-3 rounded-lg border border-[var(--color-line)] bg-white p-3 no-underline transition-colors hover:border-[var(--color-brand)]"
+                class="flex h-full flex-col rounded-lg border border-[var(--color-line)] bg-white no-underline transition-colors hover:border-[var(--color-brand)]"
               >
+                {pv && (
+                  <span class="flex h-48 items-center justify-center overflow-hidden rounded-t-lg border-b border-[var(--color-line)] bg-white p-2">
+                    <img
+                      src={pv.src}
+                      width={pv.width}
+                      height={pv.height}
+                      alt={`Схема «${p.name}» — ${KIND_LABEL[p.kind]}, ${p.w}×${p.h}${isOutline(p) ? ' мм' : ''}`}
+                      loading="lazy"
+                      decoding="async"
+                      class="m-0 h-full w-auto max-w-full object-contain"
+                    />
+                  </span>
+                )}
+                <span class="flex items-center gap-3 p-3">
                 <span
                   class="shrink-0 rounded bg-[var(--color-brand)]/10 px-2 py-1 text-xs font-bold text-[var(--color-brand)]"
                   aria-hidden="true"
@@ -53,9 +69,11 @@ if (import.meta.env.DEV) {
                     {p.difficulty ? ` · ${p.difficulty}` : ''}
                   </span>
                 </span>
+                </span>
               </a>
             </li>
-          ))}
+            );
+          })}
         </ul>
       )}
 

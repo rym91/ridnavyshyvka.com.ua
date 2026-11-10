@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Ornament from '../components/Ornament.astro';
 import { organizationSchema, breadcrumbSchema } from '../lib/schema';
-import { PATTERNS, BUNDLES, TELEGRAM, patternUrl, KIND_LABEL, bundleLink, isOutline } from '../lib/patterns';
+import { PATTERNS, BUNDLES, TELEGRAM, patternUrl, KIND_LABEL, bundleLink, isOutline, patternPreview } from '../lib/patterns';
 import { entryUrl } from '../lib/links';
 
 const site = Astro.site ?? new URL('https://ridnavyshyvka.com.ua');
@@ -90,13 +90,27 @@ const jsonld = [
       <section class="mb-12" id={slug} style="scroll-margin-top:5rem">
         <h2 class="h2-section mb-1">{b.name}</h2>
         <p class="mb-5 text-[var(--color-ink-soft)]">{b.desc}</p>
-        <ul class="grid list-none gap-3 p-0 sm:grid-cols-2">
+        <ul class="grid list-none gap-3 p-0 sm:grid-cols-2 lg:grid-cols-3">
           {b.patterns.map((key) => {
             const p = PATTERNS[key];
             if (!p) return null;
             const art = articleFor.get(key);
+            const pv = patternPreview(p);
             return (
-              <li class="m-0 rounded-lg border border-[var(--color-line)] bg-white p-4">
+              <li class="m-0 flex flex-col rounded-lg border border-[var(--color-line)] bg-white p-4">
+                {pv && (
+                  <a href={patternUrl(p)} download class="mb-3 flex h-52 items-center justify-center overflow-hidden rounded border border-[var(--color-line)] bg-white p-2" tabindex="-1" aria-hidden="true">
+                    <img
+                      src={pv.src}
+                      width={pv.width}
+                      height={pv.height}
+                      alt={`Схема «${p.name}» — ${KIND_LABEL[p.kind]}, ${p.w}×${p.h}${isOutline(p) ? ' мм' : ''}`}
+                      loading="lazy"
+                      decoding="async"
+                      class="h-full w-auto max-w-full object-contain"
+                    />
+                  </a>
+                )}
                 <a
                   href={patternUrl(p)}
                   download
