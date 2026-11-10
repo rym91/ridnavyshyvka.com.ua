@@ -1,0 +1,49 @@
+---
+/**
+ * Превʼю схеми для карток: сама схема (з PDF) і, для хрестика, візуалізація «вишите».
+ * Обидва зображення — власна графіка, згенерована з наших PDF (scripts/make_*_previews.py).
+ */
+import { patternPreview, patternStitched, isOutline, KIND_LABEL, type Pattern } from '../lib/patterns';
+
+interface Props {
+  p: Pattern;
+  /** Висота блоку (Tailwind-клас) */
+  heightClass?: string;
+}
+const { p, heightClass = 'h-48' } = Astro.props;
+const pv = patternPreview(p);
+const st = patternStitched(p);
+const size = `${p.w}×${p.h}${isOutline(p) ? ' мм' : ''}`;
+---
+{
+  pv && (
+    <span class:list={['grid gap-px overflow-hidden bg-[var(--color-line)]', st ? 'grid-cols-2' : 'grid-cols-1', heightClass]}>
+      <span class="relative flex min-h-0 items-center justify-center bg-white p-2">
+        <img
+          src={pv.src}
+          width={pv.width}
+          height={pv.height}
+          alt={`Схема «${p.name}» — ${KIND_LABEL[p.kind]}, ${size}`}
+          loading="lazy"
+          decoding="async"
+          class="m-0 h-full w-auto max-w-full object-contain"
+        />
+        {st && <span class="absolute bottom-1 left-1 rounded bg-white/90 px-1.5 text-[10px] font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">Схема</span>}
+      </span>
+      {st && (
+        <span class="relative flex min-h-0 items-center justify-center bg-[#f4eee2] p-2">
+          <img
+            src={st.src}
+            width={st.width}
+            height={st.height}
+            alt={`Як виглядатиме вишитим: «${p.name}» хрестиком (візуалізація схеми)`}
+            loading="lazy"
+            decoding="async"
+            class="m-0 h-full w-auto max-w-full object-contain"
+          />
+          <span class="absolute bottom-1 left-1 rounded bg-white/90 px-1.5 text-[10px] font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]" title="Як виглядатиме вишитим — комп'ютерна візуалізація схеми">Візуалізація</span>
+        </span>
+      )}
+    </span>
+  )
+}

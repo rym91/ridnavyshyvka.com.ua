@@ -8,6 +8,7 @@
  * Джерело файлів: vyshyvka-pdf-store/products/lead-magnets → site/public/pdf/
  */
 import PREVIEWS from './pattern-previews.json';
+import STITCHED from './pattern-stitched.json';
 
 export interface Pattern {
   /** Імʼя PDF без розширення в /public/pdf/ */
@@ -211,6 +212,15 @@ export const patternUrl = (p: Pattern) => `/pdf/${p.file}.pdf`;
 export const patternPreview = (p: Pattern) => {
   const size = (PREVIEWS as Record<string, number[]>)[p.file];
   return size ? { src: `/shemy-preview/${p.file}.webp`, width: size[0], height: size[1] } : undefined;
+};
+
+/**
+ * Візуалізація «як виглядатиме вишитим» (лише рахункові схеми хрестиком).
+ * Генерується scripts/make_stitched_previews.py → public/shemy-vyshyte/ + pattern-stitched.json.
+ */
+export const patternStitched = (p: Pattern) => {
+  const size = (STITCHED as Record<string, number[]>)[p.file];
+  return size ? { src: `/shemy-vyshyte/${p.file}.webp`, width: size[0], height: size[1] } : undefined;
 };
 
 export const KIND_LABEL: Record<Pattern['kind'], string> = {

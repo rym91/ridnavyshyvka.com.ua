@@ -62,6 +62,8 @@ faq:
 
 **Кольори.** Домінує чорний, іноді з невеликими вкрапленнями темно-червоного чи бордового. Загальне враження — майже монохромне, «важке».
 
+<figure class="photo"><img src="/photos/borshchivski-sorochky-muzei.webp" alt="Борщівські вишиванки з густою чорною вишивкою в Борщівському краєзнавчому музеї" width="802" height="535" loading="lazy" decoding="async" /><figcaption>Борщівські сорочки в Борщівському краєзнавчому музеї: рукави майже суцільно закриті темною вовною. <span class="credit">Фото: Суспільне Тернопіль · <a href="https://commons.wikimedia.org/wiki/File:Emroidered_shirts_from_Borshchiv_museum_Ukraine.jpg" rel="noopener" target="_blank">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by/3.0" rel="license noopener" target="_blank">CC BY 3.0</a></span></figcaption></figure>
+
 **Техніка.** Густа вовняна нитка, покладена суцільними рахунковими стібками так щільно, що тканини під вишивкою практично не видно. Саме вовна, а не бавовна чи шовк, дає характерну матову, трохи ворсисту фактуру.
 
 **Мотиви.** Геометрично-рослинні гібриди: ромби, зубці, стилізовані гілки, укладені в широкі суцільні смуги на рукавах і плечах.
@@ -72,6 +74,8 @@ faq:
 
 **Кольори.** Найбагатша палітра серед усіх регіонів: червоний, жовтий, оранжевий, зелений, синій — і все це одночасно, в одному візерунку.
 
+<figure class="photo"><img src="/photos/hutsulska-sorochka-mek.webp" alt="Довга жіноча гуцульська сорочка з червоною геометричною вишивкою хрестиком на рукавах" width="756" height="1000" loading="lazy" decoding="async" /><figcaption>Жіноча гуцульська сорочка: червона вставка на плечах і широка геометрична вишивка хрестиком на рукавах. Етнографічний музей у Кракові. <span class="credit">Фото: Етнографічний музей ім. С. Удзелі, Краків · <a href="https://commons.wikimedia.org/wiki/File:Huculska_koszula_kobieca_MEK.jpg" rel="noopener" target="_blank">Wikimedia Commons</a> · суспільне надбання</span></figcaption></figure>
+
 **Техніка.** Рахункові геометричні шви (низинка, хрестик), часто в поєднанні з бісерним оздобленням країв — комірів, манжетів, нагрудних вставок.
 
 **Мотиви.** Дрібна геометрія: ромби, зигзаги, «баранячі роги», зірки, укладені щільними горизонтальними рядами, схожими на орнамент килима.
@@ -81,6 +85,8 @@ faq:
 ## Поділля: червоно-чорна лиштва і низь
 
 **Кольори.** Хрестоматійне поєднання — червоний і чорний, найвідоміша колірна пара української вишивки загалом.
+
+<figure class="photo"><img src="/photos/skhidne-podillia-sharapanivka.webp" alt="Жіноча вишита сорочка з села Шарапанівка на Вінниччині, початок XX століття" width="750" height="1000" loading="lazy" decoding="async" /><figcaption>Жіноча сорочка з с. Шарапанівка (Вінниччина), початок XX ст. Виставка «Вишивка Східного Поділля», Музей Івана Гончара. <span class="credit">Фото: Aleksandrit · <a href="https://commons.wikimedia.org/wiki/File:Women%27s_embroidered_shirt_from_Sharapanivka,_shirt_5,_photo_1.jpg" rel="noopener" target="_blank">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by/4.0" rel="license noopener" target="_blank">CC BY 4.0</a></span></figcaption></figure>
 
 **Техніка.** Переважно «лиштва» і «низь» — рахункові техніки, у яких стібок лягає так, що малюнок виходить однаковим з обох боків тканини. Це дає рівну, ніби «ткану» поверхню без вузлів і хвостиків з вивороту.
 
